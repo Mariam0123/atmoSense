@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-import { getDatabase, onValue, ref, limitToLast, query, orderByKey } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+import { getDatabase, onValue, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
 const firebaseConfig = {
   apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
   authDomain: "atmosense-1645e.firebaseapp.com",
@@ -52,7 +52,10 @@ onValue(new_ref, (data) => {
     var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: "numeric", minute: "numeric", seconds: "numeric" };
     var date_time_element = document.getElementById("date_time");
     date_time_element.innerHTML = d.toLocaleString("en-GB", options);
-
+    var epoch_day = d.getDate();
+    var day = 21;
+    var epoch_date = d.toLocaleDateString("en-gb");
+    var epoch_string = epoch_date.replace(/\//g, '-');
 
 var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_co, BPlo_co, BPhi_pm25, BPlo_pm10;
 function pm10_values(pm10_var){
@@ -197,11 +200,95 @@ pm10_values(pm10_var);
 pm25_values(pm25_var);
 
 
+const avg_ref = ref(db, 'air_parameters/averages/');
+
+var muharraq_co_sum=0, muharraq_pm25_sum=0, muharraq_pm10_sum=0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, counter=0, day;
+function calculate_avg(){
+    if (epoch_day == day){ //in 24 hour
+        counter +=1;
+        muharraq_co_sum += co_var;
+        muharraq_pm25_sum += pm25_var;
+        muharraq_pm10_sum += pm10_var;
+        console.log("muh_aqi"+ muharraq_aqi_var);
+        console.log("muh_pm10"+ muharraq_aqi_pm10);
+        console.log("muh_pm25"+ muharraq_aqi_pm25);
+        console.log("muh_co"+ muharraq_aqi_co);
+        console.log("counter" + counter);
+        console.log("epoch_day", epoch_day);
+        console.log("day", day);
+       
+    }
+    else {
+       
+        muharraq_co_avg = muharraq_co_sum / counter;
+        muharraq_pm10_avg = muharraq_pm10_sum / counter;
+        muharraq_pm25_avg = muharraq_pm25_sum / counter;
+        muharraq_aqi_pm10 = ((Ihi_pm10 - Ilo_pm10)/(BPhi_pm10 - BPlo_pm10))*(pm10_var - BPlo_pm10) + Ilo_pm10;
+        muharraq_aqi_pm25 = ((Ihi_pm25 - Ilo_pm25)/(BPhi_pm25 - BPlo_pm25))*(pm25_var - BPlo_pm25) + Ilo_pm25;
+        muharraq_aqi_co = ((Ihi_co - Ilo_co)/(BPhi_co - BPlo_co))*(co_var - BPlo_co) + Ilo_co;
+        muharraq_aqi_var = Math.max(muharraq_aqi_co, muharraq_aqi_pm10, muharraq_aqi_pm25);
+        muharraq_co_sum = 0;
+        muharraq_pm10_sum = 0;
+        muharraq_pm25_sum = 0;
+        console.log("muh_aqi"+ muharraq_aqi_var);
+        console.log("muh_pm10"+ muharraq_aqi_pm10);
+        console.log("muh_pm25"+ muharraq_aqi_pm25);
+        console.log("muh_co"+ muharraq_aqi_co);
+        console.log("counter" + counter);
+        console.log("epoch_day", epoch_day);
+        console.log("day", day);
+        counter = 0;
+        day = epoch_day;
+
+    }
+}
+calculate_avg();
+// alert(muharraq_aqi_avg);
+// alert(muharraq_co_avg);
+// alert(muharraq_pm10_avg);
+// alert(muharraq_pm25_avg);
+
+set (avg_ref, {
+    "muharraq": {
+        [epoch_string]: {
+            "aqi_avg": [muharraq_aqi_avg],
+            "co_avg" : [muharraq_co_avg],
+            "pm10_avg" : [muharraq_pm10_avg],
+            "pm25_avg" : [muharraq_pm25_avg]
+        }
+    },
+    "capital": {
+        [epoch_string]: {
+            "aqi_avg": 10,
+            "co_avg" : 11,
+            "pm10_avg" : 12,
+            "pm25_avg" : 13
+        }
+    },
+    "southern": {
+        [epoch_string]: {
+            "aqi_avg": 10,
+            "co_avg" : 11,
+            "pm10_avg" : 12,
+            "pm25_avg" : 13
+        }
+    },
+    "northern": {
+        [epoch_string]: {
+            "aqi_avg": 10,
+            "co_avg" : 11,
+            "pm10_avg" : 12,
+            "pm25_avg" : 13
+        }
+    }
+});
+
+
 var aqi_pm10 = ((Ihi_pm10 - Ilo_pm10)/(BPhi_pm10 - BPlo_pm10))*(pm10_var - BPlo_pm10) + Ilo_pm10;
 var aqi_pm25 = ((Ihi_pm25 - Ilo_pm25)/(BPhi_pm25 - BPlo_pm25))*(pm25_var - BPlo_pm25) + Ilo_pm25;
 var aqi_co = ((Ihi_co - Ilo_co)/(BPhi_co - BPlo_co))*(co_var - BPlo_co) + Ilo_co;
 var aqi_var = Math.max(aqi_co, aqi_pm10, aqi_pm25);
-alert(aqi_var);
+
    
 
 });
