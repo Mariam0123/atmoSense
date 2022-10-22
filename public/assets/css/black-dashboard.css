@@ -20939,6 +20939,7 @@ textarea.form-control:active {
   max-height: 9em;
   transition: all 200ms linear;
   will-change: opacity, max-height;
+  padding: 1%;
 }
 .ques .ques-content {
   opacity: 0;
@@ -20946,6 +20947,7 @@ textarea.form-control:active {
   overflow: hidden;
   transition: opacity 200ms linear, max-height 200ms linear;
   will-change: opacity, max-height;
+  
 }
 
 /* MS supports */
