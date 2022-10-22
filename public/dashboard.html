@@ -205,7 +205,7 @@
               <div class="card-header ">
                 <div class="row">
                   <div class="col-sm-6 text-left">
-                    <h3 class="card-title"><i class="tim-icons icon-sound-wave text-success"></i> AQI Chart</h3>
+                    <h3 class="card-title"><i class="tim-icons icon-sound-wave text-info"></i> AQI Chart</h3>
                     <span id="temp"></span>
                     <span id="co"></span>
                     <span id="co2"></span>
@@ -267,11 +267,11 @@
        
         <div class="row">
           <div class="col-lg-6 col-md-12">
-            <div class="card ">
+            <div class="card card-chart">
               <div class="card-header">
-                <h4 class="card-title"> Pollutants</h4>
+                <h3 class="card-title"><i class="tim-icons icon-molecule-40 text-success"></i> Pollutants</h3>
               </div>
-              <div class="card-body">
+              <div class="card-body ml-2 mr-2">
                 <div class="table-responsive">
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
@@ -345,11 +345,11 @@
 
           </div>
           <div class="col-lg-6 col-md-12">
-            <div class="card ">
+            <div class="card card-chart">
               <div class="card-header">
-                <h4 class="card-title"> Tips & Advice</h4>
+                <h3 class="card-title"><i class="tim-icons icon-bulb-63 text-warning"></i> Tips and Advice</h3>
               </div>
-              <div class="card-body">
+              <div class="card-body ml-2 mr-2">
                 <div class="table-responsive">
                   <table class="table tablesorter " id="">
                     <thead class=" text-primary">
@@ -421,11 +421,11 @@
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-12">
-            <div class="card ">
+            <div class="card card-chart">
               <div class="card-header">
-                <h4 class="card-title"> FAQ </h4>
+                <h3 class="card-title"><i class="tim-icons icon-bullet-list-67 text-danger"></i> FAQ</h3>
               </div>
-              <div class="card-body">
+              <div class="card-body ml-2 mr-2">
                 <div class="ques">
                   <div class="ques-item">
                     <button id="ques-button-1" aria-expanded="false">
@@ -434,7 +434,7 @@
                     </button>
                     <div class="ques-content">
                       <p>
-                      The mechanism used to alert people when air pollution is dangerous is called the Air Quality Index, or AQI. The AQI monitors four more common air pollutants in addition to ozone (smog) and particle pollution, which includes microscopic particles from ash, factories, power plants, and car exhaust.
+                        AQI stands for Air Quality Index and it is the system used to monitor air pollution levels and alert people when it is dangerous. AQI monitors four common air pollutants in addition to ozone (smog) and particle pollution, which includes microscopic particles from ash, factories, power plants, and car exhaust.
                       </p>
                     </div>
                   </div>
@@ -446,7 +446,7 @@
                       </button>
                       <div class="ques-content">
                         <p>
-                          A mathematical process using the averages of all pollutants' concentrations is used to compute AQI.
+                          A mathematical formula that uses the averages of all pollutants' concentrations computed over specific intervals in addition to values derived from these concentrations.
                       </p>
                       </div>
                   </div>
@@ -458,7 +458,7 @@
                       </button>
                       <div class="ques-content">
                       <p>
-                          The term "particulate matter" (PM) refers to minute material suspended in water or the atmosphere. Particles with a diameter of less than 10 m are classified as PM10, whereas those with a diameter of less than 2.5 m are classified as PM2. Particles smaller than 10 m in diameter are primarily to blame for the hazardous properties of suspended particles.
+                          The term "particulate matter" (PM) refers to minute material suspended in water or the atmosphere. Particles with a diameter of less than 10 microns are classified as (PM10), whereas those with a diameter of less than 2.5 microns are classified as (PM2.5). Particles falling under (PM10) are primarily to blame for the hazardous properties of suspended particles.
                       </p>
                       </div>
                   </div>
@@ -469,9 +469,7 @@
                         <span class="icon" aria-hidden="true"></span>
                       </button>
                       <div class="ques-content">
-                      <p>
-                          The Internet of Things serves as the foundation for this project. In order to cover the entirety of the Kingdom of Bahrain and determine the AQI, it is equipped with a network of sensors that precisely detect air pollutants and are linked to the public bus system in Bahrain.
-                      </p>
+                      <p>Internet of Things serves as the foundation for this project. AtmoSense uses the extensive network of Bahrain Bus to cover most of the Kindgom of Bahrain by equipping buses with sensors that monitor air pollutants and send readings back to the database. The readings are sent periodically then analysed and displayed. </p>
                       </div>
                   </div>
           
@@ -494,7 +492,7 @@
                       </button>
                       <div class="ques-content">
                       <p>
-                          There were numerous factors considered when selecting the project's name. It was selected based on the system’s two most crucial components, the Internet of Things and the atmosphere.
+                          There were numerous factors considered when selecting the project's name. It was selected based on the system’s two most crucial components, the sensing capabilites of the IoT based project and focus on the atmosphere.
                       </p>
                       </div>
                   </div>
@@ -508,47 +506,35 @@
 
           </div>
           <div class="col-lg-6 col-md-12">
-            <div class="card ">
+            <div class="card card-chart">
               <div class="card-header">
-                <h4 class="card-title"> About AtmoSense</h4>
-              </div>
-              <div class="card-body">
+                <h3 class="card-title"><i class="tim-icons icon-alert-circle-exc text-primary"></i> About AtmoSense</h3>
+           </div>
+              <div class="card-body ml-2 mr-2">
                 <p>
-                  Most people are suffering from .... but can't find a reason for their symptoms. Research shows there is a big link between air quality and ..... Unfortunately, there isn't an AQI system in bahrain due to ....[problems of traditional systems]. This project uses ... to calculate  .. and help people across bahrain get information about the air they are breathing to get a better quality of life.                </p>
+                  Most people are suffering from various health problems but can't find a reason for their symptoms. 
+                  Research shows there is a big link between low air quality and diseases affecting the lungs and heart. 
+                  Air monitoring is a beneficial measure against these dangers as having the required data gives policy
+                  makers an idea on what measures must be taken to improve and people can be informed of any dangers. 
+                  Unfortunately, there isn't an AQI system covering the entire country due to the high cost of 
+                  traditional systems. This project uses affordable sensors connected to an ESP32 microcontroller 
+                  to sense the concentration of pollutants and send the readings to a realtime database hosted on 
+                  Google Firebase. The data is then processed and displayed in an easy to read manner to help 
+                  people across Bahrain get information about the air they are breathing to get a better quality
+                  of life. 
+                </p>
+               
               </div>  
             </div>
           </div>
         
       </div>
-      <footer class="footer">
+      <!-- <footer class="footer">
         <div class="container-fluid">
-          <ul class="nav">
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Creative Tim
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                About Us
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link">
-                Blog
-              </a>
-            </li>
-          </ul>
-          <div class="copyright">
-            ©
-            <script>
-              document.write(new Date().getFullYear())
-            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
-            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
-          </div>
+             
         </div>
       </footer>
-    </div>
+    </div> -->
   </div>
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
