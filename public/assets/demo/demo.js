@@ -326,9 +326,23 @@ demo = {
 
 
     var ctx = document.getElementById("aqi_chart").getContext('2d');
+    function restartAnims(chart) {
+      chart.stop();
+      const meta0 = chart.getDatasetMeta(0);
+      const meta1 = chart.getDatasetMeta(1);
+      for (let i = 0; i < data.length; i++) {
+        const ctx0 = meta0.controller.getContext(i);
+        const ctx1 = meta1.controller.getContext(i);
+        ctx0.xStarted = ctx0.yStarted = false;
+        ctx1.xStarted = ctx1.yStarted = false;
+      }
+      chart.update();
+    }
+    
+  
+
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
     gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
     gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
@@ -352,6 +366,7 @@ demo = {
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: muharraq_data,
+         
         },
         {
           label: 'AQI - Capital Governerate',
@@ -369,6 +384,7 @@ demo = {
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: southern_data,
+          
         },
         {
           label: 'AQI - Southern Governerate',
@@ -386,6 +402,7 @@ demo = {
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: northern_data,
+          
         },
         {
           label: 'AQI - Northern Governerate',
@@ -403,6 +420,7 @@ demo = {
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: captial_data,
+          
         },
       ]
       },
