@@ -163,26 +163,19 @@ onValue(new_ref, (data) => {
     const aqi_query_ref = ref(db, 'air_parameters/aqis');
     onValue(aqi_query_ref, (data) => { //to retrive values
         if (flag) { //in 24 hour
-            var jsonAvgData = data.toJSON();
-            console.log(jsonAvgData);
-            muharraq_co_avg = jsonAvgData['muharraq'][epoch_string]['co_aqi'];
-            muharraq_pm10_avg = jsonAvgData['muharraq'][epoch_string]['pm10_aqi'];
-            muharraq_pm25_avg = jsonAvgData['muharraq'][epoch_string]['pm25_aqi'];
-            muharraq_aqi_var = jsonAvgData['muharraq'][epoch_string]['aqi'];
+            var jsonAQIData = data.toJSON();
+            muharraq_co_avg = jsonAQIData['muharraq'][epoch_string]['co_aqi'];
+            muharraq_pm10_avg = jsonAQIData['muharraq'][epoch_string]['pm10_aqi'];
+            muharraq_pm25_avg = jsonAQIData['muharraq'][epoch_string]['pm25_aqi'];
+            muharraq_aqi_var = jsonAQIData['muharraq'][epoch_string]['aqi'];
     
 
-            // muharraq_co_avg = muharraq_co_sum / counter;
-            // muharraq_pm10_avg = muharraq_pm10_sum / counter;
-            // muharraq_pm25_avg = muharraq_pm25_sum / counter;
-
-            // muharraq_aqi_pm10 = ((Ihi_pm10 - Ilo_pm10) / (BPhi_pm10 - BPlo_pm10)) * (pm10_var - BPlo_pm10) + Ilo_pm10;
-            // muharraq_aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (pm25_var - BPlo_pm25) + Ilo_pm25;
-            // muharraq_aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (co_var - BPlo_co) + Ilo_co;            // muharraq_aqi_var = Math.max(muharraq_aqi_co, muharraq_aqi_pm10, muharraq_aqi_pm25);
+           
         }
         
     });
 
    
-
+   
 
 });
