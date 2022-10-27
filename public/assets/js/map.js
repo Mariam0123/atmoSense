@@ -1,15 +1,6 @@
 
-import { time_var } from "/home/mariam/Desktop/atmoSense/public/assets/js/index.js";
-alert(time_var);
-
-
-
-
-
-
-
-
-
+import { var_1 } from "./index.js";
+alert(var_1);
 
 
 var lineJSON = {
