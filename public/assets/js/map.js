@@ -19,9 +19,6 @@ var map = L.map('map').setView([26.0667, 50.5577], 9);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 osm.addTo(map);
 
-var bus_location = [6, 16];
-var singleMarker = L.marker(bus_location).addTo(map);
-var popup = singleMarker.bindPopup('Bus is here');
 
 
 var linedata = L.geoJSON(lineJSON);
@@ -31,7 +28,7 @@ var baseLayers = {
 };
 
 
-var layerscontrol;
+var layerscontrol, bus_route;
 
 var polygondata = L.geoJSON(lineJSON, {
     style: style,
@@ -41,7 +38,7 @@ var polygondata = L.geoJSON(lineJSON, {
 
 
 
-function update_layers(polygonJSON){
+function update_layers(polygonJSON, bus_route){
     map.removeLayer(polygondata);
     polygondata = L.geoJSON(polygonJSON, {
         style: style,
@@ -50,10 +47,8 @@ function update_layers(polygonJSON){
     
     }).addTo(map);
    
-    
-    
     var overlays = {
-        "A2 Bus Route": linedata,
+        "A2 Bus Route": bus_route,
         "AQI": polygondata,
     
     };
@@ -65,8 +60,8 @@ function update_layers(polygonJSON){
     else{
     layerscontrol = L.control.layers(baseLayers, overlays).addTo(map);
     }
-
 }
+
 
 
 
@@ -194,8 +189,14 @@ onValue(new_ref, (data) => {
     //update marker based on current value
     lat = jsonData[time_var]['lat'];
     lon = jsonData[time_var]['lon'];
-    map.removeLayer(singleMarker);
-    singleMarker = L.marker([lat, lon]).addTo(map);
+    if (bus_route){
+        map.removeLayer(bus_route);
+    }
+    var singleMarker = L.marker([lat, lon]);
+    var popup = singleMarker.bindPopup('Bus is here');
+    bus_route = L.layerGroup ([singleMarker, linedata]).addTo(map);
+    
+    
 
     var d = new Date(0);
     d.setUTCSeconds(time_var);
@@ -1689,7 +1690,7 @@ onValue(new_ref, (data) => {
             }
             ]
         };
-        update_layers(polygonJSON);
+        update_layers(polygonJSON, bus_route);
         
        
 
