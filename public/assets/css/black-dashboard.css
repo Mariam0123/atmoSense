@@ -359,6 +359,8 @@ legend {
   white-space: normal;
 }
 
+
+
 progress {
   vertical-align: baseline;
 }
@@ -21747,6 +21749,7 @@ Copyright (c) 2015 Daniel Eden
 
 .card .map {
   border-radius: 0.2857rem;
+  
 }
 
 .card .map.map-big {
@@ -22169,7 +22172,8 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .map {
-  height: 500px;
+  height: 20.5em;
+  
 }
 
 .card-user {
@@ -22396,3 +22400,23 @@ Copyright (c) 2015 Daniel Eden
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
+
+
+.legend {
+  line-height: 18px;
+  color: #555;
+  padding: 6px 8px;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+  border-radius: 5px;
+}
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+

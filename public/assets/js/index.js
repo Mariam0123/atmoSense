@@ -11,6 +11,7 @@ const firebaseConfig = {
     appId: "1:565173512011:web:8Animationsa7a5947fb2470f8912ace",
     measurementId: "G-FZ55WKWLZP"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
@@ -185,3 +186,4 @@ onValue(new_ref, (data) => {
 
 
 });
+export {time_var } ;

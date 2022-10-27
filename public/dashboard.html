@@ -133,19 +133,12 @@
             <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
+           
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
-              <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
-                  <span class="d-lg-none d-md-block">Search</span>
-                </button>
+              <li class="search-bar input-group">             
               </li>
-              
-             
               <li class="separator d-lg-none"></li>
             </ul>
           </div>
@@ -169,10 +162,10 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                   <h3 class="card-title"><i class="tim-icons icon-molecule-40 text-warning"></i> Pollutants</h3>
+                   <h3 class="card-title"><i class="tim-icons icon-molecule-40 text-warning"></i> Sensing from: <span id="governerate"></span></h3>
               </div>
               <div class="card-body ml-2 mr-2">
-                <div class="chart-area ">
+                <div class="">
                   <div class="alert alert-primary mb-4">
                     <span><b> Last Synched - </b> <span id="date_time"></span></span>
                   </div>
@@ -181,6 +174,9 @@
                   </div>
                   <div class="alert alert-primary mb-4">
                     <span><b> Humidity - </b> <span id="hum"></span></span>
+                  </div>
+                  <div class="alert alert-primary mb-4">
+                    <span><b> AQI - </b> <span id="aqi_val"></span></span>
                   </div>
                 </div>
               </div>
@@ -192,9 +188,8 @@
                 <h3 class="card-title"><i class="tim-icons icon-square-pin text-primary"></i> Live Map</h3>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <div id="map"></div>
-                  
+                <div class="map mb-2 ml-2 mr-2">
+                  <div id="map" style=" border-radius: 0.2857rem;"></div>
                 </div>
               </div>
             </div>
@@ -570,7 +565,7 @@
   <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="./assets/demo/demo.js"></script>
   <script src="./assets/js/index.js" type="module"></script>
-  <script src="./assets/js/map.js"></script>
+  <script src="./assets/js/map.js" type="module"></script>
  
   <script>
     $(document).ready(function() {

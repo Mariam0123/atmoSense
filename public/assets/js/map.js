@@ -1,3 +1,17 @@
+
+import { time_var } from "/home/mariam/Desktop/atmoSense/public/assets/js/index.js";
+alert(time_var);
+
+
+
+
+
+
+
+
+
+
+
 var lineJSON = {
     "type": "FeatureCollection",
     "name": "Copy_of_BPTC_A2-_A2_NEW_UNI_AND_AIRPORT_LOOPS",
@@ -1503,30 +1517,36 @@ var map = L.map('map').setView([26.0667, 50.5577], 9);
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 osm.addTo(map);
 
-var singleMarker = L.marker([26.0667, 50.5577]);
-var popup = singleMarker.bindPopup('Bus is here')
+var bus_location = [26.100183, 50.49915];
+var singleMarker = L.marker(bus_location).addTo(map);
+var popup = singleMarker.bindPopup('Bus is here');
 
 
-var linedata = L.geoJSON(lineJSON);
 var density;
 var polygondata = L.geoJSON(polygonJSON,{
-    onEachFeature: function(feature,layer){
-        layer.bindPopup('<b>This is a </b>' + feature.properties.name)
-        density = feature.properties.density;
-    },
-    style:style
+    style:style,
+    onEachFeature: onEachFeature,
+    onEachFeature: function(feature, layer) {
+        layer.on({
+          'add': function(){
+            layer.bringToBack()
+          }
+        })
+      }
+    
 }).addTo(map);
-
+var linedata = L.geoJSON(lineJSON);
 
 var baseLayers = {
     "OpenStreetMap": osm,
 };
 
-var bus_route = L.layerGroup([singleMarker, linedata]);
+var bus_route = L.layerGroup([singleMarker, linedata]).addTo(map);
 
 var overlays = {
     "A2 Bus Route": bus_route,
-    "AQI": polygondata
+    "AQI": polygondata,
+   
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
@@ -1551,11 +1571,10 @@ function style(feature) {
         opacity: 1,
         color: 'white',
         dashArray: '3',
-        fillOpacity: 0.7
+        fillOpacity: 0.9
     };
 }
 
-L.geoJson(statesData, { style: style }).addTo(map);
 
 function highlightFeature(e) {
     var layer = e.target;
@@ -1564,21 +1583,15 @@ function highlightFeature(e) {
         weight: 5,
         color: '#666',
         dashArray: '',
-        fillOpacity: 0.7
+        fillOpacity: 1
     });
 
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
 }
 
 function resetHighlight(e) {
-    geojson.resetStyle(e.target);
+    polygondata.resetStyle(e.target);
 }
 
-var geojson;
-// ... our listeners
-geojson = L.geoJson();
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
@@ -1592,22 +1605,40 @@ function onEachFeature(feature, layer) {
     });
 }
 
-geojson = L.geoJson(statesData, {
-    style: style,
-    onEachFeature: onEachFeature
-}).addTo(map);
 
-// var info = L.control();
+var info = L.control();
 
-// info.onAdd = function(map) {
-//     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-//     this.update();
-//     return this._div;
-// };
+info.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
 
-// // method that we will use to update the control based on feature properties passed
-// info.update = function(props) {
-//     this._div.innerHTML = '<h4>US Population Density</h4>' + (props ?
-//         '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>' :
-//         'Hover over a state');
-// };
+// method that we will use to update the control based on feature properties passed
+info.update = function(props) {
+    this._div.innerHTML = '<h4>US Population Density</h4>' + (props ?
+        '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>' :
+        'Hover over a state');
+};
+
+
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 50, 100, 150, 200, 300];
+        
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            (grades[i]+1) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);

@@ -90,7 +90,8 @@ demo = {
         xPadding: 12,
         mode: "nearest",
         intersect: 0,
-        position: "nearest"
+        position: "nearest",
+        
       },
       responsive: true,
       scales: {
@@ -138,7 +139,8 @@ demo = {
         xPadding: 12,
         mode: "nearest",
         intersect: 0,
-        position: "nearest"
+        position: "nearest",
+        enabled: true
       },
       responsive: true,
       scales: {
