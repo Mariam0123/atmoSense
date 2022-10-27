@@ -186,5 +186,3 @@ onValue(new_ref, (data) => {
 
 
 });
-console.log(time_var);
-export var var_1 = time_var;
