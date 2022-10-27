@@ -31,8 +31,7 @@ var baseLayers = {
 };
 
 
-
-
+var layerscontrol;
 
 var polygondata = L.geoJSON(lineJSON, {
     style: style,
@@ -50,13 +49,22 @@ function update_layers(polygonJSON){
     
     
     }).addTo(map);
+   
+    
+    
     var overlays = {
         "A2 Bus Route": linedata,
         "AQI": polygondata,
     
     };
-    
+    console.log(layerscontrol);
+    if (layerscontrol){
+        layerscontrol.remove(map);
+        layerscontrol = L.control.layers(baseLayers, overlays).addTo(map);
+    }
+    else{
     layerscontrol = L.control.layers(baseLayers, overlays).addTo(map);
+    }
 
 }
 
