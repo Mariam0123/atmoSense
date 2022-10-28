@@ -466,7 +466,9 @@
                         <span class="icon" aria-hidden="true"></span>
                       </button>
                       <div class="ques-content">
-                      <p>Internet of Things serves as the foundation for this project. AtmoSense uses the extensive network of Bahrain Bus to cover most of the Kindgom of Bahrain by equipping buses with sensors that monitor air pollutants and send readings back to the database. The readings are sent periodically then analysed and displayed. </p>
+                      <p>
+                        Internet of Things serves as the foundation for this project. AtmoSense uses the extensive network of Bahrain Bus to cover most of the Kindgom of Bahrain by equipping buses with sensors that monitor air pollutants and send readings back to the database. The readings are sent periodically then analysed and displayed. 
+                      </p>
                       </div>
                   </div>
           
@@ -536,21 +538,8 @@
     </div> -->
   </div>
   <div class="fixed-plugin">
-    <div class="dropdown show-dropdown">
-      <a href="#" data-toggle="dropdown">
-        <i class="fa fa-cog fa-2x"> </i>
-      </a>
-      <ul class="dropdown-menu">
-        <li class="adjustments-line text-center color-change">
-          <span class="color-label">LIGHT MODE</span>
-          <span class="badge light-badge mr-2"></span> 
-        </br>
-          <span class="color-label">DARK MODE</span>
-          <span class="badge dark-badge mr-2"></span>
-        </li>
-       
-      </ul>
-    </div>
+   <i id='toggle' class="fa fa-sun sun fa-2x mt-1 mb-1"> </i>
+     
   </div>
   <!--   Core JS Files   -->
   <script src="./assets/js/core/jquery.min.js"></script>
@@ -668,13 +657,21 @@
 
         });
 
-        $('.light-badge').click(function() {
-          $('body').addClass('white-content');
-        });
+        
+       $('#toggle').click(function (){
+        $('body').addClass('white-content');
+        $('#toggle').toggleClass('fa-sun fa-moon sun moon');
 
-        $('.dark-badge').click(function() {
+        $(".moon").click(function () {
           $('body').removeClass('white-content');
+
+          $('.sun').click(function (){
+          $('body').addClass('white-content');
+            });
         });
+       });
+
+        
       });
     });
   </script>

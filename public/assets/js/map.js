@@ -136,7 +136,7 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4>AQI Values</h4>' + (props ?
-        '<b>' + props.name + ' </b><br />AQI: ' + props.aqi + '<br /> Temperature: ' + props.temperature + '<br /> Humidity: ' +props.humidity :
+        '<b>' + props.name + ' </b><br />AQI: ' + props.aqi :
         'Hover over a Governerate');
 };
 
@@ -219,7 +219,7 @@ onValue(new_ref, (data) => {
             "features": [{
                 "type": "Feature",
                 "id": "01",
-                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var, "temperature": northern_temperature, "humidity": northern_humidity},
+                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var},
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -678,7 +678,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "01",
-                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var, "temperature": northern_temperature, "humidity": northern_humidity},
+                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var, },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -819,7 +819,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "02",
-                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, "temperature": capital_temperature, "humidity": capital_humidity},
+                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -832,7 +832,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "03",
-                "properties": { "name": "Muharraq Governerate", "aqi": muharraq_aqi_var, "temperature": muharraq_temperature, "humidity": muharraq_humidity },
+                "properties": { "name": "Muharraq Governerate", "aqi": muharraq_aqi_var, },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -1283,7 +1283,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "04",
-                "properties": { "name": "Southern Governerate", "aqi": southern_aqi_var, "temperature": southern_temperature, "humidity": southern_humidity},
+                "properties": { "name": "Southern Governerate", "aqi": southern_aqi_var, },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -1297,7 +1297,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "02",
-                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, "temperature": capital_temperature, "humidity": capital_humidity },
+                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
