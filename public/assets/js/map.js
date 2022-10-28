@@ -33,11 +33,6 @@ var polygondata = L.geoJSON(lineJSON, {
 
 }).addTo(map);
 
-var bus_icon = L.icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448339.png',
-    iconSize: [50,50]  ,
-    iconAnchor:   [30, 48],
-});
 
 function update_layers(polygonJSON, bus_route){
     map.removeLayer(polygondata);
@@ -197,9 +192,7 @@ onValue(new_ref, (data) => {
     if (bus_route){
         map.removeLayer(bus_route);
     }
-    var singleMarker = L.marker([lat, lon],{
-        icon: bus_icon
-    } );
+    var singleMarker = L.marker([lat, lon]);
     
     bus_route = L.layerGroup ([singleMarker, linedata]).addTo(map);
     singleMarker.on('click', function(e){
