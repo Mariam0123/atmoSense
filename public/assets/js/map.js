@@ -1,3 +1,4 @@
+
 const lineJSON = {
     "type": "FeatureCollection",
     "name": "Copy_of_BPTC_A2-_A2_NEW_UNI_AND_AIRPORT_LOOPS",
@@ -23,10 +24,6 @@ osm.addTo(map);
 
 var linedata = L.geoJSON(lineJSON);
 
-var baseLayers = {
-    "OpenStreetMap": osm,
-};
-
 
 var layerscontrol, bus_route;
 
@@ -36,7 +33,11 @@ var polygondata = L.geoJSON(lineJSON, {
 
 }).addTo(map);
 
-
+var bus_icon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448339.png',
+    iconSize: [50,50]  ,
+    iconAnchor:   [30, 48],
+});
 
 function update_layers(polygonJSON, bus_route){
     map.removeLayer(polygondata);
@@ -55,10 +56,10 @@ function update_layers(polygonJSON, bus_route){
     console.log(layerscontrol);
     if (layerscontrol){
         layerscontrol.remove(map);
-        layerscontrol = L.control.layers(baseLayers, overlays).addTo(map);
+        layerscontrol = L.control.layers(null, overlays, {position: 'topleft'}).addTo(map);
     }
     else{
-    layerscontrol = L.control.layers(baseLayers, overlays).addTo(map);
+    layerscontrol = L.control.layers(null, overlays, {position: 'topleft'}).addTo(map);
     }
 }
 
@@ -142,7 +143,7 @@ info.update = function (props) {
 
 info.addTo(map);
 
-var legend = L.control({ position: 'bottomleft' });
+var legend = L.control({ position: 'bottomright' });
 
 legend.onAdd = function (map) {
 
@@ -196,9 +197,14 @@ onValue(new_ref, (data) => {
     if (bus_route){
         map.removeLayer(bus_route);
     }
-    var singleMarker = L.marker([lat, lon]);
-    var popup = singleMarker.bindPopup('Bus is here');
+    var singleMarker = L.marker([lat, lon],{
+        icon: bus_icon
+    } );
+    
     bus_route = L.layerGroup ([singleMarker, linedata]).addTo(map);
+    singleMarker.on('click', function(e){
+        map.setView(e.latlng, 14);
+    })
     
     
 
