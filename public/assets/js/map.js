@@ -77,7 +77,7 @@ function getColor(d) {
 
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.density),
+        fillColor: getColor(feature.properties.aqi),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -96,11 +96,13 @@ function highlightFeature(e) {
         dashArray: '',
         fillOpacity: 1
     });
+    info.update(layer.feature.properties);
 
 }
 
 function resetHighlight(e) {
     polygondata.resetStyle(e.target);
+    info.update();
 }
 
 
@@ -126,27 +128,27 @@ function onEachFeature(feature, layer) {
 var info = L.control();
 
 info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this._div = L.DomUtil.create('div', 'mapinfo'); // create a div with a class "mapinfo"
     this.update();
     return this._div;
 };
 
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
-    this._div.innerHTML = '<h4>US Population Density</h4>' + (props ?
-        '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>' :
-        'Hover over a state');
+    this._div.innerHTML = '<h4>AQI Values</h4>' + (props ?
+        '<b>' + props.name + ' </b><br />AQI: ' + props.aqi + '<br /> Temperature: ' + props.temperature + '<br /> Humidity: ' +props.humidity :
+        'Hover over a Governerate');
 };
 
+info.addTo(map);
 
-
-var legend = L.control({ position: 'bottomright' });
+var legend = L.control({ position: 'bottomleft' });
 
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
         grades = [0, 50, 100, 150, 200, 300];
-
+    var categories = ['Good', 'Moderate', 'Unhealthy for sensitive groups', 'Unhealthy', 'Very Unhealthy', 'Hazardous']
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
@@ -181,7 +183,7 @@ const db = getDatabase();
 
 const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
-var time_var, lat, lon, epoch_date, epoch_string, muharraq_aqi_var;
+var time_var, lat, lon, epoch_date, epoch_string, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var, muharraq_temperature, muharraq_humidity, capital_temperature=20, capital_humidity=60, southern_temperature=20, southern_humidity=60, northern_temperature=0, northern_humidity=15;
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
     time_var = Object.keys(jsonData).toString();
@@ -189,6 +191,8 @@ onValue(new_ref, (data) => {
     //update marker based on current value
     lat = jsonData[time_var]['lat'];
     lon = jsonData[time_var]['lon'];
+    muharraq_temperature = jsonData[time_var]['lon'];
+    muharraq_humidity = jsonData[time_var]['lon'];
     if (bus_route){
         map.removeLayer(bus_route);
     }
@@ -207,13 +211,15 @@ onValue(new_ref, (data) => {
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
         muharraq_aqi_var = jsonAQIData['muharraq'][epoch_string]['aqi'];
-        
+        capital_aqi_var = jsonAQIData['capital'][epoch_string]['aqi'];
+        northern_aqi_var = jsonAQIData['northern'][epoch_string]['aqi'];
+        southern_aqi_var = jsonAQIData['southern'][epoch_string]['aqi'];
         var polygonJSON = {
             "type": "FeatureCollection",
             "features": [{
                 "type": "Feature",
                 "id": "01",
-                "properties": { "name": "Northern Governerate", "density": 200 },
+                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var, "temperature": northern_temperature, "humidity": northern_humidity},
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -672,7 +678,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "01",
-                "properties": { "name": "Northern Governerate", "density": 300 },
+                "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var, "temperature": northern_temperature, "humidity": northern_humidity},
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -813,7 +819,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "02",
-                "properties": { "name": "Capital", "density": 200 },
+                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, "temperature": capital_temperature, "humidity": capital_humidity},
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -826,7 +832,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "03",
-                "properties": { "name": "Muharraq", "density": muharraq_aqi_var },
+                "properties": { "name": "Muharraq Governerate", "aqi": muharraq_aqi_var, "temperature": muharraq_temperature, "humidity": muharraq_humidity },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -1277,7 +1283,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "04",
-                "properties": { "name": "Southern Governerate", "density": 50 },
+                "properties": { "name": "Southern Governerate", "aqi": southern_aqi_var, "temperature": southern_temperature, "humidity": southern_humidity},
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -1291,7 +1297,7 @@ onValue(new_ref, (data) => {
             {
                 "type": "Feature",
                 "id": "02",
-                "properties": { "name": "Capital Governerate", "density": 200 },
+                "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, "temperature": capital_temperature, "humidity": capital_humidity },
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [

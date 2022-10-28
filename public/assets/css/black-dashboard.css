@@ -21544,7 +21544,7 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .card:not(.card-white) {
   background: #ffffff;
-  box-shadow: 0 1px 15px 0 rgba(, , , 0.05);
+  box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.05);
 }
 
 .white-content .card:not(.card-white) .card-header {
@@ -22417,6 +22417,20 @@ Copyright (c) 2015 Daniel Eden
   float: left;
   margin-right: 8px;
   opacity: 0.7;
+}
+
+
+.mapinfo {
+  padding: 6px 8px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+.mapinfo h4 {
+  margin: 0 0 5px;
+  color: #777;
 }
 
 
