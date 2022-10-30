@@ -1,4 +1,3 @@
-
 const lineJSON = {
     "type": "FeatureCollection",
     "name": "Copy_of_BPTC_A2-_A2_NEW_UNI_AND_AIRPORT_LOOPS",
@@ -179,7 +178,7 @@ const db = getDatabase();
 
 const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
-var time_var, lat, lon, epoch_date, epoch_string, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var, muharraq_temperature, muharraq_humidity, capital_temperature=20, capital_humidity=60, southern_temperature=20, southern_humidity=60, northern_temperature=0, northern_humidity=15;
+var time_var, lat, lon, epoch_date, epoch_string, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var;
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
     time_var = Object.keys(jsonData).toString();
@@ -187,8 +186,7 @@ onValue(new_ref, (data) => {
     //update marker based on current value
     lat = jsonData[time_var]['lat'];
     lon = jsonData[time_var]['lon'];
-    muharraq_temperature = jsonData[time_var]['lon'];
-    muharraq_humidity = jsonData[time_var]['lon'];
+   
     if (bus_route){
         map.removeLayer(bus_route);
     }

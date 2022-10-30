@@ -551,8 +551,8 @@
   <script src="./assets/js/plugins/chartjs.min.js"></script>
  
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="./assets/demo/demo.js"></script>
+  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script> <!--Black Dashboard DEMO methods, don't include it in your project!-->
+  <script src="./assets/demo/demo.js" type="module"></script>
   <script src="./assets/js/index.js" type="module"></script>
   <script src="./assets/js/map.js" type="module"></script>
  
@@ -675,7 +675,8 @@
       });
     });
   </script>
-  <script>
+  <script type="module">
+    import {demo} from './assets/demo/demo.js'
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();

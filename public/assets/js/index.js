@@ -179,3 +179,5 @@ onValue(new_ref, (data) => {
    
 
 });
+
+export {app, firebaseConfig};
