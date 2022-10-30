@@ -321,10 +321,25 @@ demo = {
     };
 
     var chart_labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var muharraq_data = [100, 89, 98, 79, 115, 70, 15];
-    var southern_data = [30.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
-    var northern_data = [61, 70, 68, 66, 66, 75, 73];
-    var captial_data = [55, 43, 66, 78, 89, 100, 115];
+    var muharraq_aqi = [100, 89, 98, 79, 115, 70, 15];
+    var muharraq_pm10 = [30.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
+    var muharraq_pm25 = [61, 70, 68, 66, 66, 75, 73];
+    var muharraq_co = [55, 43, 66, 78, 89, 100, 115];
+
+    var capital_aqi = [150, 89, 98, 79, 115, 70, 15];
+    var capital_pm10 = [60.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
+    var capital_pm25 = [61, 70, 68, 66, 66, 75, 73];
+    var capital_co = [55, 43, 66, 78, 89, 100, 115];
+
+    var northern_aqi = [300, 89, 98, 79, 115, 70, 15];
+    var northern_pm10 = [90.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
+    var northern_pm25 = [61, 70, 68, 66, 66, 75, 73];
+    var northern_co = [55, 43, 66, 78, 89, 100, 115];
+
+    var southern_aqi = [400, 89, 98, 79, 115, 70, 15];
+    var southern_pm10 = [120.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
+    var southern_pm25 = [61, 70, 68, 66, 66, 75, 73];
+    var southern_co = [55, 43, 66, 78, 89, 100, 115];
 
 
     var ctx = document.getElementById("aqi_chart").getContext('2d');
@@ -344,18 +359,35 @@ demo = {
   
 
 
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    var purpleStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    purpleStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    purpleStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    purpleStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var orangeStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    orangeStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    orangeStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    orangeStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var greenStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    greenStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
+    greenStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)');
+    greenStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
+
+    var pinkStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    pinkStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+    pinkStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+    pinkStroke.addColorStop(0, 'rgba(29,140,248,0)'); //pink colors
+
+
     var config = {
       type: 'line',
       data: {
         labels: chart_labels,
         datasets: [{
-          label: 'AQI - Muharraq Governerate',
+          label: 'AQI',
           fill: true,
-          backgroundColor: gradientStroke,
+          backgroundColor: purpleStroke,
           borderColor: '#d346b1',
           borderWidth: 2,
           borderDash: [],
@@ -367,61 +399,61 @@ demo = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: muharraq_data,
+          data: muharraq_aqi,
          
         },
         {
-          label: 'AQI - Capital Governerate',
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#d346b1',
+          label: 'PM10',
+          fill: false, //fix
+          backgroundColor: pinkStroke, 
+          borderColor: '#f3a4b5',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
+          pointBackgroundColor: '#f3a4b5',
           pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
+          pointHoverBackgroundColor: '#f3a4b5',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: southern_data,
+          data: muharraq_pm10,
           
         },
         {
-          label: 'AQI - Southern Governerate',
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#d346b1',
+          label: 'PM2.5',
+          fill: false,
+          backgroundColor: greenStroke,
+          borderColor: '#00d6b4',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
+          pointBackgroundColor: '#00d6b4',
           pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
+          pointHoverBackgroundColor: '#00d6b4',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: northern_data,
+          data: muharraq_pm25,
           
         },
         {
-          label: 'AQI - Northern Governerate',
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#d346b1',
+          label: 'CO',
+          fill: false, //fix
+          backgroundColor: orangeStroke,
+          borderColor: '#ff8d72',
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
+          pointBackgroundColor: '#ff8d72',
           pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
+          pointHoverBackgroundColor: '#ff8d72',
           pointBorderWidth: 20,
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: captial_data,
+          data: muharraq_co,
           
         },
       ]
@@ -431,43 +463,49 @@ demo = {
     var myChartData = new Chart(ctx, config);
     $("#0").click(function() {
       var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
+      data.datasets[0].data = muharraq_aqi;
+      data.datasets[1].data = muharraq_pm10;
+      data.datasets[2].data = muharraq_pm25;
+      data.datasets[3].data = muharraq_co;
       data.labels = chart_labels;
       myChartData.update();
     });
     $("#1").click(function() {
-      var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
+      var chart_data = capital_aqi;
       var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
+      data.datasets[0].data = capital_aqi;
+      data.datasets[1].data = capital_pm10;
+      data.datasets[2].data = capital_pm25;
+      data.datasets[3].data = capital_co;
       data.labels = chart_labels;
       myChartData.update();
     });
 
     $("#2").click(function() {
-      var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
+      var chart_data = northern_aqi;
       var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
+      data.datasets[0].data = northern_aqi;
+      data.datasets[1].data = northern_pm10;
+      data.datasets[2].data = northern_pm25;
+      data.datasets[3].data = northern_co;
+      data.labels = chart_labels;
+      myChartData.update();
+    });
+    $("#3").click(function() {
+      var chart_data = southern_aqi;
+      var data = myChartData.config.data;
+      data.datasets[0].data = southern_aqi;
+      data.datasets[1].data = southern_pm10;
+      data.datasets[2].data = southern_pm25;
+      data.datasets[3].data = southern_co;
       data.labels = chart_labels;
       myChartData.update();
     });
 
   },
 
-  showNotification: function(from, align) {
-    color = Math.floor((Math.random() * 4) + 1);
-
-    $.notify({
-      icon: "tim-icons icon-bell-55",
-      message: "Welcome to <b>Black Dashboard</b> - a beautiful freebie for every web developer."
-
-    }, {
-      type: type[color],
-      timer: 8000,
-      placement: {
-        from: from,
-        align: align
-      }
-    });
-  }
+  
 
 };
+
+
