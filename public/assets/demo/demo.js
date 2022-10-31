@@ -99,7 +99,7 @@ var demo = {
       maintainAspectRatio: false,
       legend: {
         display: true,
-        position: 'left',
+        position: 'right',
 
       },
 
