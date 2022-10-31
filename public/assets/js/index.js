@@ -110,32 +110,26 @@ onValue(new_ref, (data) => {
             
             const aqi_set_ref = ref(db, 'air_parameters/aqis');
             set(aqi_set_ref, {
-                "muharraq": {
-                    [epoch_string]: {
+                [epoch_string]: {
+                    "muharraq": {
                         "aqi": muharraq_aqi_var.valueOf(),
                         "co_aqi": muharraq_aqi_co.valueOf(),
                         "pm10_aqi": muharraq_aqi_pm10.valueOf(),
                         "pm25_aqi": muharraq_aqi_pm25.valueOf()
-                    }
-                },
-                "capital": {
-                    [epoch_string]: {
+                    },
+                    "capital": {
                         "aqi": 10,
                         "co_aqi": 11,
                         "pm10_aqi": 12,
                         "pm25_aqi": 13
-                    }
-                },
-                "southern": {
-                    [epoch_string]: {
+                    },
+                    "southern": {
                         "aqi": 10,
                         "co_aqi": 11,
                         "pm10_aqi": 12,
                         "pm25_aqi": 13
-                    }
-                },
-                "northern": {
-                    [epoch_string]: {
+                    },
+                    "northern": {
                         "aqi": 10,
                         "co_aqi": 11,
                         "pm10_aqi": 12,
@@ -152,10 +146,10 @@ onValue(new_ref, (data) => {
     onValue(aqi_query_ref, (data) => { //to retrive values
         if (flag) { //in 24 hour
             var jsonAQIData = data.toJSON();
-            muharraq_co_avg = jsonAQIData['muharraq'][epoch_string]['co_aqi'];
-            muharraq_pm10_avg = jsonAQIData['muharraq'][epoch_string]['pm10_aqi'];
-            muharraq_pm25_avg = jsonAQIData['muharraq'][epoch_string]['pm25_aqi'];
-            muharraq_aqi_var = jsonAQIData['muharraq'][epoch_string]['aqi'];
+            muharraq_co_avg = jsonAQIData[epoch_string]['muharraq']['co'];
+            muharraq_pm10_avg = jsonAQIData[epoch_string]['muharraq']['pm10'];
+            muharraq_pm25_avg = jsonAQIData[epoch_string]['muharraq']['pm25'];
+            muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'];
     
 
            
