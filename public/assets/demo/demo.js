@@ -1,8 +1,27 @@
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+import { getDatabase, onValue, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+const firebaseConfig = {
+  apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
+  authDomain: "atmosense-1645e.firebaseapp.com",
+  databaseURL: "https://atmosense-1645e-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "atmosense-1645e",
+  storageBucket: "atmosense-1645e.appspot.com",
+  messagingSenderId: "565173512011",
+  appId: "1:565173512011:web:8Animationsa7a5947fb2470f8912ace",
+  measurementId: "G-FZ55WKWLZP"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+
 var type = ['primary', 'info', 'success', 'warning', 'danger'];
 
 var demo = {
-  initPickColor: function() {
-    $('.pick-class-label').click(function() {
+  initPickColor: function () {
+    $('.pick-class-label').click(function () {
       var new_class = $(this).attr('new-class');
       var old_class = $('#display-buttons').attr('data-class');
       var display_div = $('#display-buttons');
@@ -15,14 +34,14 @@ var demo = {
     });
   },
 
-  initDocChart: function() {
+  initDocChart: function () {
     chartColor = "#FFFFFF";
 
     // General configuration for the charts with Line gradientStroke
     var gradientChartOptionsConfiguration = {
       maintainAspectRatio: false,
       legend: {
-        display: false
+        display: true
       },
       tooltips: {
         bodySpacing: 4,
@@ -74,13 +93,14 @@ var demo = {
 
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function () {
 
-    
     var gradientChartOptionsConfigurationWithTooltipPurple = {
       maintainAspectRatio: false,
       legend: {
-        display: false
+        display: true,
+        position: 'left',
+                
       },
 
       tooltips: {
@@ -124,32 +144,8 @@ var demo = {
           }
         }]
       },
-      
+
     };
-
-    
-
-    var chart_labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var muharraq_aqi = [100, 89, 98, 79, 115, 70, 15];
-    var muharraq_pm10 = [30.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
-    var muharraq_pm25 = [61, 70, 68, 66, 66, 75, 73];
-    var muharraq_co = [55, 43, 66, 78, 89, 100, 115];
-
-    var capital_aqi = [150, 89, 98, 79, 115, 70, 15];
-    var capital_pm10 = [60.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
-    var capital_pm25 = [61, 70, 68, 66, 66, 75, 73];
-    var capital_co = [55, 43, 66, 78, 89, 100, 115];
-
-    var northern_aqi = [300, 89, 98, 79, 115, 70, 15];
-    var northern_pm10 = [90.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
-    var northern_pm25 = [61, 70, 68, 66, 66, 75, 73];
-    var northern_co = [55, 43, 66, 78, 89, 100, 115];
-
-    var southern_aqi = [400, 89, 98, 79, 115, 70, 15];
-    var southern_pm10 = [120.7, 30.6, 30.6, 30.5, 24.8, 30.6, 31];
-    var southern_pm25 = [61, 70, 68, 66, 66, 75, 73];
-    var southern_co = [55, 43, 66, 78, 89, 100, 115];
-
 
     var ctx = document.getElementById("aqi_chart").getContext('2d');
     function restartAnims(chart) {
@@ -164,9 +160,6 @@ var demo = {
       }
       chart.update();
     }
-    
-  
-
 
     var purpleStroke = ctx.createLinearGradient(0, 230, 0, 50);
     purpleStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
@@ -188,176 +181,236 @@ var demo = {
     pinkStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
     pinkStroke.addColorStop(0, 'rgba(29,140,248,0)'); //pink colors
 
+    const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
-    var config = {
-      type: 'line',
-      data: {
-        labels: chart_labels,
-        datasets: [{
-          label: 'AQI',
-          fill: true,
-          backgroundColor: purpleStroke,
-          borderColor: '#d346b1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: muharraq_aqi,
-         
-        },
-        {
-          label: 'PM10',
-          fill: false, //fix
-          backgroundColor: pinkStroke, 
-          borderColor: '#f3a4b5',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#f3a4b5',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#f3a4b5',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: muharraq_pm10,
-          
-        },
-        {
-          label: 'PM2.5',
-          fill: false,
-          backgroundColor: greenStroke,
-          borderColor: '#00d6b4',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#00d6b4',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#00d6b4',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: muharraq_pm25,
-          
-        },
-        {
-          label: 'CO',
-          fill: false, //fix
-          backgroundColor: orangeStroke,
-          borderColor: '#ff8d72',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#ff8d72',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#ff8d72',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: muharraq_co,
-          
-        },
-      ]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-    };
-    var myChartData = new Chart(ctx, config);
-    $("#0").click(function() {
-      var data = myChartData.config.data;
-      data.datasets[0].data = muharraq_aqi;
-      data.datasets[1].data = muharraq_pm10;
-      data.datasets[2].data = muharraq_pm25;
-      data.datasets[3].data = muharraq_co;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#1").click(function() {
-      var chart_data = capital_aqi;
-      var data = myChartData.config.data;
-      data.datasets[0].data = capital_aqi;
-      data.datasets[1].data = capital_pm10;
-      data.datasets[2].data = capital_pm25;
-      data.datasets[3].data = capital_co;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
+    var time_var, epoch_date, epoch_string;
+    onValue(new_ref, (data) => {
+      var jsonData = data.toJSON();
+      time_var = Object.keys(jsonData).toString();
 
-    $("#2").click(function() {
-      var chart_data = northern_aqi;
-      var data = myChartData.config.data;
-      data.datasets[0].data = northern_aqi;
-      data.datasets[1].data = northern_pm10;
-      data.datasets[2].data = northern_pm25;
-      data.datasets[3].data = northern_co;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#3").click(function() {
-      var chart_data = southern_aqi;
-      var data = myChartData.config.data;
-      data.datasets[0].data = southern_aqi;
-      data.datasets[1].data = southern_pm10;
-      data.datasets[2].data = southern_pm25;
-      data.datasets[3].data = southern_co;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
+      var d = new Date(0);
+      d.setUTCSeconds(time_var);
+      epoch_date = d.toLocaleDateString("en-gb");
+      epoch_string = epoch_date.replace(/\//g, '-');
 
+      var chart_labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+      
+      const muharraq_aqi_ref = query(ref(db, 'air_parameters/aqis/muharraq'), orderByKey(), limitToLast(7));
+      const capital_aqi_ref = query(ref(db, 'air_parameters/aqis/capital'), orderByKey(), limitToLast(7));
+      const northern_aqi_ref = query(ref(db, 'air_parameters/aqis/northern'), orderByKey(), limitToLast(7));
+      const southern_aqi_ref = query(ref(db, 'air_parameters/aqis/southern'), orderByKey(), limitToLast(7));
+
+      onValue(muharraq_aqi_ref, (data) => {
+        var muharraq_aqi_data = data.toJSON();
+        var muharraq_keys = Object.keys(muharraq_aqi_data);
+        alert(d.getDay());
+
+
+        var muharraq_aqi = [];
+        var muharraq_pm10 = [];
+        var muharraq_pm25 = [];
+        var muharraq_co = [];
+
+        for (let i = 0; i < 7; i++) {
+          muharraq_aqi.push(muharraq_aqi_data[muharraq_keys[i]]['aqi']);
+          muharraq_pm10.push(muharraq_aqi_data[muharraq_keys[i]]['pm10']);
+          muharraq_pm25.push(muharraq_aqi_data[muharraq_keys[i]]['pm25']);
+          muharraq_co.push(muharraq_aqi_data[muharraq_keys[i]]['co']);
+
+        }
+
+        onValue(capital_aqi_ref, (data2) => {
+          var capital_aqi_data = data2.toJSON();
+          var capital_keys = Object.keys(capital_aqi_data);
+          var capital_aqi = [];
+          var capital_pm10 = [];
+          var capital_pm25 = [];
+          var capital_co = [];
+
+          
+          for (let i = 0; i < 7; i++) {
+            capital_aqi.push(capital_aqi_data[capital_keys[i]]['aqi']);
+            capital_pm10.push(capital_aqi_data[capital_keys[i]]['pm10']);
+            capital_pm25.push(capital_aqi_data[capital_keys[i]]['pm25']);
+            capital_co.push(capital_aqi_data[capital_keys[i]]['co']);
+
+          }
+
+          onValue(northern_aqi_ref, (data) => {
+            var northern_aqi_data = data.toJSON();
+            var northern_keys = Object.keys(northern_aqi_data);
+            var northern_aqi = [];
+            var northern_pm10 = [];
+            var northern_pm25 = [];
+            var northern_co = [];
+
+            for (let i = 0; i < 7; i++) {
+              northern_aqi.push(northern_aqi_data[northern_keys[i]]['aqi']);
+              northern_pm10.push(northern_aqi_data[northern_keys[i]]['pm10']);
+              northern_pm25.push(northern_aqi_data[northern_keys[i]]['pm25']);
+              northern_co.push(northern_aqi_data[northern_keys[i]]['co']);
+
+            }
+            onValue(southern_aqi_ref, (data) => {
+              var southern_aqi_data = data.toJSON();
+              var southern_keys = Object.keys(southern_aqi_data);
+              var southern_aqi = [];
+              var southern_pm10 = [];
+              var southern_pm25 = [];
+              var southern_co = [];
+
+              for (let i = 0; i < 7; i++) {
+                southern_aqi.push(southern_aqi_data[southern_keys[i]]['aqi']);
+                southern_pm10.push(southern_aqi_data[southern_keys[i]]['pm10']);
+                southern_pm25.push(southern_aqi_data[southern_keys[i]]['pm25']);
+                southern_co.push(southern_aqi_data[southern_keys[i]]['co']);
+
+              }
+
+
+
+              var config = {
+                type: 'line',
+                data: {
+                  labels: chart_labels,
+                  datasets: [{
+                    label: 'AQI',
+                    fill: true,
+                    backgroundColor: purpleStroke,
+                    borderColor: '#d346b1',
+                    borderWidth: 2,
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    pointBackgroundColor: '#d346b1',
+                    pointBorderColor: 'rgba(255,255,255,0)',
+                    pointHoverBackgroundColor: '#d346b1',
+                    pointBorderWidth: 20,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 15,
+                    pointRadius: 4,
+                    data: muharraq_aqi,
+
+                  },
+                  {
+                    label: 'PM10',
+                    fill: false, //fix
+                    backgroundColor: pinkStroke,
+                    borderColor: '#f3a4b5',
+                    borderWidth: 2,
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    pointBackgroundColor: '#f3a4b5',
+                    pointBorderColor: 'rgba(255,255,255,0)',
+                    pointHoverBackgroundColor: '#f3a4b5',
+                    pointBorderWidth: 20,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 15,
+                    pointRadius: 4,
+                    data: muharraq_pm10,
+
+                  },
+                  {
+                    label: 'PM2.5',
+                    fill: false,
+                    backgroundColor: greenStroke,
+                    borderColor: '#00d6b4',
+                    borderWidth: 2,
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    pointBackgroundColor: '#00d6b4',
+                    pointBorderColor: 'rgba(255,255,255,0)',
+                    pointHoverBackgroundColor: '#00d6b4',
+                    pointBorderWidth: 20,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 15,
+                    pointRadius: 4,
+                    data: muharraq_pm25,
+
+                  },
+                  {
+                    label: 'CO',
+                    fill: false, //fix
+                    backgroundColor: orangeStroke,
+                    borderColor: '#ff8d72',
+                    borderWidth: 2,
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    pointBackgroundColor: '#ff8d72',
+                    pointBorderColor: 'rgba(255,255,255,0)',
+                    pointHoverBackgroundColor: '#ff8d72',
+                    pointBorderWidth: 20,
+                    pointHoverRadius: 4,
+                    pointHoverBorderWidth: 15,
+                    pointRadius: 4,
+                    data: muharraq_co,
+
+                  },
+                  ]
+                },
+                options: gradientChartOptionsConfigurationWithTooltipPurple
+              };
+
+              var myChartData = new Chart(ctx, config);
+              $("#0").click(function () {
+                var data = myChartData.config.data;
+                data.datasets[0].data = muharraq_aqi;
+                data.datasets[1].data = muharraq_pm10;
+                data.datasets[2].data = muharraq_pm25;
+                data.datasets[3].data = muharraq_co;
+                data.labels = chart_labels;
+                myChartData.update();
+              });
+              $("#1").click(function () {
+                var chart_data = capital_aqi;
+                var data = myChartData.config.data;
+                data.datasets[0].data = capital_aqi;
+                data.datasets[1].data = capital_pm10;
+                data.datasets[2].data = capital_pm25;
+                data.datasets[3].data = capital_co;
+                data.labels = chart_labels;
+                myChartData.update();
+              });
+
+              $("#2").click(function () {
+                var chart_data = northern_aqi;
+                var data = myChartData.config.data;
+                data.datasets[0].data = northern_aqi;
+                data.datasets[1].data = northern_pm10;
+                data.datasets[2].data = northern_pm25;
+                data.datasets[3].data = northern_co;
+                data.labels = chart_labels;
+                myChartData.update();
+              });
+              $("#3").click(function () {
+                var chart_data = southern_aqi;
+                var data = myChartData.config.data;
+                data.datasets[0].data = southern_aqi;
+                data.datasets[1].data = southern_pm10;
+                data.datasets[2].data = southern_pm25;
+                data.datasets[3].data = southern_co;
+                data.labels = chart_labels;
+                myChartData.update();
+              });
+
+
+            });
+          });
+
+
+        });
+
+
+
+
+      });
+    });
   },
-
-  
-
-};
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-import { getDatabase, onValue, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
-const firebaseConfig = {
-    apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
-    authDomain: "atmosense-1645e.firebaseapp.com",
-    databaseURL: "https://atmosense-1645e-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "atmosense-1645e",
-    storageBucket: "atmosense-1645e.appspot.com",
-    messagingSenderId: "565173512011",
-    appId: "1:565173512011:web:8Animationsa7a5947fb2470f8912ace",
-    measurementId: "G-FZ55WKWLZP"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase();
 
-const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
-var time_var,  epoch_date, epoch_string, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var;
-onValue(new_ref, (data) => {
-    var jsonData = data.toJSON();
-    time_var = Object.keys(jsonData).toString();
 
-    var d = new Date(0);
-    d.setUTCSeconds(time_var);
-    epoch_date = d.toLocaleDateString("en-gb");
-    epoch_string = epoch_date.replace(/\//g, '-');
-  
-    
 
-    const aqi_query_ref = ref(db, 'air_parameters/aqis');
-    onValue(aqi_query_ref, (data) => { //to retrive values
-        var jsonAQIData = data.toJSON();
-        muharraq_aqi_var = jsonAQIData['muharraq'][epoch_string]['aqi'];
-        capital_aqi_var = jsonAQIData['capital'][epoch_string]['aqi'];
-        northern_aqi_var = jsonAQIData['northern'][epoch_string]['aqi'];
-        southern_aqi_var = jsonAQIData['southern'][epoch_string]['aqi'];
-        
 
-    });
-  });
-
-export {demo};
+export { demo };
