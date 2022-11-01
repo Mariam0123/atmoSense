@@ -142,7 +142,7 @@ var demo = {
             padding: 20,
             fontColor: "#9a9a9a"
           }
-        }]
+        }],
       },
 
     };
@@ -181,40 +181,12 @@ var demo = {
     pinkStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
     pinkStroke.addColorStop(0, 'rgba(29,140,248,0)'); //pink colors
 
-    // var today = new Date().getDay();
-    // switch (today) {
-    //   case 0:
-    //     var chart_labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    //     break;
-    //   case 1:
-    //     var chart_labels = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'];
-    //     break;
-    //   case 2:
-    //     var chart_labels = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue'];
-    //     break;
-    //   case 3:
-    //     var chart_labels = ['Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed'];
-    //     break;
-    //   case 4:
-    //     var chart_labels = ['Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
-    //     break;
-    //   case 5:
-    //     var chart_labels = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-    //     break;
-    //   case 6:
-    //     var chart_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    //     break;
-
-    // }
+    var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     var chart_labels = [];
-
     const aqi_ref = query(ref(db, 'air_parameters/aqis/'), orderByKey(), limitToLast(7));
-
     onValue(aqi_ref, (data) => {
       var aqi_data = data.toJSON();
       var keys = Object.keys(aqi_data);
-
-     
 
       var muharraq_aqi = [];
       var muharraq_pm10 = [];
@@ -257,19 +229,12 @@ var demo = {
         northern_pm25.push(aqi_data[keys[i]]['northern']['pm25']);
         northern_co.push(aqi_data[keys[i]]['northern']['co']);
 
-
         var [day, month, year] = keys[i].split('-'); // split string
-        const today = new Date(+year, +month -1, +day).getDay();;
-        const day_of_week = today.toLocaleString('default', {weekday: 'short'});
-        alert(day_of_week);
-        chart_labels.push(day_of_week);
+        const date_day = new Date(+year, +month -1, +day).getDay();;
+        chart_labels.push(weekdays[date_day]);
 
       }
-
-
-
-
-
+     
       var config = {
         type: 'line',
         data: {
@@ -353,6 +318,7 @@ var demo = {
 
       var myChartData = new Chart(ctx, config);
       $("#0").click(function () {
+        
         var data = myChartData.config.data;
         data.datasets[0].data = muharraq_aqi;
         data.datasets[1].data = muharraq_pm10;
@@ -362,7 +328,7 @@ var demo = {
         myChartData.update();
       });
       $("#1").click(function () {
-        var chart_data = capital_aqi;
+        
         var data = myChartData.config.data;
         data.datasets[0].data = capital_aqi;
         data.datasets[1].data = capital_pm10;
@@ -373,7 +339,7 @@ var demo = {
       });
 
       $("#2").click(function () {
-        var chart_data = northern_aqi;
+       
         var data = myChartData.config.data;
         data.datasets[0].data = northern_aqi;
         data.datasets[1].data = northern_pm10;
@@ -383,7 +349,7 @@ var demo = {
         myChartData.update();
       });
       $("#3").click(function () {
-        var chart_data = southern_aqi;
+        
         var data = myChartData.config.data;
         data.datasets[0].data = southern_aqi;
         data.datasets[1].data = southern_pm10;
