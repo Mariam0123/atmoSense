@@ -180,7 +180,7 @@ const db = getDatabase();
 
 const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
-var time_var, lat, lon, epoch_date, epoch_string, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var;
+var time_var, lat, lon, epoch_date, muharraq_aqi_var, capital_aqi_var, northern_aqi_var, southern_aqi_var;
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
     time_var = Object.keys(jsonData).toString();
@@ -203,16 +203,16 @@ onValue(new_ref, (data) => {
 
     var d = new Date(0);
     d.setUTCSeconds(time_var);
-    epoch_date = d.toLocaleDateString("en-gb");
-    epoch_string = epoch_date.replace(/\//g, '-');
+    [epoch_date] = d.toISOString().split('T');
 
-    const aqi_query_ref = ref(db, 'air_parameters/aqis');
+    const aqi_query_ref = query(ref(db, 'air_parameters/aqis/'), orderByKey(), limitToLast(1));
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
-        muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'].toFixed(3);
-        capital_aqi_var = jsonAQIData[epoch_string]['capital']['aqi'].toFixed(3);
-        northern_aqi_var = jsonAQIData[epoch_string]['northern']['aqi'].toFixed(3);
-        southern_aqi_var = jsonAQIData[epoch_string]['southern']['aqi'].toFixed(3);
+        
+        muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'].toFixed(3);
+        capital_aqi_var = jsonAQIData[epoch_date]['capital']['aqi'].toFixed(3);
+        northern_aqi_var = jsonAQIData[epoch_date]['northern']['aqi'].toFixed(3);
+        southern_aqi_var = jsonAQIData[epoch_date]['southern']['aqi'].toFixed(3);
         var polygonJSON = {
             "type": "FeatureCollection",
             "features": [{

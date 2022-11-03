@@ -210,24 +210,25 @@ var demo = {
 
       for (let i = 0; i < 7; i++) {
         muharraq_aqi.push(aqi_data[keys[i]]['muharraq']['aqi']);
-        muharraq_pm10.push(aqi_data[keys[i]]['muharraq']['pm10']);
-        muharraq_pm25.push(aqi_data[keys[i]]['muharraq']['pm25']);
-        muharraq_co.push(aqi_data[keys[i]]['muharraq']['co']);
+        muharraq_pm10.push(aqi_data[keys[i]]['muharraq']['pm10_aqi']);
+        muharraq_pm25.push(aqi_data[keys[i]]['muharraq']['pm25_aqi']);
+        muharraq_co.push(aqi_data[keys[i]]['muharraq']['co_aqi']);
+        
 
         capital_aqi.push(aqi_data[keys[i]]['capital']['aqi']);
-        capital_pm10.push(aqi_data[keys[i]]['capital']['pm10']);
-        capital_pm25.push(aqi_data[keys[i]]['capital']['pm25']);
-        capital_co.push(aqi_data[keys[i]]['capital']['co']);
+        capital_pm10.push(aqi_data[keys[i]]['capital']['pm10_aqi']);
+        capital_pm25.push(aqi_data[keys[i]]['capital']['pm25_aqi']);
+        capital_co.push(aqi_data[keys[i]]['capital']['co_aqi']);
 
         southern_aqi.push(aqi_data[keys[i]]['southern']['aqi']);
-        southern_pm10.push(aqi_data[keys[i]]['southern']['pm10']);
-        southern_pm25.push(aqi_data[keys[i]]['southern']['pm25']);
-        southern_co.push(aqi_data[keys[i]]['southern']['co']);
+        southern_pm10.push(aqi_data[keys[i]]['southern']['pm10_aqi']);
+        southern_pm25.push(aqi_data[keys[i]]['southern']['pm25_aqi']);
+        southern_co.push(aqi_data[keys[i]]['southern']['co_aqi']);
 
         northern_aqi.push(aqi_data[keys[i]]['northern']['aqi']);
-        northern_pm10.push(aqi_data[keys[i]]['northern']['pm10']);
-        northern_pm25.push(aqi_data[keys[i]]['northern']['pm25']);
-        northern_co.push(aqi_data[keys[i]]['northern']['co']);
+        northern_pm10.push(aqi_data[keys[i]]['northern']['pm10_aqi']);
+        northern_pm25.push(aqi_data[keys[i]]['northern']['pm25_aqi']);
+        northern_co.push(aqi_data[keys[i]]['northern']['co_aqi']);
 
         var [day, month, year] = keys[i].split('-'); // split string
         const date_day = new Date(+year, +month -1, +day).getDay();;
@@ -316,6 +317,7 @@ var demo = {
         options: gradientChartOptionsConfigurationWithTooltipPurple
       };
 
+      myChart.destroy();
       var myChartData = new Chart(ctx, config);
       $("#0").click(function () {
         
