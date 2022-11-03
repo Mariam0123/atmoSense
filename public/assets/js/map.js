@@ -209,10 +209,10 @@ onValue(new_ref, (data) => {
     const aqi_query_ref = ref(db, 'air_parameters/aqis');
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
-        muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'];
-        capital_aqi_var = jsonAQIData[epoch_string]['capital']['aqi'];
-        northern_aqi_var = jsonAQIData[epoch_string]['northern']['aqi'];
-        southern_aqi_var = jsonAQIData[epoch_string]['southern']['aqi'];
+        muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'].toFixed(3);
+        capital_aqi_var = jsonAQIData[epoch_string]['capital']['aqi'].toFixed(3);
+        northern_aqi_var = jsonAQIData[epoch_string]['northern']['aqi'].toFixed(3);
+        southern_aqi_var = jsonAQIData[epoch_string]['southern']['aqi'].toFixed(3);
         var polygonJSON = {
             "type": "FeatureCollection",
             "features": [{

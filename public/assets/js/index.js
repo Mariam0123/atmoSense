@@ -19,7 +19,7 @@ const db = getDatabase();
 var time_var, temp_var, hum_var, co2_var, co_var, formaldahide_var, tvoc_var, pm10_var, pm25_var, counter, flag;
 var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_co, BPlo_co, BPhi_pm25, BPlo_pm10;
 var epoch_day, day, epoch_date, epoch_string;
-var muharraq_co_sum = 0, muharraq_pm25_sum = 0, muharraq_pm10_sum = 0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, counter = 0, day;
+var muharraq_co_sum = 0, muharraq_pm25_sum = 0, muharraq_pm10_sum = 0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0, day;
 
 
 function pm10_values(pm10_var) {
@@ -144,16 +144,21 @@ onValue(new_ref, (data) => {
 
     const aqi_query_ref = ref(db, 'air_parameters/aqis');
     onValue(aqi_query_ref, (data) => { //to retrive values
-        if (flag) { //in 24 hour
-            var jsonAQIData = data.toJSON();
-            muharraq_co_avg = jsonAQIData[epoch_string]['muharraq']['co'];
-            muharraq_pm10_avg = jsonAQIData[epoch_string]['muharraq']['pm10'];
-            muharraq_pm25_avg = jsonAQIData[epoch_string]['muharraq']['pm25'];
-            muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'];
+        var jsonAQIData = data.toJSON();
+        muharraq_co_avg = jsonAQIData[epoch_string]['muharraq']['co'];
+        muharraq_pm10_avg = jsonAQIData[epoch_string]['muharraq']['pm10'];
+        muharraq_pm25_avg = jsonAQIData[epoch_string]['muharraq']['pm25'];
+        muharraq_aqi_var = jsonAQIData[epoch_string]['muharraq']['aqi'];
+        capital_aqi_var = jsonAQIData[epoch_string]['capital']['aqi'];
+        southern_aqi_var = jsonAQIData[epoch_string]['southern']['aqi'];
+        northern_aqi_var = jsonAQIData[epoch_string]['northern']['aqi'];
+
+        var aqi_val_element = document.getElementById("aqi_val");
+        var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4; 
+        aqi_val_element.innerHTML = average_aqis.toFixed(3); 
+
     
 
-           
-        }
         
     });
 
