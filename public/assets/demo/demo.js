@@ -146,6 +146,7 @@ var demo = {
       },
 
     };
+    
 
     var ctx = document.getElementById("aqi_chart").getContext('2d');
     function restartAnims(chart) {
@@ -182,9 +183,10 @@ var demo = {
     pinkStroke.addColorStop(0, 'rgba(29,140,248,0)'); //pink colors
 
     var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    var chart_labels = [];
+    
     const aqi_ref = query(ref(db, 'air_parameters/aqis/'), orderByKey(), limitToLast(7));
     onValue(aqi_ref, (data) => {
+      var chart_labels = [];
       var aqi_data = data.toJSON();
       var keys = Object.keys(aqi_data);
 
@@ -213,7 +215,7 @@ var demo = {
         muharraq_pm10.push(aqi_data[keys[i]]['muharraq']['pm10_aqi']);
         muharraq_pm25.push(aqi_data[keys[i]]['muharraq']['pm25_aqi']);
         muharraq_co.push(aqi_data[keys[i]]['muharraq']['co_aqi']);
-        
+
 
         capital_aqi.push(aqi_data[keys[i]]['capital']['aqi']);
         capital_pm10.push(aqi_data[keys[i]]['capital']['pm10_aqi']);
@@ -230,12 +232,12 @@ var demo = {
         northern_pm25.push(aqi_data[keys[i]]['northern']['pm25_aqi']);
         northern_co.push(aqi_data[keys[i]]['northern']['co_aqi']);
 
-        var [day, month, year] = keys[i].split('-'); // split string
-        const date_day = new Date(+year, +month -1, +day).getDay();;
+        var [year, month, day] = keys[i].split('-'); // split string
+        const date_day = new Date(+year, +month - 1, +day).getDay();
         chart_labels.push(weekdays[date_day]);
 
       }
-     
+
       var config = {
         type: 'line',
         data: {
@@ -316,11 +318,11 @@ var demo = {
         },
         options: gradientChartOptionsConfigurationWithTooltipPurple
       };
-
-      myChart.destroy();
       var myChartData = new Chart(ctx, config);
+     
+      
       $("#0").click(function () {
-        
+
         var data = myChartData.config.data;
         data.datasets[0].data = muharraq_aqi;
         data.datasets[1].data = muharraq_pm10;
@@ -330,7 +332,7 @@ var demo = {
         myChartData.update();
       });
       $("#1").click(function () {
-        
+
         var data = myChartData.config.data;
         data.datasets[0].data = capital_aqi;
         data.datasets[1].data = capital_pm10;
@@ -341,7 +343,7 @@ var demo = {
       });
 
       $("#2").click(function () {
-       
+
         var data = myChartData.config.data;
         data.datasets[0].data = northern_aqi;
         data.datasets[1].data = northern_pm10;
@@ -351,7 +353,7 @@ var demo = {
         myChartData.update();
       });
       $("#3").click(function () {
-        
+
         var data = myChartData.config.data;
         data.datasets[0].data = southern_aqi;
         data.datasets[1].data = southern_pm10;
