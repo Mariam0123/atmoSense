@@ -22433,17 +22433,15 @@ Copyright (c) 2015 Daniel Eden
   color: #777;
 }
 
-body {
+#pollutants_figure {
   display: flex;
   align-content: center;
   justify-content: center;
   height: 100vh;
   font-family: 'Lato', sans-serif;
   color: #fff;
-  background-color: #11111a;
-}
+  /* background-color: #11111a; */
 
-figure {
   position: relative;
   display: flex;
   align-self: center;
@@ -22453,39 +22451,39 @@ figure {
   margin: 0;
 }
 
-figure svg {
+#pollutants_figure_svg {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-figure svg path {
+#pollutants_figure_svg_path {
   transition: all 1s;
 }
 
-figure .text {
+#pollutants_figure .text {
   align-self: flex-end;
   text-align: center;
   z-index: 1;
   
 }
 
-figure .percent {
+#pollutants_figure .percent {
   font-size: 40px;
   font-weight: bold;
   display: block;
 }
 
-figure .symbol {
+#pollutants_figure .symbol {
   font-size: 36px;
   margin-left: -8px;
 }
 
-figure .complete {
+#pollutants_figure .complete {
   font-size: 26px;
 }
 
-img {
+#pollutants_img {
   width: 50px;
   height: 50px;
 }
