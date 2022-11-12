@@ -22433,6 +22433,62 @@ Copyright (c) 2015 Daniel Eden
   color: #777;
 }
 
+body {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+  background-color: #11111a;
+}
+
+figure {
+  position: relative;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  width: 340px;
+  height: 190px;
+  margin: 0;
+}
+
+figure svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+figure svg path {
+  transition: all 1s;
+}
+
+figure .text {
+  align-self: flex-end;
+  text-align: center;
+  z-index: 1;
+  
+}
+
+figure .percent {
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+}
+
+figure .symbol {
+  font-size: 36px;
+  margin-left: -8px;
+}
+
+figure .complete {
+  font-size: 26px;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
 
 
 

@@ -12,6 +12,29 @@ const firebaseConfig = {
     measurementId: "G-FZ55WKWLZP"
 };
 
+const percent = 75;
+
+ // Line length
+
+ let path = document.querySelector('.pie-chart-line');
+ let percentDiv = document.querySelector('.number');
+ let lineLength = Math.round(path.getTotalLength());
+
+ //percentDiv.innerHTML = percent;
+ const linePercent = -Math.abs(lineLength * (1-(percent/100)));
+ path.style.strokeDashoffset = linePercent;
+
+ const interval = 1000/percent;
+ let count = 1;
+ setInterval(function() {
+   if (count <= percent) {
+     percentDiv.innerHTML = count;
+     count++;
+   } else {
+     clearInterval(interval);
+   }
+ }, interval)
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
