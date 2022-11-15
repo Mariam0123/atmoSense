@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-import { getDatabase, onValue, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
+import { getDatabase, onValue, onChildChanged, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
 const firebaseConfig = {
   apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
   authDomain: "atmosense-1645e.firebaseapp.com",
@@ -147,8 +147,9 @@ var demo = {
 
     };
     
-
+   
     var ctx = document.getElementById("aqi_chart").getContext('2d');
+
     function restartAnims(chart) {
       chart.stop();
       const meta0 = chart.getDatasetMeta(0);
@@ -244,7 +245,7 @@ var demo = {
           labels: chart_labels,
           datasets: [{
             label: 'AQI',
-            fill: true,
+            fill: false,
             backgroundColor: purpleStroke,
             borderColor: '#d346b1',
             borderWidth: 2,
@@ -318,50 +319,78 @@ var demo = {
         },
         options: gradientChartOptionsConfigurationWithTooltipPurple
       };
-      var myChartData = new Chart(ctx, config);
-     
-      
-      $("#0").click(function () {
 
-        var data = myChartData.config.data;
+      const radio = document.querySelector('input[name="options"]:checked').value; 
+
+      if(window.myChartData != undefined)
+        window.myChartData.destroy();
+
+      window.myChartData = new Chart(ctx, config);
+      switch(radio){
+        case "muhrraq":
+          muharraq_clicked();
+          break;
+        case "capital":
+          capital_clicked();
+          break;
+        case "northern":
+          northern_clicked();
+          break;
+        case "southern":
+          southern_clicked();
+          break;
+    
+      }
+    
+      
+      function muharraq_clicked(){
+        var data = window.myChartData.config.data;
         data.datasets[0].data = muharraq_aqi;
         data.datasets[1].data = muharraq_pm10;
         data.datasets[2].data = muharraq_pm25;
         data.datasets[3].data = muharraq_co;
         data.labels = chart_labels;
-        myChartData.update();
-      });
-      $("#1").click(function () {
-
-        var data = myChartData.config.data;
+        window.myChartData.update();
+       
+      }
+      function capital_clicked () {
+        
+        var data = window.myChartData.config.data;
         data.datasets[0].data = capital_aqi;
         data.datasets[1].data = capital_pm10;
         data.datasets[2].data = capital_pm25;
         data.datasets[3].data = capital_co;
         data.labels = chart_labels;
-        myChartData.update();
-      });
+        window.myChartData.update();
+        
+      }
 
-      $("#2").click(function () {
-
-        var data = myChartData.config.data;
+      function northern_clicked() {
+       
+        var data = window.myChartData.config.data;
         data.datasets[0].data = northern_aqi;
         data.datasets[1].data = northern_pm10;
         data.datasets[2].data = northern_pm25;
         data.datasets[3].data = northern_co;
         data.labels = chart_labels;
-        myChartData.update();
-      });
-      $("#3").click(function () {
+        window.myChartData.update();
+      }
 
-        var data = myChartData.config.data;
+      function southern_clicked() {
+       
+        var data = window.myChartData.config.data;
         data.datasets[0].data = southern_aqi;
         data.datasets[1].data = southern_pm10;
         data.datasets[2].data = southern_pm25;
         data.datasets[3].data = southern_co;
         data.labels = chart_labels;
-        myChartData.update();
-      });
+        window.myChartData.update();
+      }
+
+      $("#0").click(muharraq_clicked);
+      $("#1").click(capital_clicked);
+      $("#2").click(northern_clicked);
+      $("#3").click(southern_clicked);
 
 
     });

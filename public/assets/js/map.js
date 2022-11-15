@@ -157,7 +157,7 @@ legend.onAdd = function (map) {
     return div;
 };
 
-// legend.addTo(map);
+legend.addTo(map);
 
 
 // Import the functions you need from the SDKs you need
