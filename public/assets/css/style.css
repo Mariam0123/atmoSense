@@ -36,10 +36,10 @@ body {
 	font-size: 4rem;
 }
 .swiper-button-next {
-	color: #ffffff;
+	color: #ffffff !important;
 }
 .swiper-button-prev {
-	color: #ffffff;
+	color: #ffffff !important;
 	
 }
 
@@ -141,7 +141,7 @@ a, a:hover {
 
 .unslate_co--footer {
   position: fixed !important;
-  width: 100%;
+  width: 90%;
   background-color: #191919;
   color: #fff;
   left: 0;
