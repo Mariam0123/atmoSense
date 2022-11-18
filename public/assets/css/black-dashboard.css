@@ -22434,8 +22434,7 @@ Copyright (c) 2015 Daniel Eden
   margin: 0 0 5px;
   color: #777;
 }
-
-#pollutants_figure {
+#pollutants_body{
   display: flex;
   align-content: center;
   justify-content: center;
@@ -22443,20 +22442,20 @@ Copyright (c) 2015 Daniel Eden
   font-family: 'Lato', sans-serif;
   color: #fff;
   /* background-color: #11111a; */
+}
 
+#pollutants_figure {
   position: relative;
   display: flex;
   align-self: center;
   justify-content: center;
-  width: 340px;
-  height: 190px;
   margin: 0;
 }
 
 #pollutants_figure_svg {
   position: absolute;
-  left: 0;
-  top: 0;
+  width: 100px;
+  height:100px;
 }
 
 #pollutants_figure_svg_path {
@@ -22471,24 +22470,37 @@ Copyright (c) 2015 Daniel Eden
 }
 
 #pollutants_figure .percent {
-  font-size: 40px;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
   display: block;
 }
 
 #pollutants_figure .symbol {
-  font-size: 36px;
-  margin-left: -8px;
+  font-size: 13px;
 }
 
 #pollutants_figure .complete {
   font-size: 26px;
+  text-align: center;
 }
 
 #pollutants_img {
-  width: 50px;
-  height: 50px;
+  width: 5px;
+  height: 5px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
