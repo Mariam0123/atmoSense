@@ -93,33 +93,33 @@ onValue(new_ref, (data) => {
     let lineLength = Math.round(path.getTotalLength());
 
     //percentDiv.innerHTML = percent;
-    const linePercent = -Math.abs(lineLength * (1-(co2_var/100)));
+    const linePercent = -Math.abs(lineLength * (1 - (co2_var / 100)));
     path.style.strokeDashoffset = linePercent;
 
-    const interval = 1000/co2_var;
+    const interval = 1000 / co2_var;
     let count = 1;
-    setInterval(function() {
-    if (count <= co2_var) {
-        percentDiv.innerHTML = count;
-        count++;
-    } else {
-        clearInterval(interval);
-    }
+    setInterval(function () {
+        if (count <= co2_var) {
+            percentDiv.innerHTML = count;
+            count++;
+        } else {
+            clearInterval(interval);
+        }
     }, interval)
 
-   
+
     var node_keys;
     const get_values_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(counter));
     onValue(get_values_ref, (data) => { //to retrive values
         if (flag) { //in 24 hour
             var jsonAvgData = data.toJSON();
-            var pm10_sum=0, pm25_sum=0, co_sum=0;
+            var pm10_sum = 0, pm25_sum = 0, co_sum = 0;
             node_keys = Object.keys(jsonAvgData);
-            for (var key of node_keys){
+            for (var key of node_keys) {
                 var string_key = key.toString();
-                pm10_sum +=jsonAvgData[string_key]['pm10'];
-                pm25_sum +=jsonAvgData[string_key]['pm25'];
-                co_sum +=jsonAvgData[string_key]['co'];
+                pm10_sum += jsonAvgData[string_key]['pm10'];
+                pm25_sum += jsonAvgData[string_key]['pm25'];
+                co_sum += jsonAvgData[string_key]['co'];
             }
 
             muharraq_co_avg = co_sum / counter;
@@ -128,11 +128,11 @@ onValue(new_ref, (data) => {
 
             muharraq_aqi_pm10 = ((Ihi_pm10 - Ilo_pm10) / (BPhi_pm10 - BPlo_pm10)) * (muharraq_pm10_avg - BPlo_pm10) + Ilo_pm10;
             muharraq_aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (muharraq_pm25_avg - BPlo_pm25) + Ilo_pm25;
-            muharraq_aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (muharraq_co_avg - BPlo_co) + Ilo_co;  
+            muharraq_aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (muharraq_co_avg - BPlo_co) + Ilo_co;
             muharraq_aqi_var = Math.max(muharraq_aqi_co, muharraq_aqi_pm10, muharraq_aqi_pm25);
-            
-            const aqi_set_ref = ref(db, 'air_parameters/aqis/'+ epoch_date);
-            set(aqi_set_ref, 
+
+            const aqi_set_ref = ref(db, 'air_parameters/aqis/' + epoch_date);
+            set(aqi_set_ref,
                 {
                     "muharraq": {
                         "aqi": muharraq_aqi_var.valueOf(),
@@ -162,7 +162,7 @@ onValue(new_ref, (data) => {
             );
 
         }
-        
+
     });
 
     const aqi_query_ref = ref(db, 'air_parameters/aqis');
@@ -171,23 +171,71 @@ onValue(new_ref, (data) => {
         muharraq_co_avg = jsonAQIData[epoch_date]['muharraq']['co'];
         muharraq_pm10_avg = jsonAQIData[epoch_date]['muharraq']['pm10'];
         muharraq_pm25_avg = jsonAQIData[epoch_date]['muharraq']['pm25'];
-        muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'];
+        // muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'];
         capital_aqi_var = jsonAQIData[epoch_date]['capital']['aqi'];
         southern_aqi_var = jsonAQIData[epoch_date]['southern']['aqi'];
         northern_aqi_var = jsonAQIData[epoch_date]['northern']['aqi'];
 
         var aqi_val_element = document.getElementById("aqi_val");
-        var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4; 
-        aqi_val_element.innerHTML = average_aqis.toFixed(3); 
+        var activity_element = document.getElementById("activity_text");
+        var outside_element = document.getElementById("outside_text");
+        var sensitive_element = document.getElementById("sensitive_text");
+        var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
+        aqi_val_element.innerHTML = average_aqis.toFixed(3);
 
-    
+        var concerned_element = document.getElementById("concerned");
+        var advice_element = document.getElementById("advice");
+        var sensitive_element = document.getElementById("sensitive_text");
 
-        
+        // var current_aqi = muharraq_aqi_var; //todo: add code to determine current aqi (gov selected)
+        var muharraq_aqi_var = jsonAQIData['test']['aqi'];
+        if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
+           concerned_element.innerHTML = "";
+           advice_element.innerHTML = "It's a great day to be active outside";
+
+        }
+        else if (muharraq_aqi_var < 101) {
+           concerned_element.innerHTML = "Some people who may be unusually sensitive to particle pollution.";
+           advice_element.innerHTML = "<b>Unusually sensitive people:</b> Consider reducing prolonged or heavy exertion. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. </br> <b>Everyone else:</b> It's a good day to be active outside.";
+
+        }
+        else if (muharraq_aqi_var < 151) {
+            concerned_element.innerHTML = "Sensitive groups include people with heart or lung disease, older adults, children and teenagers.";
+            advice_element.innerHTML = "<b>Sensitive groups:</b> Reduce prolonged or heavy exertion. It's OK to be active outside, but take more breaks and do less intense activities. Watch for symptoms such as coughing or shortness of breath. </br><b> People with asthma </b> should follow their asthma action plans and keep quick relief medicine handy. </br><b>If you have heart disease:</b> Symptoms such as palpitations, shortness of breath, or unusual fatigue may indicate a serious problem. If you have any of these, contact your heath care provider.";
+          
+        }
+        else if (muharraq_aqi_var < 201) {
+            concerned_element.innerHTML = "<b>Everyone</b>";
+            advice_element.innerHTML = "<b>Sensitive groups:</b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling. </br> <b>Everyone else: </b> Reduce prolonged or heavy exertion. Take more breaks during outdoor activities.";
+           
+
+        }
+        else if (muharraq_aqi_var < 301) {
+            concerned_element.innerHTML = "<b>Everyone</b>";
+            advice_element.innerHTML = "<b>Sensitive groups:</b> Avoid all physical activity outdoors. Move activities indoors or reschedule to a time when air quality is better. </br> <b>Everyone else: </b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling to a time when air quality is better.";
+
+        }
+        else if (muharraq_aqi_var < 501) {
+            concerned_element.innerHTML = "<b>Everyone</b>";
+            advice_element.innerHTML = "<b>Everyone:</b> Avoid all physical activity outdoors. </br> <b>Sensitive groups:</b> Remain indoors and keep activity levels low. Follow tips for keeping particle levels low indoors.";
+           
+
+        }
+        else {
+            concerned_element.innerHTML = "<b>Error in data</b>";
+            advice_element.innerHTML = "<b>use other resources</b>";
+           
+
+        }
+
+
+
+
     });
 
-   
-   
+
+
 
 });
 
-export {app, firebaseConfig};
+export { app, firebaseConfig };

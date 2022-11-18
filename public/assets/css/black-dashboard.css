@@ -22490,6 +22490,33 @@ Copyright (c) 2015 Daniel Eden
   height: 5px;
 }
 
+#tips {
+  text-align: left;
+  margin: 0 auto;
+ 
+ 
+}
+#activity_text {
+  color: rgba(255, 255, 255, 0.8);
+}
+#outside_text {
+  color: rgba(255, 255, 255, 0.8);
+}
+#sensitive_text{
+  color: rgba(255, 255, 255, 0.8);
+}
+#tips_exercise {
+ size: 3em;
+}
+#tips_sensitive {
+  size: 3em;
+
+}
+#tips_outside {
+  size: 3em;
+
+}
+
 
 
 
