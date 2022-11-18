@@ -655,6 +655,7 @@ pre code {
   margin-left: -15px;
 }
 
+
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -20950,7 +20951,8 @@ textarea.form-control:active {
 .ques .ques-content {
   opacity: 0;
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
+  overflow-x: hidden;
   transition: opacity 200ms linear, max-height 200ms linear;
   will-change: opacity, max-height;
   
