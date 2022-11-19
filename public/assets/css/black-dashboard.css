@@ -16953,7 +16953,7 @@ img {
 }
 
 .navbar .navbar-brand {
-  position: fixed;
+  /* position: fixed; */
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   color: #ffffff;
