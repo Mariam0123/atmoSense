@@ -200,39 +200,42 @@
               <div class="card-header">
                 <h3 class="card-title"><i class="tim-icons icon-bulb-63 text-warning"></i> Tips and Advice</h3>
               </div>
-              <div class="card-body ml-2 mr-2">
-                <!-- <table id="tips">
-                  <tr>
-                    <td> <i class="fas fa-bicycle text-warning fa-3x ml-2 mr-2" id="tips_exercise"></i></td>
-                    <td> <i class="fas fa-shopping-basket fa-3x text-success ml-2 mr-2" id="tips_outside" ></i></td>
-                    <td> <i class="fas fa-heartbeat fa-3x text-danger ml-2 mr-2" id="tips_sensitive"></i></td> 
-                  </tr>
-
-                  <tr>
-                  <td><span class="ml-2 mr-2" id="concerned"> Info</span></td>
-                  <td><span class="ml-2 mr-2"id="advice"> Info</span></td>
-                  <td><span class="ml-2 mr-2"id="sensitive_text"> Info</span></td> 
-                  </tr>
+              <div class="card-body ml-2 mr-2" id="tips">
+                
+              
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="alert alert-without-icon advice_info" id="aqi_info">
+                    <h4 class="advice_text"> Air Quality Index</h4>
+                    <span  id="aqi_value">100</span>
+                    <span class="ml-2 mr-2">Moderate</span>
+                  </br></br>
+                    <h5 class="advice_text">Primary Pollutant</h5>
+                    <span class="ml-2">PM2.5</span>
+                    <div style="height:34%"></div>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                <div class="alert alert-with-icon advice_info" id="concerned">
+                  <span data-notify="icon" class="fa fa-question fa-2x"></span>
+                  <h4 class="advice_text">Who needs to be concerned?</h4>
+                  <span data-notify="message">Everyone</span>
+                </div>
+                <div class="alert alert-with-icon advice_info" id="advice">
+                  <span data-notify="icon" class="far fa-comment fa-2x"></span>
+                  <h4 class="advice_text"> What should I do?</h4>
+                  <span data-notify="message"><b>Sensitive groups: </b>Avoid prolonged or heavy exertion.
+                    Consider moving activities indoors or rescheduling.
+                  </br></br><b>Everyone else:</b> Reduce prolonged or heavy exertion.
+                    Take more breaks during outdoor activities. </span>
                   
-                </table> -->
-               <table id="tips">
-                  <tr>
-                    <td> <i class="fas fa-bicycle text-warning fa-3x ml-2 mr-2" id="tips_exercise"></i></td>
-                    <td> <i class="fas fa-shopping-basket fa-3x text-success ml-2 mr-2" id="tips_outside" ></i></td>
-                    <td> <i class="fas fa-heartbeat fa-3x text-danger ml-2 mr-2" id="tips_sensitive"></i></td> 
-                  </tr>
-                  <tr> 
-                    <td>Who needs to be concerned? </td>
-                    <td colspan="2"><span class="ml-2 mr-2" id="concerned"></span></td>
-                  </tr>
-                  <tr>
-                    <td>What should I do?</td> 
-                    <td colspan="2"><span class="ml-2 mr-2"id="advice"></span></td>
-                  </tr>
-                  
-              </table>
-
+                </div>
+                
               </div>
+             
+              </div>
+              
+             
 
 
               
@@ -240,12 +243,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <div class="col-lg-6 col-md-12 ">
             <div class="card card-chart">
               <div class="card-header">
                 <h3 class="card-title"><i class="tim-icons icon-bullet-list-67 text-danger"></i> FAQ</h3>
               </div>
-              <div class="card-body ml-2 mr-2"  id="c">
+              <div class="card-body ml-2 mr-2">
                 <div class="ques">
                   <div class="ques-item">
                     <button id="ques-button-1" aria-expanded="false">

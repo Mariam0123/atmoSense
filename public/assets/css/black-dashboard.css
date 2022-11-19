@@ -1102,6 +1102,9 @@ pre code {
 }
 
 @media (min-width: 768px) {
+  #aqi_info {
+    height: 96%;
+  }
   .col-md {
     flex-basis: 0;
     flex-grow: 1;
@@ -1284,6 +1287,10 @@ pre code {
 }
 
 @media (min-width: 992px) {
+  #aqi_info{
+     height: 96%;
+  }
+ 
   .col-lg {
     flex-basis: 0;
     flex-grow: 1;
@@ -22490,44 +22497,31 @@ Copyright (c) 2015 Daniel Eden
   height: 5px;
 }
 
-#tips {
-  text-align: left;
-  margin: 0 auto;
+/* #tips {
+
  
+} */
+.advice_info {
+  border: 2px solid #FE9B58;
+  /* background: #FE9B58;  */
+  /* opacity: 0.8; */
+  
+}
+.advice_text{
+  color: #FE9B58 !important;
+}
+
+#aqi_value{
+  border-radius: 50%;
+  background: rgba(254, 155, 88, 1);
+  /* align-items: center; */
+  width: 5vw;
+  height: 5vh;
+  padding: 2%;
+  color: #000;
+  text-align: center;
+  font-size: 2em;
+  margin: auto !important;
  
 }
-#activity_text {
-  color: rgba(255, 255, 255, 0.8);
-}
-#outside_text {
-  color: rgba(255, 255, 255, 0.8);
-}
-#sensitive_text{
-  color: rgba(255, 255, 255, 0.8);
-}
-#tips_exercise {
- size: 3em;
-}
-#tips_sensitive {
-  size: 3em;
-
-}
-#tips_outside {
-  size: 3em;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
