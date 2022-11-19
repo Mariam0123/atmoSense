@@ -21696,6 +21696,12 @@ Copyright (c) 2015 Daniel Eden
 .white-content .nav-pills .nav-item .nav-link:not(.active):hover {
   background: #cccccc;
 }
+.white-content .advice_info{
+  color: #1d253b;
+}
+.white-content #pollutants_figure{
+  color: #1d253b;
+}
 
 .card {
   background: #27293d;
@@ -22441,60 +22447,65 @@ Copyright (c) 2015 Daniel Eden
   margin: 0 0 5px;
   color: #777;
 }
-#pollutants_body{
+#pollutants_figure {
   display: flex;
   align-content: center;
-  justify-content: center;
-  height: 100vh;
-  font-family: 'Lato', sans-serif;
+  
   color: #fff;
-  /* background-color: #11111a; */
-}
-
-#pollutants_figure {
+ 
   position: relative;
-  display: flex;
+   
   align-self: center;
   justify-content: center;
-  margin: 0;
+  width: 340px;
+  height: 130px;
+ 
 }
 
 #pollutants_figure_svg {
   position: absolute;
-  width: 100px;
-  height:100px;
+  
 }
 
 #pollutants_figure_svg_path {
   transition: all 1s;
+  
 }
 
 #pollutants_figure .text {
   align-self: flex-end;
   text-align: center;
+  align-self: center;
+  
   z-index: 1;
+  
   
 }
 
 #pollutants_figure .percent {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
-  text-align: center;
   display: block;
+  align-self: center;
+
+  text-align: center;
 }
 
 #pollutants_figure .symbol {
   font-size: 13px;
+  align-self: center;
 }
 
 #pollutants_figure .complete {
-  font-size: 26px;
+  font-size: 20px;
   text-align: center;
+  align-self: center;
+
 }
 
 #pollutants_img {
-  width: 5px;
-  height: 5px;
+  width: 10px;
+  height: 10px;
 }
 
 /* #tips {
