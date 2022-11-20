@@ -308,35 +308,32 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4">
                   <div class="alert alert-without-icon advice_info" id="aqi_info">
-                    <h4 class="advice_text"> Air Quality Index</h4>
-                    <span  id="aqi_value">100</span>
-                    <span class="ml-2 mr-2">Moderate</span>
+                    <h4 class="advice_text" id="aqi_header"> Air Quality Index</h4>
+                    <span  id="aqi_value">1</span>
+                    <span id="comment" class="ml-2 mr-2">No data</span>
                   </br></br>
-                    <h5 class="advice_text">Primary Pollutant</h5>
-                    <span class="ml-2">PM2.5</span>
-                    <div style="height:34%"></div>
+                    <h5 class="advice_text" id="pollutant_header">Primary Pollutant</h5>
+                    <span class="ml-2" id="primary_pollutant">None</span>
+                    
                     
                   </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
                 <div class="alert alert-with-icon advice_info" id="concerned">
-                  <span data-notify="icon" class="fa fa-question fa-2x"></span>
-                  <h4 class="advice_text">Who needs to be concerned?</h4>
-                  <span data-notify="message">Everyone</span>
+                  <span data-notify="icon" class="fa fa-question fa-2x" id="icon1" ></span>
+                  <h4 class="advice_text" id="concerned_text_header">Who needs to be concerned?</h4>
+                  <span data-notify="message" id="concerned_text">Error in data.</span>
                 </div>
                 <div class="alert alert-with-icon advice_info" id="advice">
-                  <span data-notify="icon" class="far fa-comment fa-2x"></span>
-                  <h4 class="advice_text"> What should I do?</h4>
-                  <span data-notify="message"><b>Sensitive groups: </b>Avoid prolonged or heavy exertion.
-                    Consider moving activities indoors or rescheduling.
-                  </br></br><b>Everyone else:</b> Reduce prolonged or heavy exertion.
-                    Take more breaks during outdoor activities. </span>
-                  </div>
-                  <h6>Reference: <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiQweXY17z7AhWH6aQKHRvhBgcQFnoECBEQAQ&url=https%3A%2F%2Fwww.airnow.gov%2Fsites%2Fdefault%2Ffiles%2F2021-03%2Fair-quality-guide_pm_2015_0.pdf&usg=AOvVaw19lLv5AtX1hH1WfqrowneA">Air Quality Guide for Particle Pollution</h6></a>
+                  <span data-notify="icon" class="far fa-comment fa-2x " id="icon2"></span>
+                  <h4 class="advice_text" id="advice_text_header"> What should I do?</h4>
+                  <span data-notify="message" id="advice_text">Use other resources.</span>
+                </div>
                 
               </div>
-             
-              </div>
+              
+            </div>
+            <p style=" margin: auto !important;">Reference: <a target="_blank" href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiQweXY17z7AhWH6aQKHRvhBgcQFnoECBEQAQ&url=https%3A%2F%2Fwww.airnow.gov%2Fsites%2Fdefault%2Ffiles%2F2021-03%2Fair-quality-guide_pm_2015_0.pdf&usg=AOvVaw19lLv5AtX1hH1WfqrowneA">Air Quality Guide for Particle Pollution</p></a>
               
              
 
@@ -351,7 +348,7 @@
               <div class="card-header">
                 <h3 class="card-title"><i class="tim-icons icon-bullet-list-67 text-danger"></i> FAQ</h3>
               </div>
-              <div class="card-body ml-2 mr-2" >
+              <div class="card-body ml-2 mr-3" >
                 <div class="ques">
                   <div class="ques-item">
                     <button id="ques-button-1" aria-expanded="false">
@@ -438,7 +435,7 @@
               <div class="card-header">
                 <h3 class="card-title"><i class="tim-icons icon-alert-circle-exc text-primary"></i> About AtmoSense</h3>
            </div>
-              <div class="card-body ml-2 mr-2">
+              <div class="card-body ml-2 mr-3">
                 <p align="justify">
                   Most people are suffering from health problems but can't find a reason for their symptoms. 
                   Research shows there is a big link between low air quality and diseases affecting the lungs and heart. 

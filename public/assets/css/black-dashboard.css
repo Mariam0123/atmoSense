@@ -22508,31 +22508,102 @@ Copyright (c) 2015 Daniel Eden
   height: 10px;
 }
 
-/* #tips {
-
- 
-} */
-.advice_info {
-  border: 2px solid #FE9B58;
-  /* background: #FE9B58;  */
-  /* opacity: 0.8; */
-  
-}
-.advice_text{
-  color: #FE9B58 !important;
-}
 
 #aqi_value{
   border-radius: 50%;
-  background: rgba(254, 155, 88, 1);
-  /* align-items: center; */
-  width: 5vw;
-  height: 5vh;
-  padding: 2%;
-  color: #000;
+  width: 6vw;
+  height: 6vh;
+  padding: 3%;
+  color: #fff;
   text-align: center;
   font-size: 2em;
   margin: auto !important;
  
 }
+
+#advice_info_header {
+  color: #f5365c;
+}
+.advice_icon {
+  color: #f5365c;
+}
+
+
+/* 
+.advice_info h4{
+  color: #f5365c;
+}
+
+.advice_info .advice_icon{
+  color: #f5365c;
+}
+.advice_info h5{
+  color: #f5365c;
+} */
+
+/* .good + .advice_info{
+  border: 2px solid #A0DC65 !important;
+  
+}
+.good + .advice_info h4{
+  color: #A0DC65 !important;
+}
+
+.good + .advice_icon + .advice_info {
+  color: #A0DC65 !important;
+}
+.good + .advice_info  h5{
+  color: #A0DC65 !important;
+} */
+
+/* .good {
+  border: 2px solid #A0DC65 !important;
+} */
+/* .good .advice_info {
+  border: 2px solid #A0DC65 !important;
+}
+.good {
+  color:#A0DC65 !important;
+}
+.good #aqi_value {
+  background: #A0DC65;
+
+}
+
+.unhealthy_sensitive {
+  color:#FDD853 !important;
+  border: 2px solid #FDD853;
+} 
+.unhealthy_sensitive h4 {
+  color:#FDD853 !important;
+}
+.moderate {
+  color:#FE9B58 !important;
+  border: 2px solid #FE9B58;
+}
+.moderate h4 {
+  color:#FE9B58 !important;
+}
+.unhealthy {
+  color:#FF6C70 !important;
+  border: 2px solid #FF6C70;
+}
+.unhealthy h4 {
+  color:#FF6C70 !important;
+}
+
+.vunhealthy {
+  color:#A87CBD !important;
+  border: 2px solid #A87CBD;
+}
+.vunhealthy h4 {
+  color:#A87CBD !important;
+}
+.hazardous {
+  color:#800000 !important;
+  border: 2px solid #800000;
+} 
+.hazardous h4 {
+  color:#800000 !important;
+} */
 

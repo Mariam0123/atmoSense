@@ -23,6 +23,113 @@ var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25
 var epoch_day, day, epoch_date;
 var muharraq_co_sum = 0, muharraq_pm25_sum = 0, muharraq_pm10_sum = 0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0, day;
 
+var concerned_element = document.getElementById("concerned_text");
+var advice_element = document.getElementById("advice_text");
+var advice_header = document.getElementById("advice_text_header");
+var concerned_header = document.getElementById("concerned_text_header");
+var aqi_header = document.getElementById("aqi_header");
+var pollutant_header = document.getElementById("pollutant_header");
+var icon1 = document.getElementById("icon1");
+var icon2 = document.getElementById("icon2");
+const concerned = ["Air quality is great!", "Some people who may be unusually sensitive to particle pollution.", "Sensitive groups include people with heart or lung disease, older adults, children and teenagers.", "Everyone"];
+const advice = ["It's a great day to be active outside.", "<b>Unusually sensitive people:</b> Consider reducing prolonged or heavy exertion. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. </br></br><b>Everyone else: </b> It's a good day to be active outside.", "<b>Sensitive groups: </b>Reduce prolonged or heavy exertion. It's OK to be active outside, but take more breaks and do less intense activities. Watch for symptoms such as coughing or shortness of breath. </br></br><b>People with asthma </b>should follow their asthma action plans and keep quick relief medicine handy. </br></br><b>If you have heart disease: </b>Symptoms such as palpitations, shortness of breath, or unusual fatigue may indicate a serious problem. If you have any of these, contact your heath care provider.", "<b>Sensitive groups:</b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling. </b><b>Everyone else:</b> Reduce prolonged or heavy exertion. Take more breaks during outdoor activities.", "<b>Sensitive groups:</b> Avoid all physical activity outdoors. Move activities indoors or reschedule to a time when air quality is better. </br></br><b>Everyone else: </b>Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling to a time when air quality is better.", "<b>Everyone:</b> Avoid all physical activity outdoors. </br></br><b>Sensitive groups:</b> Remain indoors and keep activity levels low. Make sure particle pollution indoors is low. "];
+function muharraq_update() {
+    if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
+        concerned_element.innerHTML = concerned[0];
+        advice_element.innerHTML = advice[0];
+
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Good";
+
+        $('#aqi_value').css({ 'background': '#A0DC65' });
+        advice_header.style.color = "#A0DC65";
+        concerned_header.style.color = "#A0DC65";
+        aqi_header.style.color = "#A0DC65";
+        pollutant_header.style.color = "#A0DC65";
+        icon1.style.color = "#A0DC65";
+        icon2.style.color = "#A0DC65";
+      
+    }
+    else if (muharraq_aqi_var < 101) {
+        concerned_element.innerHTML = concerned[1];
+        advice_element.innerHTML = advice[1];
+       
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Moderate";
+
+        $('#aqi_value').css({ 'background': '#FDD853' });
+        advice_header.style.color = "#FDD853";
+        concerned_header.style.color = "#FDD853";
+        aqi_header.style.color = "#FDD853";
+        pollutant_header.style.color = "#FDD853";
+        icon1.style.color = "#FDD853";
+        icon2.style.color = "#FDD853";
+        
+    }
+    else if (muharraq_aqi_var < 151) {
+        concerned_element.innerHTML = concerned[2];
+        advice_element.innerHTML = advice[2];
+
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Unhealthy for Sensitive Groups";
+
+        $('#aqi_value').css({ 'background': '#FE9B58' });
+        advice_header.style.color = "#FE9B58";
+        concerned_header.style.color = "#FE9B58";
+        aqi_header.style.color = "#FE9B58";
+        pollutant_header.style.color = "#FE9B58";
+        icon1.style.color = "#FE9B58";
+        icon2.style.color = "#FE9B58";
+      
+    }
+    else if (muharraq_aqi_var < 201) {
+        concerned_element.innerHTML = concerned[3];
+        advice_element.innerHTML = advice[3];
+
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Unhealthy";
+
+        $('#aqi_value').css({ 'background': '#FF6C70' });
+        advice_header.style.color = "#FF6C70";
+        concerned_header.style.color = "#FF6C70";
+        aqi_header.style.color = "#FF6C70";
+        pollutant_header.style.color = "#FF6C70";
+        icon1.style.color = "#FF6C70";
+        icon2.style.color = "#FF6C70";
+
+    }
+    else if (muharraq_aqi_var < 301) {
+        concerned_element.innerHTML = concerned[3];
+        advice_element.innerHTML = advice[4];
+
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Very Unhealthy";
+
+        $('#aqi_value').css({ 'background': '#A87CBD' });
+        advice_header.style.color = "#A87CBD";
+        concerned_header.style.color = "#A87CBD";
+        aqi_header.style.color = "#A87CBD";
+        pollutant_header.style.color = "#A87CBD";
+        icon1.style.color = "#A87CBD";
+        icon2.style.color = "#A87CBD";
+
+    }
+    else if (muharraq_aqi_var < 501) {
+        concerned_element.innerHTML = concerned[3];
+        advice_element.innerHTML = advice[5];
+
+        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("comment").innerHTML = "Hazardous";
+
+        $('#aqi_value').css({ 'background': '#800000' });
+        advice_header.style.color = "#800000";
+        concerned_header.style.color = "#800000";
+        aqi_header.style.color = "#800000";
+        pollutant_header.style.color = "#800000";
+        icon1.style.color = "#800000";
+        icon2.style.color = "#800000";
+    }
+}
 
 function pm10_values(pm10_var) {
     if (pm10_var > 0 && pm10_var < 55) { BPhi_pm10 = 54; BPlo_pm10 = 0; Ihi_pm10 = 50; Ilo_pm10 = 0; }
@@ -51,6 +158,8 @@ function co_values(co_var) {
     else if (co_var < 40.5) { BPhi_co = 40.4; BPlo_co = 30.5; Ihi_co = 400; Ilo_co = 301; }
     else { BPhi_co = 50.4; BPlo_co = 40.5; Ihi_co = 500; Ilo_co = 401; }
 }
+
+
 
 const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(1));
 
@@ -171,62 +280,16 @@ onValue(new_ref, (data) => {
         muharraq_co_avg = jsonAQIData[epoch_date]['muharraq']['co'];
         muharraq_pm10_avg = jsonAQIData[epoch_date]['muharraq']['pm10'];
         muharraq_pm25_avg = jsonAQIData[epoch_date]['muharraq']['pm25'];
-        // muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'];
+        muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'];
         capital_aqi_var = jsonAQIData[epoch_date]['capital']['aqi'];
         southern_aqi_var = jsonAQIData[epoch_date]['southern']['aqi'];
         northern_aqi_var = jsonAQIData[epoch_date]['northern']['aqi'];
 
         var aqi_val_element = document.getElementById("aqi_val");
-        var activity_element = document.getElementById("activity_text");
-        var outside_element = document.getElementById("outside_text");
-        var sensitive_element = document.getElementById("sensitive_text");
         var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
         aqi_val_element.innerHTML = average_aqis.toFixed(3);
 
-        var concerned_element = document.getElementById("concerned");
-        var advice_element = document.getElementById("advice");
-        var sensitive_element = document.getElementById("sensitive_text");
-
-        // var current_aqi = muharraq_aqi_var; //todo: add code to determine current aqi (gov selected)
-        var muharraq_aqi_var = jsonAQIData['test']['aqi'];
-        if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
-           concerned_element.innerHTML = "";
-           advice_element.innerHTML = "It's a great day to be active outside";
-
-        }
-        else if (muharraq_aqi_var < 101) {
-           concerned_element.innerHTML = "Some people who may be unusually sensitive to particle pollution.";
-           advice_element.innerHTML = "<b>Unusually sensitive people:</b> Consider reducing prolonged or heavy exertion. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. </br> <b>Everyone else:</b> It's a good day to be active outside.";
-
-        }
-        else if (muharraq_aqi_var < 151) {
-            concerned_element.innerHTML = "Sensitive groups include people with heart or lung disease, older adults, children and teenagers.";
-            advice_element.innerHTML = "<b>Sensitive groups:</b> Reduce prolonged or heavy exertion. It's OK to be active outside, but take more breaks and do less intense activities. Watch for symptoms such as coughing or shortness of breath. </br><b> People with asthma </b> should follow their asthma action plans and keep quick relief medicine handy. </br><b>If you have heart disease:</b> Symptoms such as palpitations, shortness of breath, or unusual fatigue may indicate a serious problem. If you have any of these, contact your heath care provider.";
-          
-        }
-        else if (muharraq_aqi_var < 201) {
-            concerned_element.innerHTML = "<b>Everyone</b>";
-            advice_element.innerHTML = "<b>Sensitive groups:</b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling. </br> <b>Everyone else: </b> Reduce prolonged or heavy exertion. Take more breaks during outdoor activities.";
-           
-
-        }
-        else if (muharraq_aqi_var < 301) {
-            concerned_element.innerHTML = "<b>Everyone</b>";
-            advice_element.innerHTML = "<b>Sensitive groups:</b> Avoid all physical activity outdoors. Move activities indoors or reschedule to a time when air quality is better. </br> <b>Everyone else: </b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling to a time when air quality is better.";
-
-        }
-        else if (muharraq_aqi_var < 501) {
-            concerned_element.innerHTML = "<b>Everyone</b>";
-            advice_element.innerHTML = "<b>Everyone:</b> Avoid all physical activity outdoors. </br> <b>Sensitive groups:</b> Remain indoors and keep activity levels low. Follow tips for keeping particle levels low indoors.";
-           
-
-        }
-        else {
-            concerned_element.innerHTML = "<b>Error in data</b>";
-            advice_element.innerHTML = "<b>use other resources</b>";
-           
-
-        }
+        muharraq_update();
 
 
 
