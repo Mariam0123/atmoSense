@@ -22,7 +22,7 @@ var time_var, temp_var, hum_var, co2_var, co_var, formaldahide_var, tvoc_var, pm
 var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_co, BPlo_co, BPhi_pm25, BPlo_pm10;
 var epoch_day, day, epoch_date;
 var muharraq_co_sum = 0, muharraq_pm25_sum = 0, muharraq_pm10_sum = 0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0, day;
-var primary_pollutant; 
+var primary_pollutant;
 
 var concerned_element = document.getElementById("concerned_text");
 var advice_element = document.getElementById("advice_text");
@@ -35,10 +35,27 @@ var icon2 = document.getElementById("icon2");
 const concerned = ["Air quality is great!", "Some people who may be unusually sensitive to particle pollution.", "Sensitive groups include people with heart or lung disease, older adults, children and teenagers.", "Everyone"];
 const advice = ["It's a great day to be active outside.", "<b>Unusually sensitive people:</b> Consider reducing prolonged or heavy exertion. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. </br></br><b>Everyone else: </b> It's a good day to be active outside.", "<b>Sensitive groups: </b>Reduce prolonged or heavy exertion. It's OK to be active outside, but take more breaks and do less intense activities. Watch for symptoms such as coughing or shortness of breath. </br></br><b>People with asthma </b>should follow their asthma action plans and keep quick relief medicine handy. </br></br><b>If you have heart disease: </b>Symptoms such as palpitations, shortness of breath, or unusual fatigue may indicate a serious problem. If you have any of these, contact your heath care provider.", "<b>Sensitive groups:</b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling. </b><b>Everyone else:</b> Reduce prolonged or heavy exertion. Take more breaks during outdoor activities.", "<b>Sensitive groups:</b> Avoid all physical activity outdoors. Move activities indoors or reschedule to a time when air quality is better. </br></br><b>Everyone else: </b>Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling to a time when air quality is better.", "<b>Everyone:</b> Avoid all physical activity outdoors. </br></br><b>Sensitive groups:</b> Remain indoors and keep activity levels low. Make sure particle pollution indoors is low. "];
 function muharraq_update() {
-    if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
+    if (muharraq_aqi_var < 1 || muharraq_aqi_var > 500) {
+
+        concerned_element.innerHTML = "Error in data";
+        advice_element.innerHTML = "Please use other resources.";
+
+        document.getElementById("aqi_value_text").innerHTML = "-";
+        document.getElementById("comment").innerHTML = "";
+
+        $('#aqi_value').css({ 'background': '#f5365c ' });
+        advice_header.style.color = "#f5365c ";
+        concerned_header.style.color = "#f5365c ";
+        aqi_header.style.color = "#f5365c ";
+        pollutant_header.style.color = "#f5365c ";
+        icon1.style.color = "#f5365c ";
+        icon2.style.color = "#f5365c ";
+
+    }
+    else if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
         concerned_element.innerHTML = concerned[0];
         advice_element.innerHTML = advice[0];
-        document.getElementById("aqi_value_text").innerHTML =Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Good";
 
         $('#aqi_value').css({ 'background': '#A0DC65' });
@@ -48,12 +65,12 @@ function muharraq_update() {
         pollutant_header.style.color = "#A0DC65";
         icon1.style.color = "#A0DC65";
         icon2.style.color = "#A0DC65";
-      
+
     }
     else if (muharraq_aqi_var < 101) {
         concerned_element.innerHTML = concerned[1];
         advice_element.innerHTML = advice[1];
-       
+
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Moderate";
 
@@ -64,7 +81,7 @@ function muharraq_update() {
         pollutant_header.style.color = "#FDD853";
         icon1.style.color = "#FDD853";
         icon2.style.color = "#FDD853";
-        
+
     }
     else if (muharraq_aqi_var < 151) {
         concerned_element.innerHTML = concerned[2];
@@ -80,7 +97,7 @@ function muharraq_update() {
         pollutant_header.style.color = "#FE9B58";
         icon1.style.color = "#FE9B58";
         icon2.style.color = "#FE9B58";
-      
+
     }
     else if (muharraq_aqi_var < 201) {
         concerned_element.innerHTML = concerned[3];
@@ -129,6 +146,7 @@ function muharraq_update() {
         icon1.style.color = "#d10404 ";
         icon2.style.color = "#d10404 ";
     }
+
 }
 
 function pm10_values(pm10_var) {
@@ -239,10 +257,10 @@ onValue(new_ref, (data) => {
             muharraq_aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (muharraq_pm25_avg - BPlo_pm25) + Ilo_pm25;
             muharraq_aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (muharraq_co_avg - BPlo_co) + Ilo_co;
             muharraq_aqi_var = Math.max(muharraq_aqi_co, muharraq_aqi_pm10, muharraq_aqi_pm25);
-           
-            
+
+
             const aqi_set_ref = ref(db, 'air_parameters/aqis/' + epoch_date);
-           
+
             set(aqi_set_ref,
                 {
                     "muharraq": {
@@ -290,14 +308,19 @@ onValue(new_ref, (data) => {
         var aqi_val_element = document.getElementById("aqi_val");
         var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
         aqi_val_element.innerHTML = Math.round(average_aqis);
-        
+
         var pollutant_array = ["CO", "PM10", "PM2.5"];
         var pollutant_values = [muharraq_co_avg.valueOf(), muharraq_pm10_avg.valueOf(), muharraq_pm25_avg.valueOf()];
-
-        var maxIndex = pollutant_values.indexOf(Math.max.apply(Math, pollutant_values));
-        var primary_pollutant = pollutant_array[maxIndex];
         var prim_poll = document.getElementById("primary_pollutant");
-        prim_poll.innerHTML = primary_pollutant;
+        var maximum = Math.max.apply(Math, pollutant_values);
+        if (muharraq_aqi_var < 1 || muharraq_aqi_var >500 ) {
+            prim_poll.innerHTML = "Error";
+        }
+        else {
+            var maxIndex = pollutant_values.indexOf(maximum);
+            var primary_pollutant = pollutant_array[maxIndex];
+            prim_poll.innerHTML = primary_pollutant;
+        }
 
         muharraq_update();
 
