@@ -22,6 +22,7 @@ var time_var, temp_var, hum_var, co2_var, co_var, formaldahide_var, tvoc_var, pm
 var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_co, BPlo_co, BPhi_pm25, BPlo_pm10;
 var epoch_day, day, epoch_date;
 var muharraq_co_sum = 0, muharraq_pm25_sum = 0, muharraq_pm10_sum = 0, muharraq_co_avg, muharraq_pm25_avg, muharraq_pm10_avg, muharraq_aqi_avg, muharraq_aqi_pm10, muharraq_aqi_pm25, muharraq_aqi_co, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0, day;
+var primary_pollutant; 
 
 var concerned_element = document.getElementById("concerned_text");
 var advice_element = document.getElementById("advice_text");
@@ -37,8 +38,7 @@ function muharraq_update() {
     if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
         concerned_element.innerHTML = concerned[0];
         advice_element.innerHTML = advice[0];
-
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML =Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Good";
 
         $('#aqi_value').css({ 'background': '#A0DC65' });
@@ -54,7 +54,7 @@ function muharraq_update() {
         concerned_element.innerHTML = concerned[1];
         advice_element.innerHTML = advice[1];
        
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Moderate";
 
         $('#aqi_value').css({ 'background': '#FDD853' });
@@ -70,7 +70,7 @@ function muharraq_update() {
         concerned_element.innerHTML = concerned[2];
         advice_element.innerHTML = advice[2];
 
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Unhealthy for Sensitive Groups";
 
         $('#aqi_value').css({ 'background': '#FE9B58' });
@@ -86,7 +86,7 @@ function muharraq_update() {
         concerned_element.innerHTML = concerned[3];
         advice_element.innerHTML = advice[3];
 
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Unhealthy";
 
         $('#aqi_value').css({ 'background': '#FF6C70' });
@@ -102,7 +102,7 @@ function muharraq_update() {
         concerned_element.innerHTML = concerned[3];
         advice_element.innerHTML = advice[4];
 
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Very Unhealthy";
 
         $('#aqi_value').css({ 'background': '#A87CBD' });
@@ -118,16 +118,16 @@ function muharraq_update() {
         concerned_element.innerHTML = concerned[3];
         advice_element.innerHTML = advice[5];
 
-        document.getElementById("aqi_value").innerHTML = Math.round(muharraq_aqi_var);
+        document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
         document.getElementById("comment").innerHTML = "Hazardous";
 
-        $('#aqi_value').css({ 'background': '#800000' });
-        advice_header.style.color = "#800000";
-        concerned_header.style.color = "#800000";
-        aqi_header.style.color = "#800000";
-        pollutant_header.style.color = "#800000";
-        icon1.style.color = "#800000";
-        icon2.style.color = "#800000";
+        $('#aqi_value').css({ 'background': '#d10404 ' });
+        advice_header.style.color = "#d10404 ";
+        concerned_header.style.color = "#d10404 ";
+        aqi_header.style.color = "#d10404 ";
+        pollutant_header.style.color = "#d10404 ";
+        icon1.style.color = "#d10404 ";
+        icon2.style.color = "#d10404 ";
     }
 }
 
@@ -239,8 +239,10 @@ onValue(new_ref, (data) => {
             muharraq_aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (muharraq_pm25_avg - BPlo_pm25) + Ilo_pm25;
             muharraq_aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (muharraq_co_avg - BPlo_co) + Ilo_co;
             muharraq_aqi_var = Math.max(muharraq_aqi_co, muharraq_aqi_pm10, muharraq_aqi_pm25);
-
+           
+            
             const aqi_set_ref = ref(db, 'air_parameters/aqis/' + epoch_date);
+           
             set(aqi_set_ref,
                 {
                     "muharraq": {
@@ -277,9 +279,9 @@ onValue(new_ref, (data) => {
     const aqi_query_ref = ref(db, 'air_parameters/aqis');
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
-        muharraq_co_avg = jsonAQIData[epoch_date]['muharraq']['co'];
-        muharraq_pm10_avg = jsonAQIData[epoch_date]['muharraq']['pm10'];
-        muharraq_pm25_avg = jsonAQIData[epoch_date]['muharraq']['pm25'];
+        muharraq_co_avg = jsonAQIData[epoch_date]['muharraq']['co_aqi'];
+        muharraq_pm10_avg = jsonAQIData[epoch_date]['muharraq']['pm10_aqi'];
+        muharraq_pm25_avg = jsonAQIData[epoch_date]['muharraq']['pm25_aqi'];
         muharraq_aqi_var = jsonAQIData[epoch_date]['muharraq']['aqi'];
         capital_aqi_var = jsonAQIData[epoch_date]['capital']['aqi'];
         southern_aqi_var = jsonAQIData[epoch_date]['southern']['aqi'];
@@ -287,9 +289,18 @@ onValue(new_ref, (data) => {
 
         var aqi_val_element = document.getElementById("aqi_val");
         var average_aqis = (muharraq_aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
-        aqi_val_element.innerHTML = average_aqis.toFixed(3);
+        aqi_val_element.innerHTML = Math.round(average_aqis);
+        
+        var pollutant_array = ["CO", "PM10", "PM2.5"];
+        var pollutant_values = [muharraq_co_avg.valueOf(), muharraq_pm10_avg.valueOf(), muharraq_pm25_avg.valueOf()];
+
+        var maxIndex = pollutant_values.indexOf(Math.max.apply(Math, pollutant_values));
+        var primary_pollutant = pollutant_array[maxIndex];
+        var prim_poll = document.getElementById("primary_pollutant");
+        prim_poll.innerHTML = primary_pollutant;
 
         muharraq_update();
+
 
 
 
