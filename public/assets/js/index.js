@@ -203,10 +203,22 @@ onValue(new_ref, (data) => {
     var temp_element = document.getElementById('temp');
     var hum_element = document.getElementById('hum');
     var date_time_element = document.getElementById("date_time");
+    var co_element = document.getElementById("co_value");
+    var co2_element = document.getElementById("co2_value");
+    var formaldahide_element = document.getElementById("formaldahide_value");
+    var pm25_element = document.getElementById("pm25_value");
+    var pm10_element = document.getElementById("pm10_value");
+    var tvoc_element = document.getElementById("tvoc_value");
 
     temp_element.innerHTML = temp_var + "°C";
     hum_element.innerHTML = hum_var + "%";
     date_time_element.innerHTML = d.toLocaleString("en-GB", options);
+    co_element.innerHTML = co_var +"<span class='unit'>ppm</span>";
+    co2_element.innerHTML = co2_var+'<span class="unit">ppm</span>';
+    formaldahide_element.innerHTML = formaldahide_var + '<span class="unit">µg/m³</span>';
+    pm25_element.innerHTML = pm25_var + '<span class="unit">µg/m³</span>';
+    pm10_element.innerHTML = pm10_var + '<span class="unit">µg/m³</span>';
+    tvoc_element.innerHTML = tvoc_var+ '<span class="unit">µg/m³</span>';
     co_values(co_var);
     pm10_values(pm10_var);
     pm25_values(pm25_var);

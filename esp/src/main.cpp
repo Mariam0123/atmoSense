@@ -5,7 +5,7 @@
 #include <TinyGPSPlus.h>
 
 const char* ntpServer = "pool.ntp.org";
-const long gmtOffset_sec = 10800; // GMT+3
+const long gmtOffset_sec = 108000; // GMT+3
 const int  daylightOffset_sec = 0;
 
 #define RX 9 // fourth from down left
@@ -26,8 +26,8 @@ RTC_DATA_ATTR int wakeupCount = 0;
 #define USER_EMAIL "itcs330project@gmail.com"
 #define USER_PASSWORD "authenticationtime0841"
 
-#define WIFI_SSID "Galaxy Note10 Lite8e6a"
-#define WIFI_PASSWORD "gcvp0260"
+#define WIFI_SSID "Zoeilm"
+#define WIFI_PASSWORD "hellojavaworld"
 
 FirebaseData firebaseData;
 FirebaseJson json;
@@ -216,27 +216,39 @@ void print_to_serial(){
 
 }
 
-void send_to_firebase(){
-  if (Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/co", co)  
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/co2", co2)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/formaldahide", formaldahide)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/hum", total_hum)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/lat", lat)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/lon", lon)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/pm10", pm10)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/pm25", pm25)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/temp", total_temp)
-  && Firebase.setFloat (firebaseData, "/air_parameters/values/" + String(Epoch_Time) + "/tvoc", tvoc))
+// void send_to_firebase(){
+//   if (Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/co"), co)  
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/co2"), co2)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/formaldahide"), formaldahide)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/hum"), total_hum)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/lat"), lat)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/lon"), lon)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/pm10"), pm10)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/pm25"), pm25)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/temp"), total_temp)
+//   && Firebase.setFloat (firebaseData, ("/air_parameters/values/" + String(Epoch_Time) + "/tvoc"), tvoc))
 
-  {
-    Serial.println("PASSED");
-    Serial.println("------------------------------------");
-    Serial.println();
+//   {
+//     Serial.println("PASSED");
+//     Serial.println("------------------------------------");
+//     Serial.println();
+//   }
+//   else 
+//   {
+//     Serial.println("FAILED");
+//     Serial.println("REASON: " + firebaseData.errorReason());
+//     Serial.println("------------------------------------");
+//     Serial.println();
+//   }
+// }
+
+void send_to_firebase() {
+  if (Firebase.setFloat(firebaseData, "/air_parameters/values/", 0.5)){
+    Serial.println("OK");
   }
-  else 
-  {
-    Serial.println("FAILED");
-    Serial.println("REASON: " + firebaseData.errorReason());
+  else {
+     Serial.println("FAILED");
+    Serial.println(firebaseData.errorReason());
     Serial.println("------------------------------------");
     Serial.println();
   }
@@ -244,39 +256,44 @@ void send_to_firebase(){
 
 void setup() {
   Serial.begin(9600);
-  Serial1.begin(9600, SERIAL_8N1, RX, TX ); // serial for SM300D2
-  Serial2.begin(9600); //gps serial
-
-  configTime(3, 0, ntpServer);
+  // Serial1.begin(9600, SERIAL_8N1, RX, TX ); // serial for SM300D2
+  // Serial2.begin(9600); //gps serial
+  // configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   wifi_connect();
   Epoch_Time = Get_Epoch_Time();
-  get_coordinates();
-  sm_sensor_read();
-  mq_sensor_read();
+  // get_coordinates();
+  // sm_sensor_read();
+  // mq_sensor_read();
   print_to_serial();
-  ++wakeupCount;
-  if (wakeupCount >1) // return back to >3
-  {
-    if (checksum !=0){
-      if (calculated_checksum == checksum){
-        config.api_key = API_KEY;
-        auth.user.email = USER_EMAIL;
-        auth.user.password = USER_PASSWORD;
-        Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-        Firebase.reconnectWiFi(true);
-        send_to_firebase();
-      }
-      else {
-        Serial.println("Incorrect Checksum");
-      }
-    }
-    else {
-      Serial.println("Zero readings");
-    }
-  }
-  else{
-    Serial.println("Not warmed up yet");
-  }
+  // ++wakeupCount;
+  // config.api_key = API_KEY;
+  // auth.user.email = USER_EMAIL;
+  // auth.user.password = USER_PASSWORD;
+  // Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  // Firebase.reconnectWiFi(true);
+  // send_to_firebase();
+  // if (wakeupCount >1) // return back to >3
+  // {
+  //   if (checksum !=0){
+  //     if (calculated_checksum == checksum){
+  //       config.api_key = API_KEY;
+  //       auth.user.email = USER_EMAIL;
+  //       auth.user.password = USER_PASSWORD;
+  //       Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  //       Firebase.reconnectWiFi(true);
+  //       send_to_firebase();
+  //     }
+  //     else {
+  //       Serial.println("Incorrect Checksum");
+  //     }
+  //   }
+  //   else {
+  //     Serial.println("Zero readings");
+  //   }
+  // }
+  // else{
+  //   Serial.println("Not warmed up yet");
+  // }
   
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * us_to_s);
   Serial.println("GOING TO SLEEP");
