@@ -21258,6 +21258,7 @@ Copyright (c) 2015 Daniel Eden
 
 .white-content .font-icon-detail i {
   color: #222a42;
+  text-align: left;
 }
 
 .white-content .btn:not([data-action]):hover {
@@ -22553,6 +22554,24 @@ Copyright (c) 2015 Daniel Eden
 }
 .advice_icon {
   color: #f5365c;
+}
+
+.test {
+  
+  margin-left: 5%;
+  text-align: left;
+  text-decoration: underline;
+  color: #fff !important;
+}
+.unit {
+  font-size: 0.6em;
+  color: #fff ;
+}
+.font-icon-detail p {
+  color: white !important;
+  font-size: 1em;
+  margin-top: -2%;
+  /* text-align: center; */
 }
 
 

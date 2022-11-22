@@ -16,312 +16,277 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1,
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,
       shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76"
-      href="./assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-    <title>
-      AtmoSense Dashboard
-    </title>
-    <!--     Fonts and icons     -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800"
-      rel="stylesheet" />
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
-      rel="stylesheet">
-    <!-- Nucleo Icons -->
-    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="./assets/demo/demo.css" rel="stylesheet" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <title>
+    AtmoSense Dashboard
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="./assets/demo/demo.css" rel="stylesheet" />
 
-    <link rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-      integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-      crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
 
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-      integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-      crossorigin=""></script>
-  </head>
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+</head>
 
-  <body class="">
-    <div class="wrapper">
+<body class="">
+  <div class="wrapper">
 
-      <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-expand-lg
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-md navbar-expand-lg
           navbar-transparent">
-          <div class="container-fluid">
-            <a href="index.html"> <i class="fas fa-home fa-2x text-primary"></i></a>
-            <div class="navbar-wrapper">
-              <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-              data-target="#navigation"
-              aria-expanded="false" aria-label="Toggle navigation">
+        <div class="container-fluid">
+          <a href="index.html"> <i class="fas fa-home fa-2x text-primary"></i></a>
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+            aria-expanded="false" aria-label="Toggle navigation">
 
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-
-            </div>
-
-
-
-
+          </button>
+          <div class="collapse navbar-collapse" id="navigation">
 
           </div>
-        </nav>
-        <div class="modal modal-search fade" id="searchModal" tabindex="-1"
-          role="dialog" aria-labelledby="searchModal"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <input type="text" class="form-control"
-                  id="inlineFormInputGroup" placeholder="SEARCH">
-                <button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close">
-                  <i class="tim-icons icon-simple-remove"></i>
-                </button>
+
+
+
+
+
+        </div>
+      </nav>
+      <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h3 class="card-title"><i class="tim-icons icon-molecule-40
+                      text-warning"></i> ㅤㅤㅤㅤㅤㅤㅤㅤㅤ <span id="governerate"></span></h3>
+              </div>
+              <div class="card-body ml-2 mr-2">
+                <div class="">
+                  <div class="alert alert-primary mb-4">
+                    <span><b> Last Synched - </b> <span id="date_time"></span></span>
+                  </div>
+                  <div class="alert alert-primary mb-4">
+                    <span><b> Temperature - </b> <span id="temp"></span></span>
+                  </div>
+                  <div class="alert alert-primary mb-4">
+                    <span><b> Humidity - </b> <span id="hum"></span></span>
+                  </div>
+                  <div class="alert alert-primary mb-4">
+                    <span><b> Average AQI - </b> <span id="aqi_val"></span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h3 class="card-title"><i class="tim-icons icon-square-pin
+                      text-primary"></i> Live Map</h3>
+              </div>
+              <div class="card-body">
+                <div class="map mb-2 ml-2 mr-2">
+                  <div id="map" style=" border-radius: 0.2857rem;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h3 class="card-title"><i class="tim-icons icon-sound-wave
+                          text-info"></i> AQI Chart</h3>
+
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                        <input type="radio" name="options" value="muharraq" checked>
+                        <span class="d-block d-sm-none d-none d-sm-block
+                            d-md-block d-lg-block d-xl-block">Muharraq</span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="1">
+                        <input type="radio" class="d-none d-sm-none" value="capital" name="options">
+                        <span class="d-block d-sm-none d-none d-sm-block
+                            d-md-block d-lg-block d-xl-block">Capital</span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="2">
+                        <input type="radio" class="d-none" value="northern" name="options">
+                        <span class="d-block d-sm-none d-none d-sm-block
+                            d-md-block d-lg-block d-xl-block">Northern</span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="3">
+                        <input type="radio" class="d-none" value="southern" name="options">
+                        <span class="d-block d-sm-none d-none d-sm-block
+                            d-md-block d-lg-block d-xl-block">Southern</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="aqi_chart"></canvas>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- End Navbar -->
-        <div class="content">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="card card-chart">
-                <div class="card-header">
-                  <h3 class="card-title"><i class="tim-icons icon-molecule-40
-                      text-warning"></i> ㅤㅤㅤㅤㅤㅤㅤㅤㅤ <span
-                      id="governerate"></span></h3>
-                </div>
-                <div class="card-body ml-2 mr-2">
-                  <div class="">
-                    <div class="alert alert-primary mb-4">
-                      <span><b> Last Synched - </b> <span id="date_time"></span></span>
-                    </div>
-                    <div class="alert alert-primary mb-4">
-                      <span><b> Temperature - </b> <span id="temp"></span></span>
-                    </div>
-                    <div class="alert alert-primary mb-4">
-                      <span><b> Humidity - </b> <span id="hum"></span></span>
-                    </div>
-                    <div class="alert alert-primary mb-4">
-                      <span><b> Average AQI - </b> <span id="aqi_val"></span></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-8">
-              <div class="card card-chart">
-                <div class="card-header">
-                  <h3 class="card-title"><i class="tim-icons icon-square-pin
-                      text-primary"></i> Live Map</h3>
-                </div>
-                <div class="card-body">
-                  <div class="map mb-2 ml-2 mr-2">
-                    <div id="map" style=" border-radius: 0.2857rem;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="card card-chart">
-                <div class="card-header ">
-                  <div class="row">
-                    <div class="col-sm-6 text-left">
-                      <h3 class="card-title"><i class="tim-icons icon-sound-wave
-                          text-info"></i> AQI Chart</h3>
-
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="btn-group btn-group-toggle float-right"
-                        data-toggle="buttons">
-                        <label class="btn btn-sm btn-primary btn-simple active"
-                          id="0">
-                          <input type="radio" name="options" value="muharraq"
-                            checked>
-                          <span
-                            class="d-block d-sm-none d-none d-sm-block
-                            d-md-block d-lg-block d-xl-block">Muharraq</span>
-                        </label>
-                        <label class="btn btn-sm btn-primary btn-simple" id="1">
-                          <input type="radio" class="d-none d-sm-none"
-                            value="capital" name="options">
-                          <span
-                            class="d-block d-sm-none d-none d-sm-block
-                            d-md-block d-lg-block d-xl-block">Capital</span>
-                        </label>
-                        <label class="btn btn-sm btn-primary btn-simple" id="2">
-                          <input type="radio" class="d-none" value="northern"
-                            name="options">
-                          <span
-                            class="d-block d-sm-none d-none d-sm-block
-                            d-md-block d-lg-block d-xl-block">Northern</span>
-                        </label>
-                        <label class="btn btn-sm btn-primary btn-simple" id="3">
-                          <input type="radio" class="d-none" value="southern"
-                            name="options">
-                          <span
-                            class="d-block d-sm-none d-none d-sm-block
-                            d-md-block d-lg-block d-xl-block">Southern</span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="aqi_chart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6 col-md-12">
-              <div class="card card-chart">
-                <div class="card-header">
-                  <h3 class="card-title"><i class="tim-icons icon-molecule-40
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h3 class="card-title"><i class="tim-icons icon-molecule-40
                       text-success"></i> Pollutants</h3>
-                </div>
-                <div class="card-body ml-2 mr-2">
-                  <div class="row ml-2 mr-2">
-                    <div class="col-lg-6 col-md-12">
-                      <div class="row">
-                        <div class="mr-2 ml-2 mb-2 mt-2 val pollutants"
-                          onclick="change_co_text()">
-                          <p id="co_value">1</p>
-                        </div>
-                        <h4 class="advice_text" id="co_header"
-                          style="margin-top:auto; margin-bottom: auto;"> Carbon
-                          Monoxide (CO) </h4>
-                          </div>
-                      </div>
-
-
-                      <div class="col-lg-6 col-md-12">
+              </div>
+              <div class="card-body ml-2 mr-2">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      
+                      <div class="card-body all-icons">
                         <div class="row">
-                          <div class="mr-2 ml-2 mt-2 mb-2 val pollutants">
-                            <p id="co2_value">1</p>
+                         
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> Carbon Monoxide (CO) </h4>
+                              <h1 class="test">100<span class="unit">ppm</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
                           </div>
-                          <h4 class="advice_text" id="co2_header"
-                            style="margin-top:auto; margin-bottom: auto;">
-                            Carbon
-                            Dioxide (CO2)</h4>
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> Carbon Dioxide (CO2) </h4>
+                              <h1 class="test">100<span class="unit">ppm</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
+                          </div>
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> Formaldahide </h4>
+                              <h1 class="test">100<span class="unit">µg/m³</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
+                          </div>
+                         </div>
+                         <div class="row">
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> Particulate Matter (PM2.5) </h4>
+                              <h1 class="test">100<span class="unit">µg/m³</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
+                          </div>
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> Particulate Matter (PM10) </h4>
+                              <h1 class="test">100<span class="unit">µg/m³</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
+                          </div>
+                          <div class="font-icon-list col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <div class="font-icon-detail">
+                              <h4 class="pollutant_header"> TVOC </h4>
+                              <h1 class="test">100<span class="unit">µg/m³</span></h1>
+                              <p >Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc</p> 
+                              
+                            </div>
+                          </div>
+                          
+                         
+                         
+                          
+                         
                         </div>
                       </div>
-
-                    </div>
-                    <div class="row ml-2 mr-2">
-                      <div class="col-lg-6 col-md-12">
-                        <div class="row">
-                          <div class="mr-2 ml-2 mb-2 mt-2 val pollutants">
-                            <p id="co_value">1</p>
-                          </div>
-                          <h4 class="advice_text" id="pm10_header"
-                            style="margin-top:auto; margin-bottom: auto;">
-                            Particulate Matter (PM10) </h4>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-6 col-md-12">
-                        <div class="row">
-                          <div class="mr-2 ml-2 mb-2 mt-2 val pollutants">
-                            <p id="co2_value">1</p>
-                          </div>
-                          <h4 class="advice_text" id="pm25_header"
-                            style="margin-top:auto; margin-bottom: auto;">
-                            Particulate Matter (PM2.5) </h4>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="row ml-2 mr-2">
-                      <div class="col-lg-6 col-md-12">
-                        <div class="row">
-                          <div class="mr-2 ml-2 mb-2 mt-2 val pollutants">
-                            <p id="co_value">1</p>
-                          </div>
-                          <h4 class="advice_text" id="tvoc_header"
-                            style="margin-top:auto; margin-bottom: auto;"> TVOC 
-                          </h4>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-6 col-md-12">
-                        <div class="row">
-                          <div class="mr-2 ml-2 mb-2 mt-2 val pollutants">
-                            <p id="co2_value">1</p>
-                          </div>
-                          <h4 class="advice_text" id="formaldahide_header"
-                            style="margin-top:auto; margin-bottom: auto;">
-                            Formaldahide </h4>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
-
                 </div>
-
-
 
               </div>
-              <div class="col-lg-6 col-md-12">
-                <div class="card card-chart">
-                  <div class="card-header">
-                    <h3 class="card-title"><i class="tim-icons icon-bulb-63
+
+            </div>
+
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h3 class="card-title"><i class="tim-icons icon-bulb-63
                         text-warning"></i> Tips and Advice</h3>
-                  </div>
-                  <div class="card-body ml-2 mr-2" id="tips">
+              </div>
+              <div class="card-body ml-2 mr-2" id="tips">
 
 
-                    <div class="row">
-                      <div class="col-lg-4 col-md-4">
-                        <div class="alert alert-without-icon advice_info"
-                          id="aqi_info">
-                          <h4 class="advice_text" id="aqi_header"> Air Quality
-                            Index</h4>
-                          <div class="row">
-                            <div class="mr-2 ml-2 val" id="aqi_value">
-                              <p id="aqi_value_text">1</p>
-                            </div>
-                            <div id="comment" class="ml-2 mr-2">No data</div>
-                          </div>
-                        </br></br>
+                <div class="row">
+                  <div class="col-lg-4 col-md-4">
+                    <div class="alert alert-without-icon advice_info" id="aqi_info">
+                      <h4 class="advice_text" id="aqi_header"> Air Quality
+                        Index</h4>
+                      <div class="row">
+                        <div class="mr-2 ml-2 val" id="aqi_value">
+                          <p id="aqi_value_text">1</p>
+                        </div>
+                        <div id="comment" class="ml-2 mr-2">No data</div>
+                      </div>
+                      </br></br>
                       <h5 class="advice_text" id="pollutant_header">Primary
                         Pollutant</h5>
                       <span class="ml-2" id="primary_pollutant">None</span>
                     </div>
                   </div>
                   <div class="col-lg-8 col-md-8">
-                    <div class="alert alert-with-icon advice_info"
-                      id="concerned">
-                      <span data-notify="icon" class="fa fa-question fa-2x"
-                        id="icon1"></span>
+                    <div class="alert alert-with-icon advice_info" id="concerned">
+                      <span data-notify="icon" class="fa fa-question fa-2x" id="icon1"></span>
                       <h4 class="advice_text" id="concerned_text_header">Who
                         needs to be concerned?</h4>
                       <span data-notify="message" id="concerned_text">Error in
                         data.</span>
                     </div>
                     <div class="alert alert-with-icon advice_info" id="advice">
-                      <span data-notify="icon" class="far fa-comment fa-2x "
-                        id="icon2"></span>
+                      <span data-notify="icon" class="far fa-comment fa-2x " id="icon2"></span>
                       <h4 class="advice_text" id="advice_text_header"> What
                         should I do?</h4>
                       <span data-notify="message" id="advice_text">Use other
@@ -331,8 +296,7 @@
                   </div>
 
                 </div>
-                <p style=" margin: auto !important;">Reference: <a
-                    target="_blank"
+                <p style=" margin: auto !important;">Reference: <a target="_blank"
                     href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiQweXY17z7AhWH6aQKHRvhBgcQFnoECBEQAQ&url=https%3A%2F%2Fwww.airnow.gov%2Fsites%2Fdefault%2Ffiles%2F2021-03%2Fair-quality-guide_pm_2015_0.pdf&usg=AOvVaw19lLv5AtX1hH1WfqrowneA">Air
                     Quality Guide for Particle Pollution</p></a>
 
@@ -498,210 +462,210 @@
                     breathing to get a better quality
                     of life.
                   </p>
-                </br>
-              </br>
-              <h1 align="right">AtmoSense.</h1>
+                  </br>
+                  </br>
+                  <h1 align="right">AtmoSense.</h1>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-      </div>
-      <!-- <footer class="footer">
+          </div>
+          <!-- <footer class="footer">
         <div class="container-fluid">
              
         </div>
       </footer>
     </div> -->
-    </div>
-    <div class="fixed-plugin">
-      <i id='toggle' class="fa fa-sun sun fa-2x mt-1 mb-1"> </i>
+        </div>
+        <div class="fixed-plugin">
+          <i id='toggle' class="fa fa-sun sun fa-2x mt-1 mb-1"> </i>
 
-    </div>
-    <!--   Core JS Files   -->
-    <script src="./assets/js/core/jquery.min.js"></script>
-    <script src="./assets/js/core/popper.min.js"></script>
-    <script src="./assets/js/core/bootstrap.min.js"></script>
-    <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <!-- Chart JS -->
-    <script src="./assets/js/plugins/chartjs.min.js"></script>
+        </div>
+        <!--   Core JS Files   -->
+        <script src="./assets/js/core/jquery.min.js"></script>
+        <script src="./assets/js/core/popper.min.js"></script>
+        <script src="./assets/js/core/bootstrap.min.js"></script>
+        <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Chart JS -->
+        <script src="./assets/js/plugins/chartjs.min.js"></script>
 
-    <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
-    <!--Black Dashboard DEMO methods, don't include it in your project!-->
-    <script src="./assets/demo/demo.js" type="module"></script>
-    <script src="./assets/js/index.js" type="module"></script>
-    <script src="./assets/js/map.js" type="module"></script>
+        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+        <!--Black Dashboard DEMO methods, don't include it in your project!-->
+        <script src="./assets/demo/demo.js" type="module"></script>
+        <script src="./assets/js/index.js" type="module"></script>
+        <script src="./assets/js/map.js" type="module"></script>
 
-    <script>
-      var co_header = document.getElementById("co_header");
-      var co2_header = document.getElementById("co2_header");
-      var pm10_header = document.getElementById("pm10_header");
-      var pm25_header = document.getElementById("pm25_header");
-      var tvoc_header = document.getElementById("tvoc_header");
-      var formaldahide_header = document.getElementById("formaldahide_header");
+        <script>
+          var co_header = document.getElementById("co_header");
+          var co2_header = document.getElementById("co2_header");
+          var pm10_header = document.getElementById("pm10_header");
+          var pm25_header = document.getElementById("pm25_header");
+          var tvoc_header = document.getElementById("tvoc_header");
+          var formaldahide_header = document.getElementById("formaldahide_header");
 
-      function change_co_text() {
-        if (co_header.innerHTML = " Carbon Monoxide (CO) ")
-          co_header.innerHTML = "Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc";
-        else 
-          co_header.innerHTML = " Carbon Monoxide (CO) ";
-      
-      }
-      function change_co2_text() {
-        
-      }
-      function change_pm10_text() {
-      }
-      function change_pm25_text() {
-      }
-      function change_tvoc_text() {
-      }
-      function change_formaldahide_text() {
-       
-      }
-            $(document).ready(function () {
-              $().ready(function () {
-                $sidebar = $('.sidebar');
-                $navbar = $('.navbar');
-                $main_panel = $('.main-panel');
+          function change_co_text() {
+            if (co_header.innerHTML = " Carbon Monoxide (CO) ")
+              co_header.innerHTML = "Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc";
+            else
+              co_header.innerHTML = " Carbon Monoxide (CO) ";
 
-                $full_page = $('.full-page');
+          }
+          function change_co2_text() {
 
-                $sidebar_responsive = $('body > .navbar-collapse');
-                sidebar_mini_active = true;
-                white_color = false;
+          }
+          function change_pm10_text() {
+          }
+          function change_pm25_text() {
+          }
+          function change_tvoc_text() {
+          }
+          function change_formaldahide_text() {
 
-                window_width = $(window).width();
+          }
+          $(document).ready(function () {
+            $().ready(function () {
+              $sidebar = $('.sidebar');
+              $navbar = $('.navbar');
+              $main_panel = $('.main-panel');
 
-                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+              $full_page = $('.full-page');
+
+              $sidebar_responsive = $('body > .navbar-collapse');
+              sidebar_mini_active = true;
+              white_color = false;
+
+              window_width = $(window).width();
+
+              fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
 
-                $('.fixed-plugin a').click(function (event) {
-                  if ($(this).hasClass('switch-trigger')) {
-                    if (event.stopPropagation) {
-                      event.stopPropagation();
-                    } else if (window.event) {
-                      window.event.cancelBubble = true;
-                    }
+              $('.fixed-plugin a').click(function (event) {
+                if ($(this).hasClass('switch-trigger')) {
+                  if (event.stopPropagation) {
+                    event.stopPropagation();
+                  } else if (window.event) {
+                    window.event.cancelBubble = true;
                   }
-                });
+                }
+              });
 
-                $('.fixed-plugin .background-color span').click(function () {
-                  $(this).siblings().removeClass('active');
-                  $(this).addClass('active');
+              $('.fixed-plugin .background-color span').click(function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
 
-                  var new_color = $(this).data('color');
+                var new_color = $(this).data('color');
 
-                  if ($sidebar.length != 0) {
-                    $sidebar.attr('data', new_color);
-                  }
+                if ($sidebar.length != 0) {
+                  $sidebar.attr('data', new_color);
+                }
 
-                  if ($main_panel.length != 0) {
-                    $main_panel.attr('data', new_color);
-                  }
+                if ($main_panel.length != 0) {
+                  $main_panel.attr('data', new_color);
+                }
 
-                  if ($full_page.length != 0) {
-                    $full_page.attr('filter-color', new_color);
-                  }
+                if ($full_page.length != 0) {
+                  $full_page.attr('filter-color', new_color);
+                }
 
-                  if ($sidebar_responsive.length != 0) {
-                    $sidebar_responsive.attr('data', new_color);
-                  }
-                });
+                if ($sidebar_responsive.length != 0) {
+                  $sidebar_responsive.attr('data', new_color);
+                }
+              });
 
-                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
-                  var $btn = $(this);
+              $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
+                var $btn = $(this);
 
-                  if (sidebar_mini_active == true) {
-                    $('body').removeClass('sidebar-mini');
-                    sidebar_mini_active = false;
-                    blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
-                  } else {
-                    $('body').addClass('sidebar-mini');
-                    sidebar_mini_active = true;
-                    blackDashboard.showSidebarMessage('Sidebar mini activated...');
-                  }
+                if (sidebar_mini_active == true) {
+                  $('body').removeClass('sidebar-mini');
+                  sidebar_mini_active = false;
+                  blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                } else {
+                  $('body').addClass('sidebar-mini');
+                  sidebar_mini_active = true;
+                  blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                }
 
-                  // we simulate the window Resize so the charts will get updated in realtime.
-                  var simulateWindowResize = setInterval(function () {
-                    window.dispatchEvent(new Event('resize'));
-                  }, 180);
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function () {
+                  window.dispatchEvent(new Event('resize'));
+                }, 180);
 
-                  // we stop the simulation of Window Resize after the animations are completed
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function () {
+                  clearInterval(simulateWindowResize);
+                }, 1000);
+              });
+
+              $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
+                var $btn = $(this);
+
+                if (white_color == true) {
+
+                  $('body').addClass('change-background');
                   setTimeout(function () {
-                    clearInterval(simulateWindowResize);
-                  }, 1000);
-                });
-
-                $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
-                  var $btn = $(this);
-
-                  if (white_color == true) {
-
-                    $('body').addClass('change-background');
-                    setTimeout(function () {
-                      $('body').removeClass('change-background');
-                      $('body').removeClass('white-content');
-                    }, 900);
-                    white_color = false;
-                  } else {
-
-                    $('body').addClass('change-background');
-                    setTimeout(function () {
-                      $('body').removeClass('change-background');
-                      $('body').addClass('white-content');
-                    }, 900);
-
-                    white_color = true;
-                  }
-
-
-                });
-
-
-                $('#toggle').click(function () {
-                  $('body').addClass('white-content');
-                  $('#toggle').toggleClass('fa-sun fa-moon sun moon');
-
-                  $(".moon").click(function () {
+                    $('body').removeClass('change-background');
                     $('body').removeClass('white-content');
+                  }, 900);
+                  white_color = false;
+                } else {
 
-                    $('.sun').click(function () {
-                      $('body').addClass('white-content');
-                    });
-                  });
-                });
+                  $('body').addClass('change-background');
+                  setTimeout(function () {
+                    $('body').removeClass('change-background');
+                    $('body').addClass('white-content');
+                  }, 900);
+
+                  white_color = true;
+                }
 
 
               });
-            });
-          </script>
-    <script type="module">
-            import { demo } from './assets/demo/demo.js'
-            $(document).ready(function () {
-              // Javascript method's body can be found in assets/js/demos.js
-              demo.initDashboardPageCharts();
+
+
+              $('#toggle').click(function () {
+                $('body').addClass('white-content');
+                $('#toggle').toggleClass('fa-sun fa-moon sun moon');
+
+                $(".moon").click(function () {
+                  $('body').removeClass('white-content');
+
+                  $('.sun').click(function () {
+                    $('body').addClass('white-content');
+                  });
+                });
+              });
+
 
             });
-          </script>
-    <script>
-            const items = document.querySelectorAll('.ques button');
+          });
+        </script>
+        <script type="module">
+          import { demo } from './assets/demo/demo.js'
+          $(document).ready(function () {
+            // Javascript method's body can be found in assets/js/demos.js
+            demo.initDashboardPageCharts();
 
-            function toggleques() {
-              const itemToggle = this.getAttribute('aria-expanded');
+          });
+        </script>
+        <script>
+          const items = document.querySelectorAll('.ques button');
 
-              for (i = 0; i < items.length; i++) {
-                items[i].setAttribute('aria-expanded', 'false');
-              }
+          function toggleques() {
+            const itemToggle = this.getAttribute('aria-expanded');
 
-              if (itemToggle == 'false') {
-                this.setAttribute('aria-expanded', 'true');
-              }
+            for (i = 0; i < items.length; i++) {
+              items[i].setAttribute('aria-expanded', 'false');
             }
-            items.forEach((item) => item.addEventListener('click', toggleques));
 
-          </script>
-  </body>
+            if (itemToggle == 'false') {
+              this.setAttribute('aria-expanded', 'true');
+            }
+          }
+          items.forEach((item) => item.addEventListener('click', toggleques));
+
+        </script>
+</body>
 
 </html>
