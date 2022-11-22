@@ -32,9 +32,21 @@ var aqi_header = document.getElementById("aqi_header");
 var pollutant_header = document.getElementById("pollutant_header");
 var icon1 = document.getElementById("icon1");
 var icon2 = document.getElementById("icon2");
+var temp_element = document.getElementById('temp');
+var hum_element = document.getElementById('hum');
+var date_time_element = document.getElementById("date_time");
+var co_element = document.getElementById("co_value");
+var co2_element = document.getElementById("co2_value");
+var formaldahide_element = document.getElementById("formaldahide_value");
+var pm25_element = document.getElementById("pm25_value");
+var pm10_element = document.getElementById("pm10_value");
+var tvoc_element = document.getElementById("tvoc_value");
 const concerned = ["Air quality is great!", "Some people who may be unusually sensitive to particle pollution.", "Sensitive groups include people with heart or lung disease, older adults, children and teenagers.", "Everyone"];
 const advice = ["It's a great day to be active outside.", "<b>Unusually sensitive people:</b> Consider reducing prolonged or heavy exertion. Watch for symptoms such as coughing or shortness of breath. These are signs to take it easier. </br></br><b>Everyone else: </b> It's a good day to be active outside.", "<b>Sensitive groups: </b>Reduce prolonged or heavy exertion. It's OK to be active outside, but take more breaks and do less intense activities. Watch for symptoms such as coughing or shortness of breath. </br></br><b>People with asthma </b>should follow their asthma action plans and keep quick relief medicine handy. </br></br><b>If you have heart disease: </b>Symptoms such as palpitations, shortness of breath, or unusual fatigue may indicate a serious problem. If you have any of these, contact your heath care provider.", "<b>Sensitive groups:</b> Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling. </b><b>Everyone else:</b> Reduce prolonged or heavy exertion. Take more breaks during outdoor activities.", "<b>Sensitive groups:</b> Avoid all physical activity outdoors. Move activities indoors or reschedule to a time when air quality is better. </br></br><b>Everyone else: </b>Avoid prolonged or heavy exertion. Consider moving activities indoors or rescheduling to a time when air quality is better.", "<b>Everyone:</b> Avoid all physical activity outdoors. </br></br><b>Sensitive groups:</b> Remain indoors and keep activity levels low. Make sure particle pollution indoors is low. "];
-function muharraq_update() {
+const comments = ["Good", "Moderate", "Unhealthy for sensitive groups", "Unhealthy", "Very Unhealthy", "Hazardous"];
+const colors = ['#f5365c', "#A0DC65", '#FDD853', '#FE9B58', '#FF6C70', '#A87CBD', "#d10404" ];
+   
+function muharraq_advice_update() {
     if (muharraq_aqi_var < 1 || muharraq_aqi_var > 500) {
 
         concerned_element.innerHTML = "Error in data";
@@ -42,93 +54,92 @@ function muharraq_update() {
 
         document.getElementById("aqi_value_text").innerHTML = "-";
         document.getElementById("comment").innerHTML = "";
-
         $('#aqi_value').css({ 'background': '#f5365c ' });
-        advice_header.style.color = "#f5365c ";
-        concerned_header.style.color = "#f5365c ";
-        aqi_header.style.color = "#f5365c ";
-        pollutant_header.style.color = "#f5365c ";
-        icon1.style.color = "#f5365c ";
-        icon2.style.color = "#f5365c ";
-
+        advice_header.style.color = colors[0];
+        concerned_header.style.color = colors[0];
+        aqi_header.style.color = colors[0];
+        pollutant_header.style.color = colors[0];
+        icon1.style.color = colors[0];
+        icon2.style.color = colors[0];
+        
     }
     else if (muharraq_aqi_var >= 1 & muharraq_aqi_var < 51) {
         concerned_element.innerHTML = concerned[0];
         advice_element.innerHTML = advice[0];
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Good";
-
+        document.getElementById("comment").innerHTML = comments[0];
+        
         $('#aqi_value').css({ 'background': '#A0DC65' });
-        advice_header.style.color = "#A0DC65";
-        concerned_header.style.color = "#A0DC65";
-        aqi_header.style.color = "#A0DC65";
-        pollutant_header.style.color = "#A0DC65";
-        icon1.style.color = "#A0DC65";
-        icon2.style.color = "#A0DC65";
-
+        advice_header.style.color = colors[1];
+        concerned_header.style.color = colors[1];
+        aqi_header.style.color = colors[1];
+        pollutant_header.style.color = colors[1];
+        icon1.style.color = colors[1];
+        icon2.style.color = colors[1];
+        
     }
     else if (muharraq_aqi_var < 101) {
         concerned_element.innerHTML = concerned[1];
         advice_element.innerHTML = advice[1];
-
+        
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Moderate";
-
+        document.getElementById("comment").innerHTML = comments[1];
+        
         $('#aqi_value').css({ 'background': '#FDD853' });
-        advice_header.style.color = "#FDD853";
-        concerned_header.style.color = "#FDD853";
-        aqi_header.style.color = "#FDD853";
-        pollutant_header.style.color = "#FDD853";
-        icon1.style.color = "#FDD853";
-        icon2.style.color = "#FDD853";
+        advice_header.style.color = colors[2];
+        concerned_header.style.color = colors[2];
+        aqi_header.style.color = colors[2];
+        pollutant_header.style.color = colors[2];
+        icon1.style.color = colors[2];
+        icon2.style.color = colors[2];
 
     }
     else if (muharraq_aqi_var < 151) {
         concerned_element.innerHTML = concerned[2];
         advice_element.innerHTML = advice[2];
-
+        
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Unhealthy for Sensitive Groups";
-
+        document.getElementById("comment").innerHTML = comments[2];
+        
         $('#aqi_value').css({ 'background': '#FE9B58' });
-        advice_header.style.color = "#FE9B58";
-        concerned_header.style.color = "#FE9B58";
-        aqi_header.style.color = "#FE9B58";
-        pollutant_header.style.color = "#FE9B58";
-        icon1.style.color = "#FE9B58";
-        icon2.style.color = "#FE9B58";
-
+        advice_header.style.color = colors[3];
+        concerned_header.style.color = colors[3];
+        aqi_header.style.color = colors[3];
+        pollutant_header.style.color = colors[3];
+        icon1.style.color = colors[3];
+        icon2.style.color = colors[3];
+        
     }
     else if (muharraq_aqi_var < 201) {
         concerned_element.innerHTML = concerned[3];
         advice_element.innerHTML = advice[3];
-
+        
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Unhealthy";
-
+        document.getElementById("comment").innerHTML = comments[3];
+        
         $('#aqi_value').css({ 'background': '#FF6C70' });
-        advice_header.style.color = "#FF6C70";
-        concerned_header.style.color = "#FF6C70";
-        aqi_header.style.color = "#FF6C70";
-        pollutant_header.style.color = "#FF6C70";
-        icon1.style.color = "#FF6C70";
-        icon2.style.color = "#FF6C70";
-
-    }
+        advice_header.style.color = colors[4];
+        concerned_header.style.color = colors[4];
+        aqi_header.style.color = colors[4];
+        pollutant_header.style.color = colors[4];
+        icon1.style.color = colors[4];
+        icon2.style.color = colors[4];
+        
+         }
     else if (muharraq_aqi_var < 301) {
         concerned_element.innerHTML = concerned[3];
         advice_element.innerHTML = advice[4];
 
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Very Unhealthy";
+        document.getElementById("comment").innerHTML = comments[4];
 
         $('#aqi_value').css({ 'background': '#A87CBD' });
-        advice_header.style.color = "#A87CBD";
-        concerned_header.style.color = "#A87CBD";
-        aqi_header.style.color = "#A87CBD";
-        pollutant_header.style.color = "#A87CBD";
-        icon1.style.color = "#A87CBD";
-        icon2.style.color = "#A87CBD";
+        advice_header.style.color = colors[5];
+        concerned_header.style.color =  colors[5];
+        aqi_header.style.color =  colors[5];
+        pollutant_header.style.color =  colors[5];
+        icon1.style.color =  colors[5];
+        icon2.style.color =  colors[5];
 
     }
     else if (muharraq_aqi_var < 501) {
@@ -136,7 +147,7 @@ function muharraq_update() {
         advice_element.innerHTML = advice[5];
 
         document.getElementById("aqi_value_text").innerHTML = Math.round(muharraq_aqi_var);
-        document.getElementById("comment").innerHTML = "Hazardous";
+        document.getElementById("comment").innerHTML = comments[5];
 
         $('#aqi_value').css({ 'background': '#d10404 ' });
         advice_header.style.color = "#d10404 ";
@@ -176,6 +187,12 @@ function co_values(co_var) {
     else if (co_var < 40.5) { BPhi_co = 40.4; BPlo_co = 30.5; Ihi_co = 400; Ilo_co = 301; }
     else { BPhi_co = 50.4; BPlo_co = 40.5; Ihi_co = 500; Ilo_co = 401; }
 }
+function update_pollutant_colors(co,co2,form,pm10,pm25,tvoc) {
+    if (co < 51 && co2 <91){ 
+        co_element.style.color = colors[0];
+    }
+
+}
 
 
 
@@ -200,15 +217,7 @@ onValue(new_ref, (data) => {
     [epoch_date] = d.toISOString().split('T');
     var options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: "numeric", minute: "numeric", seconds: "numeric" };
 
-    var temp_element = document.getElementById('temp');
-    var hum_element = document.getElementById('hum');
-    var date_time_element = document.getElementById("date_time");
-    var co_element = document.getElementById("co_value");
-    var co2_element = document.getElementById("co2_value");
-    var formaldahide_element = document.getElementById("formaldahide_value");
-    var pm25_element = document.getElementById("pm25_value");
-    var pm10_element = document.getElementById("pm10_value");
-    var tvoc_element = document.getElementById("tvoc_value");
+   
 
     temp_element.innerHTML = temp_var + "°C";
     hum_element.innerHTML = hum_var + "%";
@@ -311,7 +320,7 @@ onValue(new_ref, (data) => {
             prim_poll.innerHTML = primary_pollutant;
         }
 
-        muharraq_update();
+        muharraq_advice_update();
 
         
 
