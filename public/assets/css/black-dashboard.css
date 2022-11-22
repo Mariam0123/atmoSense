@@ -22523,6 +22523,21 @@ Copyright (c) 2015 Daniel Eden
   
   
 }
+.pollutants{
+  width: 3em;
+  height: 3em;
+  line-height: 2em;
+  border-radius: 50%;
+  padding: 4%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 2em;
+  margin: auto;
+  color: #fff;
+  background: #00b290;
+  
+  
+}
 #aqi_value_text {
   
   font-weight: bold; 

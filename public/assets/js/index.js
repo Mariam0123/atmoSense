@@ -211,30 +211,7 @@ onValue(new_ref, (data) => {
     pm10_values(pm10_var);
     pm25_values(pm25_var);
 
-    //pollutants code
-
-    // Line length
-
-    let path = document.querySelector('.pie-chart-line');
-    let percentDiv = document.querySelector('.number');
-    let lineLength = Math.round(path.getTotalLength());
-
-    //percentDiv.innerHTML = percent;
-    const linePercent = -Math.abs(lineLength * (1 - (co2_var / 100)));
-    path.style.strokeDashoffset = linePercent;
-
-    const interval = 1000 / co2_var;
-    let count = 1;
-    setInterval(function () {
-        if (count <= co2_var) {
-            percentDiv.innerHTML = count;
-            count++;
-        } else {
-            clearInterval(interval);
-        }
-    }, interval)
-
-
+   
     var node_keys;
     const get_values_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(counter));
     onValue(get_values_ref, (data) => { //to retrive values
@@ -324,9 +301,7 @@ onValue(new_ref, (data) => {
 
         muharraq_update();
 
-
-
-
+        
 
     });
 
