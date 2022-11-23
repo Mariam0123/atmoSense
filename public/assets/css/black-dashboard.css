@@ -20872,8 +20872,10 @@ textarea.form-control:active {
   width: 11px;
 }
 
+
 .ques .ques-item {
   border-bottom: 1px solid #e5e5e5;
+ 
 }
 
 .ques .ques-item button[aria-expanded='true'] {
