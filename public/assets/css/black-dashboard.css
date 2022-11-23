@@ -20872,10 +20872,8 @@ textarea.form-control:active {
   width: 11px;
 }
 
-
 .ques .ques-item {
   border-bottom: 1px solid #e5e5e5;
- 
 }
 
 .ques .ques-item button[aria-expanded='true'] {
@@ -22563,11 +22561,10 @@ Copyright (c) 2015 Daniel Eden
   margin-left: 5%;
   text-align: left;
   text-decoration: underline;
-  color: #fff !important;
 }
 .unit {
   font-size: 0.6em;
-  color: #fff ;
+
 }
 .font-icon-detail p {
   color: white !important;
