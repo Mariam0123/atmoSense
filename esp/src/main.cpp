@@ -221,6 +221,7 @@ void send_to_firebase(){
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/pm10"), pm10)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/pm25"), pm25)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/temp"), total_temp)
+  && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/counter"), 1)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/tvoc"), tvoc))
 
   {
