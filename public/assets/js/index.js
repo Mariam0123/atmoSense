@@ -233,13 +233,15 @@ function calculate_flag(endDate, startDate) {
     else return false;
 }
 
-const new_ref = query(ref(db, 'air_parameters/values'), orderByKey(), limitToLast(2)); // get latest node and second latest to compare
+const new_ref = query(ref(db, 'air_parameters/temp_values'), orderByKey(), limitToLast(1)); // get latest node and second latest to compare
 
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
-    time_var = Object.keys(jsonData)[1].toString(); // two latest epoch timestamps
-    latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps    
-    flag = (calculate_flag(latest_timestamps[0], latest_timestamps[1]));
+    time_var = Object.keys(jsonData).toString(); // two latest epoch timestamps
+    console.log(jsonData[time_var]['co']);
+    // time_var = Object.keys(jsonData)[1].toString(); // two latest epoch timestamps
+    // latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps    
+    // flag = (calculate_flag(latest_timestamps[0], latest_timestamps[1]));
 
     temp_var = jsonData[time_var]['temp'];
     hum_var = jsonData[time_var]['hum'];
@@ -252,10 +254,28 @@ onValue(new_ref, (data) => {
     counter = jsonData[time_var]['counter'];
     lat = jsonData[time_var]['lat'];
     lon = jsonData[time_var]['lon'];
+    flag = 0;
 
-    var gover = find_governerate(lat, lon);
+    var current_governerate = find_governerate(lat, lon);
+    const sort_values = ref(db, 'air_parameters/'+ current_governerate+ '/values/'+ time_var);
+    set(sort_values,
+                {
+                    co: [co_var][0],
+                    co2: [co2_var][0],
+                    hum: [hum_var][0],
+                    temp: [temp_var][0],
+                    formaldahide: [formaldahide_var][0],
+                    pm10: [pm10_var][0],
+                    pm25: [pm25_var][0],
+                    tvoc: [tvoc_var][0],
+                    counter: [counter][0],
+                    lat: [lat][0],
+                    lon: [lon][0],
+                    flag: [flag][0]
+                });
+
     var gov_element = document.getElementById('gov');
-    gov_element.innerHTML = gover;
+    gov_element.innerHTML = current_governerate;
 
     var d = new Date(0);
     d.setUTCSeconds(time_var);
