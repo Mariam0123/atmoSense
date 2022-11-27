@@ -257,6 +257,7 @@ onValue(new_ref, (data) => {
     flag = 0;
 
     var current_governerate = find_governerate(lat, lon);
+    if (current_governerate != "Error"){
     const sort_values = ref(db, 'air_parameters/'+ current_governerate+ '/values/'+ time_var);
     set(sort_values,
                 {
@@ -273,7 +274,7 @@ onValue(new_ref, (data) => {
                     lon: [lon][0],
                     flag: [flag][0]
                 });
-
+    }
     var gov_element = document.getElementById('gov');
     gov_element.innerHTML = current_governerate;
 
