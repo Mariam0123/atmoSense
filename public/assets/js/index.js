@@ -79,7 +79,7 @@ function find_governerate(lat, lon) {
     return "Error";
 }
 
-function muharraq_advice_update() {
+function advice_update() {
     if (aqi_var < 1 || aqi_var > 500) {
 
         concerned_element.innerHTML = "Error in data";
@@ -373,39 +373,39 @@ onValue(new_ref, (data) => {
         }
     }
 
-    // const aqi_query_ref = ref(db, 'air_parameters/');
-    // onValue(aqi_query_ref, (data) => { //to retrive values
-    //     var jsonAQIData = data.toJSON();
-    //     co_avg = jsonAQIData['muharraq']['aqis'][epoch_date]['co_aqi'];
-    //     pm10_avg = jsonAQIData['muharraq']['aqis'][epoch_date]['pm10_aqi'];
-    //     pm25_avg = jsonAQIData['muharraq']['aqis'][epoch_date]['pm25_aqi'];
-    //     aqi_var = jsonAQIData['muharraq']['aqis'][epoch_date]['aqi'];
-    //     capital_aqi_var = jsonAQIData['capital']['aqis'][epoch_date]['aqi'];
-    //     southern_aqi_var = jsonAQIData['southern']['aqis'][epoch_date]['aqi'];
-    //     northern_aqi_var = jsonAQIData['northern']['aqis'][epoch_date]['aqi'];
+    const aqi_query_ref = ref(db, 'air_parameters/');
+    onValue(aqi_query_ref, (data) => { //to retrive values
+        var jsonAQIData = data.toJSON();
+        co_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['co_aqi'];
+        pm10_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['pm10_aqi'];
+        pm25_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['pm25_aqi'];
+        aqi_var = jsonAQIData[current_governerate]['aqis'][epoch_date]['aqi'];
+        capital_aqi_var = jsonAQIData[current_governerate]['aqis'][epoch_date]['aqi'];
+        southern_aqi_var = jsonAQIData[current_governerate]['aqis'][epoch_date]['aqi'];
+        northern_aqi_var = jsonAQIData[current_governerate]['aqis'][epoch_date]['aqi'];
 
-    //     var aqi_val_element = document.getElementById("aqi_val");
-    //     var average_aqis = (aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
-    //     aqi_val_element.innerHTML = Math.round(average_aqis);
+        var aqi_val_element = document.getElementById("aqi_val");
+        var average_aqis = (aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
+        aqi_val_element.innerHTML = Math.round(average_aqis);
 
-    //     var pollutant_array = ["CO", "PM10", "PM2.5"];
-    //     var pollutant_values = [co_avg.valueOf(), pm10_avg.valueOf(), pm25_avg.valueOf()];
-    //     var prim_poll = document.getElementById("primary_pollutant");
-    //     var maximum = Math.max.apply(Math, pollutant_values);
-    //     if (aqi_var < 1 || aqi_var > 500) {
-    //         prim_poll.innerHTML = "Error";
-    //     }
-    //     else {
-    //         var maxIndex = pollutant_values.indexOf(maximum);
-    //         var primary_pollutant = pollutant_array[maxIndex];
-    //         prim_poll.innerHTML = primary_pollutant;
-    //     }
+        var pollutant_array = ["CO", "PM10", "PM2.5"];
+        var pollutant_values = [co_avg.valueOf(), pm10_avg.valueOf(), pm25_avg.valueOf()];
+        var prim_poll = document.getElementById("primary_pollutant");
+        var maximum = Math.max.apply(Math, pollutant_values);
+        if (aqi_var < 1 || aqi_var > 500) {
+            prim_poll.innerHTML = "Error";
+        }
+        else {
+            var maxIndex = pollutant_values.indexOf(maximum);
+            var primary_pollutant = pollutant_array[maxIndex];
+            prim_poll.innerHTML = primary_pollutant;
+        }
 
-    //     muharraq_advice_update();
+        advice_update();
 
 
 
-    // });
+    });
 
 
 
