@@ -106,6 +106,9 @@
                   <div class="alert alert-primary mb-4">
                     <span><b> Average AQI - </b> <span id="aqi_val"></span></span>
                   </div>
+                  <div class="alert alert-primary mb-4">
+                    <span><b> Current Governerate- </b> <span id="gov"></span></span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -492,34 +495,35 @@
         <script src="./assets/demo/demo.js" type="module"></script>
         <script src="./assets/js/index.js" type="module"></script>
         <script src="./assets/js/map.js" type="module"></script>
+        <script src="./assets/js/test.js" type="module"></script>
 
         <script>
-          var co_header = document.getElementById("co_header");
-          var co2_header = document.getElementById("co2_header");
-          var pm10_header = document.getElementById("pm10_header");
-          var pm25_header = document.getElementById("pm25_header");
-          var tvoc_header = document.getElementById("tvoc_header");
-          var formaldahide_header = document.getElementById("formaldahide_header");
+          // var co_header = document.getElementById("co_header");
+          // var co2_header = document.getElementById("co2_header");
+          // var pm10_header = document.getElementById("pm10_header");
+          // var pm25_header = document.getElementById("pm25_header");
+          // var tvoc_header = document.getElementById("tvoc_header");
+          // var formaldahide_header = document.getElementById("formaldahide_header");
 
-          function change_co_text() {
-            if (co_header.innerHTML = " Carbon Monoxide (CO) ")
-              co_header.innerHTML = "Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc";
-            else
-              co_header.innerHTML = " Carbon Monoxide (CO) ";
+          // function change_co_text() {
+          //   if (co_header.innerHTML = " Carbon Monoxide (CO) ")
+          //     co_header.innerHTML = "Carbon monoxide, or “CO,” is a harmful, odorless, and colorless gas. It is found in fumes produced by burnning fuel in vehicles, home applicances, ..etc";
+          //   else
+          //     co_header.innerHTML = " Carbon Monoxide (CO) ";
 
-          }
-          function change_co2_text() {
+          // }
+          // function change_co2_text() {
 
-          }
-          function change_pm10_text() {
-          }
-          function change_pm25_text() {
-          }
-          function change_tvoc_text() {
-          }
-          function change_formaldahide_text() {
+          // }
+          // function change_pm10_text() {
+          // }
+          // function change_pm25_text() {
+          // }
+          // function change_tvoc_text() {
+          // }
+          // function change_formaldahide_text() {
 
-          }
+          // }
           $(document).ready(function () {
             $().ready(function () {
               $sidebar = $('.sidebar');
