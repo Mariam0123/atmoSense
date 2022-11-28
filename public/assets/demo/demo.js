@@ -205,44 +205,36 @@ var demo = {
             var muharraq_aqi = [];
             var muharraq_pm10 = [];
             var muharraq_pm25 = [];
-            var muharraq_co = [];
 
             var capital_aqi = [];
             var capital_pm10 = [];
             var capital_pm25 = [];
-            var capital_co = [];
 
             var northern_aqi = [];
             var northern_pm10 = [];
             var northern_pm25 = [];
-            var northern_co = [];
 
             var southern_aqi = [];
             var southern_pm10 = [];
             var southern_pm25 = [];
-            var southern_co = [];
 
             for (let i = 0; i < 7; i++) {
               muharraq_aqi.push(muh_aqi_data[keys[i]]['aqi']);
               muharraq_pm10.push(muh_aqi_data[keys[i]]['pm10_aqi']);
               muharraq_pm25.push(muh_aqi_data[keys[i]]['pm25_aqi']);
-              muharraq_co.push(muh_aqi_data[keys[i]]['co_aqi']);
 
 
               capital_aqi.push(cap_aqi_data[keys[i]]['aqi']);
               capital_pm10.push(cap_aqi_data[keys[i]]['pm10_aqi']);
               capital_pm25.push(cap_aqi_data[keys[i]]['pm25_aqi']);
-              capital_co.push(cap_aqi_data[keys[i]]['co_aqi']);
 
               southern_aqi.push(sou_aqi_data[keys[i]]['aqi']);
               southern_pm10.push(sou_aqi_data[keys[i]]['pm10_aqi']);
               southern_pm25.push(sou_aqi_data[keys[i]]['pm25_aqi']);
-              southern_co.push(sou_aqi_data[keys[i]]['co_aqi']);
 
               northern_aqi.push(nor_aqi_data[keys[i]]['aqi']);
               northern_pm10.push(nor_aqi_data[keys[i]]['pm10_aqi']);
               northern_pm25.push(nor_aqi_data[keys[i]]['pm25_aqi']);
-              northern_co.push(nor_aqi_data[keys[i]]['co_aqi']);
 
               var [year, month, day] = keys[i].split('-'); // split string
               const date_day = new Date(+year, +month - 1, +day).getDay();
@@ -359,7 +351,6 @@ var demo = {
               data.datasets[0].data = muharraq_aqi;
               data.datasets[1].data = muharraq_pm10;
               data.datasets[2].data = muharraq_pm25;
-              data.datasets[3].data = muharraq_co;
               data.labels = chart_labels;
               window.myChartData.update();
 
@@ -370,7 +361,6 @@ var demo = {
               data.datasets[0].data = capital_aqi;
               data.datasets[1].data = capital_pm10;
               data.datasets[2].data = capital_pm25;
-              data.datasets[3].data = capital_co;
               data.labels = chart_labels;
               window.myChartData.update();
 
@@ -382,7 +372,6 @@ var demo = {
               data.datasets[0].data = northern_aqi;
               data.datasets[1].data = northern_pm10;
               data.datasets[2].data = northern_pm25;
-              data.datasets[3].data = northern_co;
               data.labels = chart_labels;
               window.myChartData.update();
             }
@@ -393,7 +382,6 @@ var demo = {
               data.datasets[0].data = southern_aqi;
               data.datasets[1].data = southern_pm10;
               data.datasets[2].data = southern_pm25;
-              data.datasets[3].data = southern_co;
               data.labels = chart_labels;
               window.myChartData.update();
             }

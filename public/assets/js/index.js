@@ -19,10 +19,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var latest_timestamps, time_var, temp_var, hum_var, co2_var, co_var, formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate;
-var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_co, BPlo_co, BPhi_pm25, BPlo_pm10;
+var latest_timestamps, time_var, temp_var, hum_var, co2_var,formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate;
+var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_pm25, BPlo_pm10;
 var epoch_date;
-var co_avg, pm25_avg, pm10_avg, aqi_pm10, aqi_pm25, aqi_co, aqi_var, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0;
+var  pm25_avg, pm10_avg, aqi_pm10, aqi_pm25, aqi_co, aqi_var, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0;
 
 
 var concerned_element = document.getElementById("concerned_text");
@@ -36,7 +36,6 @@ var icon2 = document.getElementById("icon2");
 var temp_element = document.getElementById('temp');
 var hum_element = document.getElementById('hum');
 var date_time_element = document.getElementById("date_time");
-var co_element = document.getElementById("co_value");
 var co2_element = document.getElementById("co2_value");
 var formaldahide_element = document.getElementById("formaldahide_value");
 var pm25_element = document.getElementById("pm25_value");
@@ -98,15 +97,12 @@ function update_values(clicked_governerate) {
     onValue(temp_ref, (data) => {
         var jsonData = data.toJSON();
         var temp_time_var = Object.keys(jsonData);
-        console.log(jsonData);
-        console.log(temp_time_var);
-        co_var = jsonData[temp_time_var]['co'];
         co2_var = jsonData[temp_time_var]['co2'];
         formaldahide_var = jsonData[temp_time_var]['formaldahide'];
         tvoc_var = jsonData[temp_time_var]['tvoc'];
         pm10_var = jsonData[temp_time_var]['pm10'];
         pm25_var = jsonData[temp_time_var]['pm25'];
-        co_element.innerHTML = co_var + "<span class='unit'>ppm</span>";
+
         co2_element.innerHTML = co2_var + '<span class="unit">ppm</span>';
         formaldahide_element.innerHTML = formaldahide_var + '<span class="unit">µg/m³</span>';
         pm25_element.innerHTML = pm25_var + '<span class="unit">µg/m³</span>';
@@ -406,15 +402,7 @@ function pm25_values(pm25_var) {
     else if (pm25_var < 350.5) { BPhi_pm25 = 350.4; BPlo_pm25 = 250.5; Ihi_pm25 = 400; Ilo_pm25 = 301; }
     else { BPhi_pm25 = 500.4; BPlo_pm25 = 350.5; Ihi_pm25 = 500; Ilo_pm25 = 401; }
 }
-function co_values(co_var) {
-    if (co_var > 0 && co_var < 4.5) { BPhi_co = 4.4; BPlo_co = 0; Ihi_co = 50; Ilo_co = 0; }
-    else if (co_var < 9.5) { BPhi_co = 9.4; BPlo_co = 4.5; Ihi_co = 100; Ilo_co = 51; }
-    else if (co_var < 12.5) { BPhi_co = 12.4; BPlo_co = 9.5; Ihi_co = 150; Ilo_co = 101; }
-    else if (co_var < 15.5) { BPhi_co = 15.4; BPlo_co = 12.5; Ihi_co = 200; Ilo_co = 151; }
-    else if (co_var < 30.5) { BPhi_co = 30.4; BPlo_co = 15.5; Ihi_co = 300; Ilo_co = 201; }
-    else if (co_var < 40.5) { BPhi_co = 40.4; BPlo_co = 30.5; Ihi_co = 400; Ilo_co = 301; }
-    else { BPhi_co = 50.4; BPlo_co = 40.5; Ihi_co = 500; Ilo_co = 401; }
-}
+
 
 function calculate_flag(endDate, startDate) {
     const msInDay = 24 * 60 * 60;
@@ -435,7 +423,6 @@ onValue(new_ref, (data) => {
     if (!clicked_governerate ){
         temp_var = jsonData[time_var]['temp'];
         hum_var = jsonData[time_var]['hum'];
-        co_var = jsonData[time_var]['co'];
         co2_var = jsonData[time_var]['co2'];
         formaldahide_var = jsonData[time_var]['formaldahide'];
         tvoc_var = jsonData[time_var]['tvoc'];
@@ -1535,7 +1522,6 @@ onValue(new_ref, (data) => {
         const sort_values = ref(db, 'air_parameters/' + current_governerate + '/values/' + time_var);
         set(sort_values,
             {
-                co: [co_var][0],
                 co2: [co2_var][0],
                 hum: [hum_var][0],
                 temp: [temp_var][0],
@@ -1560,7 +1546,6 @@ onValue(new_ref, (data) => {
     temp_element.innerHTML = temp_var + "°C";
     hum_element.innerHTML = hum_var + "%";
     date_time_element.innerHTML = d.toLocaleString("en-GB", options);
-    co_element.innerHTML = co_var + "<span class='unit'>ppm</span>";
     co2_element.innerHTML = co2_var + '<span class="unit">ppm</span>';
     formaldahide_element.innerHTML = formaldahide_var + '<span class="unit">µg/m³</span>';
     pm25_element.innerHTML = pm25_var + '<span class="unit">µg/m³</span>';
@@ -1570,7 +1555,6 @@ onValue(new_ref, (data) => {
 
 
     // calculating aqis and adding data based on governerate should start here. 
-    co_values(co_var);
     pm10_values(pm10_var);
     pm25_values(pm25_var);
     flag = 1;
@@ -1582,25 +1566,25 @@ onValue(new_ref, (data) => {
             onValue(get_values_ref, (data) => { //to retrive values
                 if (flag) { //in 24 hour
                     var jsonAvgData = data.toJSON();
-                    var pm10_sum = 0, pm25_sum = 0, co_sum = 0;
+                    var pm10_sum = 0, pm25_sum = 0;
 
                     node_keys = Object.keys(jsonAvgData);
                     for (var key of node_keys) {
                         var string_key = key.toString();
                         pm10_sum += jsonAvgData[string_key]['pm10'];
                         pm25_sum += jsonAvgData[string_key]['pm25'];
-                        co_sum += jsonAvgData[string_key]['co'];
+                       
 
                     }
 
-                    co_avg = co_sum / counter;
+                   
                     pm10_avg = pm10_sum / counter;
                     pm25_avg = pm25_sum / counter;
 
                     aqi_pm10 = ((Ihi_pm10 - Ilo_pm10) / (BPhi_pm10 - BPlo_pm10)) * (pm10_avg - BPlo_pm10) + Ilo_pm10;
                     aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (pm25_avg - BPlo_pm25) + Ilo_pm25;
-                    aqi_co = ((Ihi_co - Ilo_co) / (BPhi_co - BPlo_co)) * (co_avg - BPlo_co) + Ilo_co;
-                    aqi_var = Math.max(aqi_co, aqi_pm10, aqi_pm25);
+
+                    aqi_var = Math.max(aqi_pm10, aqi_pm25);
 
                     if (current_governerate != "Error") {
                         const aqi_set_ref = ref(db, 'air_parameters/' + current_governerate + "/aqis/");
@@ -1609,7 +1593,6 @@ onValue(new_ref, (data) => {
 
                                 [epoch_date]: {
                                     "aqi": aqi_var.valueOf(),
-                                    "co_aqi": aqi_co.valueOf(),
                                     "pm10_aqi": aqi_pm10.valueOf(),
                                     "pm25_aqi": aqi_pm25.valueOf()
                                 }
@@ -1655,7 +1638,6 @@ onValue(new_ref, (data) => {
     const aqi_query_ref = ref(db, 'air_parameters/');
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
-        co_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['co_aqi'];
         pm10_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['pm10_aqi'];
         pm25_avg = jsonAQIData[current_governerate]['aqis'][epoch_date]['pm25_aqi'];
         aqi_var = jsonAQIData[current_governerate]['aqis'][epoch_date]['aqi'];
@@ -1667,8 +1649,8 @@ onValue(new_ref, (data) => {
         var average_aqis = (aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
         aqi_val_element.innerHTML = Math.round(average_aqis);
 
-        var pollutant_array = ["CO", "PM10", "PM2.5"];
-        var pollutant_values = [co_avg.valueOf(), pm10_avg.valueOf(), pm25_avg.valueOf()];
+        var pollutant_array = ["PM10", "PM2.5"];
+        var pollutant_values = [pm10_avg.valueOf(), pm25_avg.valueOf()];
         var prim_poll = document.getElementById("primary_pollutant");
         var maximum = Math.max.apply(Math, pollutant_values);
         if (aqi_var < 1 || aqi_var > 500) {
