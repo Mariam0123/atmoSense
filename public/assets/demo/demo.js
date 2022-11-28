@@ -223,7 +223,6 @@ var demo = {
               muharraq_pm10.push(muh_aqi_data[keys[i]]['pm10_aqi']);
               muharraq_pm25.push(muh_aqi_data[keys[i]]['pm25_aqi']);
 
-
               capital_aqi.push(cap_aqi_data[keys[i]]['aqi']);
               capital_pm10.push(cap_aqi_data[keys[i]]['pm10_aqi']);
               capital_pm25.push(cap_aqi_data[keys[i]]['pm25_aqi']);
@@ -300,24 +299,7 @@ var demo = {
                   data: muharraq_pm25,
 
                 },
-                {
-                  label: 'CO',
-                  fill: false, //fix
-                  backgroundColor: orangeStroke,
-                  borderColor: '#ff8d72',
-                  borderWidth: 2,
-                  borderDash: [],
-                  borderDashOffset: 0.0,
-                  pointBackgroundColor: '#ff8d72',
-                  pointBorderColor: 'rgba(255,255,255,0)',
-                  pointHoverBackgroundColor: '#ff8d72',
-                  pointBorderWidth: 20,
-                  pointHoverRadius: 4,
-                  pointHoverBorderWidth: 15,
-                  pointRadius: 4,
-                  data: muharraq_co,
-
-                },
+               
                 ]
               },
               options: gradientChartOptionsConfigurationWithTooltipPurple
