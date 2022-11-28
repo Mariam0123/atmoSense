@@ -208,7 +208,7 @@ onValue(new_ref, (data) => {
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
     });
-    var singleMarker = L.marker([lat, lon], { icon: redIcon });
+    var singleMarker = L.marker([lon, lat], { icon: redIcon });
 
 
     bus_route = L.layerGroup([singleMarker, linedata]).addTo(map);
