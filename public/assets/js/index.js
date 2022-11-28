@@ -229,15 +229,14 @@ function calculate_flag(endDate, startDate) {
     else return false;
 }
 
-const new_ref = query(ref(db, 'air_parameters/temp_values'), orderByKey(), limitToLast(1)); // get latest node in temp_values
+const new_ref = query(ref(db, 'air_parameters/temp_values'), orderByKey(), limitToLast(2)); // get latest node in temp_values
 
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
-    time_var = Object.keys(jsonData).toString();
-    // remember to get latest two timestamps when calculating flag
-    // time_var = Object.keys(jsonData)[1].toString(); // two latest epoch timestamps
-    // latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps    
-    // flag = (calculate_flag(latest_timestamps[0], latest_timestamps[1]));
+    time_var = Object.keys(jsonData)[1].toString();
+    
+    latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps    
+    flag = (calculate_flag(latest_timestamps[0], latest_timestamps[1]));
 
     temp_var = jsonData[time_var]['temp'];
     hum_var = jsonData[time_var]['hum'];

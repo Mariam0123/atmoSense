@@ -112,8 +112,7 @@ function resetHighlight(e) {
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
-    if (e.latlng in polygonJSON["muharraq"])
-        alert("Clicked muharraq");
+    console.log(e.target.feature.properties.name);
 }
 
 function onEachFeature(feature, layer) {
@@ -231,10 +230,7 @@ onValue(new_ref, (data) => {
     const northern_aqi = query(ref(db, 'air_parameters/Northern/aqis'), orderByKey(), limitToLast(1));
     onValue(muharraq_aqi, (data) => { //to retrive values
         var muharraqData = data.toJSON();
-        console.log(muharraqData);
         muharraq_aqi_var = muharraqData[epoch_date]['aqi'].toFixed(3);
-        console.log(epoch_date);
-        console.log(muharraq_aqi_var);
         onValue(capital_aqi, (data1) => { //to retrive values
             var capitalData = data1.toJSON();
             capital_aqi_var = capitalData[epoch_date]['aqi'].toFixed(3);
@@ -249,7 +245,7 @@ onValue(new_ref, (data) => {
                         "features": [{
                             "type": "Feature",
                             "id": "01",
-                            "properties": { "name": "Northern Governerate", "aqi": northern_aqi_var },
+                            "properties": { "name": "Northern", "aqi": northern_aqi_var },
                             "geometry": {
                                 "type": "Polygon",
                                 "coordinates": [
@@ -419,7 +415,7 @@ onValue(new_ref, (data) => {
                         {
                             "type": "Feature",
                             "id": "03",
-                            "properties": { "name": "Muharraq Governerate", "aqi": muharraq_aqi_var, },
+                            "properties": { "name": "Muharraq", "aqi": muharraq_aqi_var, },
                             "geometry": {
                                 "type": "Polygon",
                                 "coordinates": [
@@ -870,7 +866,7 @@ onValue(new_ref, (data) => {
                         {
                             "type": "Feature",
                             "id": "04",
-                            "properties": { "name": "Southern Governerate", "aqi": southern_aqi_var, },
+                            "properties": { "name": "Southern", "aqi": southern_aqi_var, },
                             "geometry": {
                                 "type": "Polygon",
                                 "coordinates": [
@@ -884,7 +880,7 @@ onValue(new_ref, (data) => {
                         {
                             "type": "Feature",
                             "id": "02",
-                            "properties": { "name": "Capital Governerate", "aqi": capital_aqi_var, },
+                            "properties": { "name": "Capital", "aqi": capital_aqi_var, },
                             "geometry": {
                                 "type": "Polygon",
                                 "coordinates": [
