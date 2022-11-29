@@ -110,11 +110,11 @@
            <!-- Card -->
           <div class="card swiper-slide">
             <div class="card-image">
-              <img class="img-fluid" src="./assets/images/work_1_md.jpg" alt="alternative">
+              <img class="img-fluid" src="./assets/images/map.png" alt="alternative">
             </div>
             <div class="card-body">
-                <h5 class="card-title">RealTime Map Tracking</h5>
-                <p>Our project offers realtime tracking so users can see the project time and location of data that is gathered and analyzed throught the day.</p>
+                <h5 class="card-title">Geospatial Visualisation</h5>
+                <p >Geospatial AQI data is collected through the day and displayed on a choropleth map in addition to a marker that displays the current location of the sensing modules. </p>
             </div>
           </div>
         <!-- end of card -->
@@ -122,11 +122,12 @@
           <!-- Card -->
           <div class="card swiper-slide">
               <div class="card-image">
-                <img class="img-fluid" src="./assets/images/work_2_md.png" alt="alternative">
+                <img class="img-fluid" id="chart_image" src="./assets/images/chart.png" alt="alternative">
               </div>
               <div class="card-body">
-                  <h5 class="card-title">Helpful Illustrations of AQI</h5>
-                  <p>TO make it easier to understand and to highlight the changes in air quality throught the day, all analyzed data on air quality is provided in the form of a dynamic graph.</p>
+                  <h5 class="card-title">Weekly Trends</h5>
+                  <p>An interactive chart that displays results of the last seven days to simplify and highlight the changes in air quality throught the week.</p>
+              
               </div>
           </div>
           <!-- end of card -->
@@ -134,11 +135,11 @@
           <!-- Card -->
           <div class="card swiper-slide">
               <div class="card-image">
-                  <img class="img-fluid" src="./assets/images/work_3_md.png" alt="alternative">
+                  <img class="img-fluid" src="./assets/images/pollutants.png" alt="alternative">
               </div>
               <div class="card-body">
-                  <h5 class="card-title">Live Tracking of Pollutants Concentrations</h5>
-                  <p>The percentages of the gaases in the atmosphere are gathered, examined, and presented on a dynamic graph to demonstrate the percentage of each gas and its effect on the quality of the air. </p>
+                  <h5 class="card-title">Live Updates of Pollutant Concentrations</h5>
+                  <p>The concentrations of specific gaases in the atmosphere are periodically sensed, analysed, and presented in a dynamic manner. </p>
               </div>
           </div>
           <!-- end of card -->
@@ -146,11 +147,11 @@
           <!-- Card -->
           <div class="card swiper-slide">
               <div class="card-image">
-                  <img class="img-fluid" src="./assets/images/work_4_md.png" alt="alternative">
+                  <img class="img-fluid" id="advice_image" src="./assets/images/advice.png" alt="alternative">
               </div>
               <div class="card-body">
-                  <h5 class="card-title">Tips and Advice Based on AQI</h5>
-                  <p>Based on the calculated AQI our system provides recommendation for particular social groups to assist usres to maintain their health and avoid deteremential consequences of bad air quality.</p>
+                  <h5 class="card-title">Tips and Advice</h5>
+                  <p>AtmoSense provides general recommendations in addition to advice specific to the people most at risk based on the current AQI. </p></br></br>
               </div>
           </div>
           <!-- end of card -->
@@ -189,7 +190,7 @@
             </div>
             <div class="col-lg-4 pr-lg-5">
               <h3 class="mb-4 heading-h3"><span class="gsap-reveal">Bahrain's First Air Monitoring System</span></h3>
-              <p class="lead gsap-reveal"> explain about our project explain about our project explain about our project explain about our project explain about our project explain about our project explain about our project </p>
+              <p class="lead gsap-reveal" style="text-align:justify;"> Most people have health issues but are unable to determine the cause of their symptoms. According to research, constant exposure to poor air quality is strongly associated with heart and lung problems such as shortness of breath and even change in blood chemistry leading to clots and heart attacks. The first step of solving this problem is continous monitoring to determine which areas have the worst air quality, guiding pepole to best practices, then informing policy makers so preventative measures can be taken. Unfortunately, there isn't an air quality monitoring system that covers the entire nation due to the exorbitant expense of conventional systems. The purpose of AtmoSense is to provide a solution that measures the air quality around Bahrain and displays up-to-date information in a user friendly manner. </p>
             </div>
           </div>
         </div>
@@ -251,10 +252,10 @@
 
     
     <!-- Loader -->
-     <div id="unslate_co--overlayer"></div> 
+     <!-- <div id="unslate_co--overlayer"></div> 
    <div class="site-loader-wrap">
       <div class="site-loader"></div>
-    </div> 
+    </div>  -->
    
     <script src="./assets/js/scripts-dist.js"></script>
     <script src="./assets/js/main.js" type="module"></script>

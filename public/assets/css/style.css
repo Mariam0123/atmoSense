@@ -29,6 +29,7 @@ body {
 
 .cards-1 .card-image {
 	margin-bottom: 1.75rem;
+  height: 80%;
 }
 
 .cards-1 .fas {
@@ -45,6 +46,10 @@ body {
 
 .cards-1 .card-body {
 	padding: 0;
+  
+}
+.card-body {
+  height: 17em;
 }
 
 .cards-1 .card-title {
@@ -992,6 +997,13 @@ a, a:hover {
 
 .blog-item {
   position: relative;
+}
+
+#advice_image{
+  margin: 4.4%;
+}
+#chart_image{
+  margin: 2.4%;
 }
 
 .blog-item img {
