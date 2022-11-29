@@ -998,13 +998,21 @@ a, a:hover {
 .blog-item {
   position: relative;
 }
-
+.card-image{
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+}
 #advice_image{
-  margin: 4.4%;
-}
+  /* margin-bottom: 4.4%;
+  margin-top: 4.4%;
+  margin-left: 25%; */
+  padding: 5% 1%;
+
+} 
 #chart_image{
-  margin: 2.4%;
-}
+  padding: 2.7% 1%;
+ }  
 
 .blog-item img {
   position: absolute;
