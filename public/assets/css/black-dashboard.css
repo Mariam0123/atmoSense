@@ -18281,6 +18281,7 @@ table.tablesorter thead tr .headerSortDown {
 
 .fixed-plugin .adjustments-line .togglebutton .toggle {
   margin-right: 0;
+
 }
 
 .fixed-plugin .adjustments-line .color-label {
@@ -22573,3 +22574,6 @@ Copyright (c) 2015 Daniel Eden
   /* text-align: center; */
 }
 
+.fixed-plugin  {
+  margin-top: 5%;
+}
