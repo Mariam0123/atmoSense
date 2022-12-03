@@ -1561,7 +1561,7 @@ onValue(new_ref, (data) => {
         console.log("Flag set");
         var node_keys;
         if (current_governerate != "Error") {
-            const get_values_ref = query(ref(db, 'air_parameters/' + current_governerate + '/values'), orderByKey(), limitToLast(counter-1));
+            const get_values_ref = query(ref(db, 'air_parameters/' + current_governerate + '/values'), orderByKey(), limitToLast(counter));
 
             onValue(get_values_ref, (data) => { //to retrive values
 
