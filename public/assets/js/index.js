@@ -19,10 +19,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var latest_timestamps, time_var, temp_var, hum_var, co2_var,formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate;
+var latest_timestamps, time_var, temp_var, hum_var, co2_var, formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate;
 var Ihi_pm10, Ihi_co, Ihi_pm25, Ilo_pm10, Ilo_co, Ilo_pm25, BPhi_pm10, BPlo_pm25, BPhi_pm25, BPlo_pm10;
 var epoch_date;
-var  pm25_avg, pm10_avg, aqi_pm10, aqi_pm25, aqi_co, aqi_var, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0;
+var pm25_avg, pm10_avg, aqi_pm10, aqi_pm25, aqi_co, aqi_var, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0;
 
 
 var concerned_element = document.getElementById("concerned_text");
@@ -418,9 +418,9 @@ onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
     time_var = Object.keys(jsonData)[1].toString();
 
-    latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps    
-    flag = (calculate_flag(latest_timestamps[0], latest_timestamps[1]));
-    if (!clicked_governerate ){
+    latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps  
+    flag = calculate_flag(latest_timestamps[1], latest_timestamps[0]);
+    if (!clicked_governerate) {
         temp_var = jsonData[time_var]['temp'];
         hum_var = jsonData[time_var]['hum'];
         co2_var = jsonData[time_var]['co2'];
@@ -1555,85 +1555,101 @@ onValue(new_ref, (data) => {
 
 
     // calculating aqis and adding data based on governerate should start here. 
-    pm10_values(pm10_var);
-    pm25_values(pm25_var);
-    flag = 1;
     if (flag) {
+        pm10_values(pm10_var);
+        pm25_values(pm25_var);
+        console.log("Flag set");
         var node_keys;
         if (current_governerate != "Error") {
-            const get_values_ref = query(ref(db, 'air_parameters/' + current_governerate + '/values'), orderByKey(), limitToLast(counter));
+            const get_values_ref = query(ref(db, 'air_parameters/' + current_governerate + '/values'), orderByKey(), limitToLast(counter-1));
 
             onValue(get_values_ref, (data) => { //to retrive values
-                if (flag) { //in 24 hour
-                    var jsonAvgData = data.toJSON();
-                    var pm10_sum = 0, pm25_sum = 0;
 
-                    node_keys = Object.keys(jsonAvgData);
-                    for (var key of node_keys) {
-                        var string_key = key.toString();
-                        pm10_sum += jsonAvgData[string_key]['pm10'];
-                        pm25_sum += jsonAvgData[string_key]['pm25'];
-                       
+                var jsonAvgData = data.toJSON();
+                var pm10_sum = 0, pm25_sum = 0;
 
-                    }
-
-                   
-                    pm10_avg = pm10_sum / counter;
-                    pm25_avg = pm25_sum / counter;
-
-                    aqi_pm10 = ((Ihi_pm10 - Ilo_pm10) / (BPhi_pm10 - BPlo_pm10)) * (pm10_avg - BPlo_pm10) + Ilo_pm10;
-                    aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (pm25_avg - BPlo_pm25) + Ilo_pm25;
-
-                    aqi_var = Math.max(aqi_pm10, aqi_pm25);
-
-                    if (current_governerate != "Error") {
-                        const aqi_set_ref = ref(db, 'air_parameters/' + current_governerate + "/aqis/");
-                        set(aqi_set_ref,
-                            {
-
-                                [epoch_date]: {
-                                    "aqi": aqi_var.valueOf(),
-                                    "pm10_aqi": aqi_pm10.valueOf(),
-                                    "pm25_aqi": aqi_pm25.valueOf()
-                                }
-                            }
-                        );
-
-
-                        // counter = 1;
-
-
-                        const ref_string = 'air_parameters/' + current_governerate + "/values/" + time_var;
-                        const counter_query_ref = ref(db, ref_string);
-                        update(counter_query_ref, { 'counter': 1 });
-                    }
+                node_keys = Object.keys(jsonAvgData);
+                for (var key of node_keys) {
+                    var string_key = key.toString();
+                    pm10_sum += jsonAvgData[string_key]['pm10'];
+                    pm25_sum += jsonAvgData[string_key]['pm25'];
 
 
                 }
+
+
+                pm10_avg = pm10_sum / counter;
+                pm25_avg = pm25_sum / counter;
+
+                aqi_pm10 = ((Ihi_pm10 - Ilo_pm10) / (BPhi_pm10 - BPlo_pm10)) * (pm10_avg - BPlo_pm10) + Ilo_pm10;
+                aqi_pm25 = ((Ihi_pm25 - Ilo_pm25) / (BPhi_pm25 - BPlo_pm25)) * (pm25_avg - BPlo_pm25) + Ilo_pm25;
+
+                aqi_var = Math.max(aqi_pm10, aqi_pm25);
+
+                if (current_governerate != "Error") {
+                    const aqi_set_ref = ref(db, 'air_parameters/' + current_governerate + "/aqis/");
+                    set(aqi_set_ref,
+                        {
+
+                            [epoch_date]: {
+                                "aqi": aqi_var.valueOf(),
+                                "pm10_aqi": aqi_pm10.valueOf(),
+                                "pm25_aqi": aqi_pm25.valueOf()
+                            }
+                        }
+                    );
+
+
+                    // counter = 1;
+
+
+                    const ref_string = 'air_parameters/' + current_governerate + "/values/" + time_var;
+                    const counter_query_ref = ref(db, ref_string);
+                    update(counter_query_ref, { 'counter': 1 });
+                }
+
+
+
             });
         }
-        else {
+    }
 
-            var key_2nd_last_node = latest_timestamps[0].toString();
-            var last_counter_2 = jsonData[key_2nd_last_node]['counter'];
+    else {
+        const get_values_ref = query(ref(db, 'air_parameters/' + current_governerate + '/values'), orderByKey(), limitToLast(2));
+
+        onValue(get_values_ref, (data5) => { //to retrive values
+
+            var jsonAvgData = data5.toJSON();
+            var new_node_keys = Object.keys(jsonAvgData);
+
+            var key_2nd_last_node = new_node_keys[0].toString();
+            var key_last_node = new_node_keys[1].toString();
+
+            var last_counter_2 = jsonAvgData[key_2nd_last_node]['counter'];
+            
+            var last_counter = jsonAvgData[key_last_node]['counter'];
+
             if (current_governerate != "Error") {
-                if (counter != (last_counter_2 + 1)) {
-                    counter = last_counter_2 + 1;
+                if (last_counter != (last_counter_2 + 1)) {
+                    last_counter = last_counter_2 + 1;
 
                     const ref_string = 'air_parameters/' + current_governerate + "/values/" + time_var;
 
                     const counter_query_ref = ref(db, ref_string);
-                    update(counter_query_ref, { 'counter': counter.valueOf() });
+                    update(counter_query_ref, { 'counter': last_counter.valueOf() });
+                }
+                else {
+                    last_counter = last_counter;
                 }
             }
-            else {
-                counter = counter;
-            }
 
+        });
 
-
-        }
     }
+
+
+    // });
+
 
     const aqi_query_ref = ref(db, 'air_parameters/');
     onValue(aqi_query_ref, (data) => { //to retrive values
