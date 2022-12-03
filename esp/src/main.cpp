@@ -25,8 +25,8 @@ RTC_DATA_ATTR int wakeupCount = 0;
 #define USER_EMAIL "itcs330project@gmail.com"
 #define USER_PASSWORD "authenticationtime0841"
 
-#define WIFI_SSID "Zoeilm"
-#define WIFI_PASSWORD "hellojavaworld"
+#define WIFI_SSID "Galaxy Note10 Lite8e6a"
+#define WIFI_PASSWORD "gcvp0260"
 
 FirebaseData firebaseData;
 FirebaseJson json;
@@ -38,8 +38,8 @@ String uid = "Jo9CMWsTaodaaJYdLLOwgt0Spw02";
 const int BUFFER_SIZE = 17; // buffer for reading from 7 in 1
 byte buf[BUFFER_SIZE];
 
-float lat;
-float lon;
+float lat = 50.592466;
+float lon = 26.250699;
 int co; //mq-9 sensor
 int co2;
 int formaldahide;
@@ -140,8 +140,6 @@ void sm_sensor_read(){
   calculated_checksum = uint8_t(calculated_checksum);
 }
 
-void mq_sensor_read(){} // fix 
-
 
 void displayInfo()
 
@@ -212,8 +210,7 @@ void print_to_serial(){
 
 
 void send_to_firebase(){
-  if (Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/co"), co)  
-  && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/co2"), co2)
+  if (Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/co2"), co2)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/formaldahide"), formaldahide)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/hum"), total_hum)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/lat"), lat)
@@ -246,9 +243,8 @@ void setup() {
   
   wifi_connect();
   
-  // get_coordinates();
+  get_coordinates();
   sm_sensor_read();
-  mq_sensor_read();
   print_to_serial();
   ++wakeupCount;
   if (wakeupCount >1) // return back to >3
