@@ -3,15 +3,18 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 import { getDatabase, onValue, ref, update, limitToLast, query, orderByKey, set, onChildAdded } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
 const firebaseConfig = {
-    apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
-    authDomain: "atmosense-1645e.firebaseapp.com",
-    databaseURL: "https://atmosense-1645e-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "atmosense-1645e",
-    storageBucket: "atmosense-1645e.appspot.com",
-    messagingSenderId: "565173512011",
-    appId: "1:565173512011:web:8Animationsa7a5947fb2470f8912ace",
-    measurementId: "G-FZ55WKWLZP"
+    apiKey: "AIzaSyBsJ5SHxRSGwEmyaYv9yp_APj2D53ajHyc",
+    authDomain: "airquality-monitor-36278.firebaseapp.com",
+    databaseURL: "https://airquality-monitor-36278-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "airquality-monitor-36278",
+    storageBucket: "airquality-monitor-36278.appspot.com",
+    messagingSenderId: "109574725040",
+    appId: "1:109574725040:web:9526e57a3c89e5cc24ca75",
+    measurementId: "G-4LN4Q8QJR4"
+
 };
+
+
 
 
 
@@ -405,11 +408,14 @@ function pm25_values(pm25_var) {
 
 
 function calculate_flag(endDate, startDate) {
-    const msInDay = 24 * 60 * 60;
-    var days = Math.round(Math.abs(endDate - startDate) / msInDay);
-
-    if (days > 0) return true;
-    else return false;
+    var d1 = new Date(0);
+    d1.setUTCSeconds(startDate);
+    var d2 = new Date(0);
+    d2.setUTCSeconds(endDate);
+    
+    return(d1.getDay() != d2.getDay());
+   
+  
 }
 
 const new_ref = query(ref(db, 'air_parameters/temp_values'), orderByKey(), limitToLast(2)); // get latest node in temp_values
@@ -419,7 +425,10 @@ onValue(new_ref, (data) => {
     time_var = Object.keys(jsonData)[1].toString();
 
     latest_timestamps = Object.keys(jsonData); // two latest epoch timestamps  
-    flag = calculate_flag(latest_timestamps[1], latest_timestamps[0]);
+    console.log(latest_timestamps);
+    flag = calculate_flag(latest_timestamps[0], latest_timestamps[1]);
+    
+   
     if (!clicked_governerate) {
         temp_var = jsonData[time_var]['temp'];
         hum_var = jsonData[time_var]['hum'];
@@ -1587,15 +1596,15 @@ onValue(new_ref, (data) => {
                 aqi_var = Math.max(aqi_pm10, aqi_pm25);
 
                 if (current_governerate != "Error") {
-                    const aqi_set_ref = ref(db, 'air_parameters/' + current_governerate + "/aqis/");
+                    const aqi_set_ref = ref(db, 'air_parameters/' + current_governerate + "/aqis/"+epoch_date);
                     set(aqi_set_ref,
                         {
 
-                            [epoch_date]: {
+                            
                                 "aqi": aqi_var.valueOf(),
                                 "pm10_aqi": aqi_pm10.valueOf(),
                                 "pm25_aqi": aqi_pm25.valueOf()
-                            }
+                            
                         }
                     );
 
@@ -1626,7 +1635,7 @@ onValue(new_ref, (data) => {
             var key_last_node = new_node_keys[1].toString();
 
             var last_counter_2 = jsonAvgData[key_2nd_last_node]['counter'];
-            
+
             var last_counter = jsonAvgData[key_last_node]['counter'];
 
             if (current_governerate != "Error") {
