@@ -38,8 +38,8 @@ String uid = "Jo9CMWsTaodaaJYdLLOwgt0Spw02";
 const int BUFFER_SIZE = 17; // buffer for reading from 7 in 1
 byte buf[BUFFER_SIZE];
 
-float lat = 50.592466;
-float lon = 26.250699;
+double lat = 50.592466;
+double lon = 26.250699;
 int co; //mq-9 sensor
 int co2;
 int formaldahide;
@@ -213,8 +213,8 @@ void send_to_firebase(){
   if (Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/co2"), co2)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/formaldahide"), formaldahide)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/hum"), total_hum)
-  && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/lat"), lat)
-  && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/lon"), lon)
+  && Firebase.setDouble (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/lat"), lat)
+  && Firebase.setDouble (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/lon"), lon)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/pm10"), pm10)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/pm25"), pm25)
   && Firebase.setFloat (firebaseData, ("/air_parameters/temp_values/" + String(Epoch_Time) + "/temp"), total_temp)
@@ -243,7 +243,7 @@ void setup() {
   
   wifi_connect();
   
-  get_coordinates();
+  // get_coordinates();
   sm_sensor_read();
   print_to_serial();
   ++wakeupCount;
