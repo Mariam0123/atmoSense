@@ -18,7 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-var latest_timestamps, time_var, temp_var, hum_var, co2_var, formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate;
+var latest_timestamps, time_var, temp_var, hum_var, co2_var, formaldahide_var, tvoc_var, pm10_var, pm25_var, lat, lon, counter, flag, clicked_governerate, current_governerate;
 var epoch_date;
 var pm25_avg, pm10_avg, aqi_pm10, aqi_pm25, aqi_var, muharraq_aqi_var, capital_aqi_var, southern_aqi_var, northern_aqi_var, counter = 0;
 
@@ -83,10 +83,133 @@ var polygondata = L.geoJSON(lineJSON, {
     onEachFeature: onEachFeature,
 
 }).addTo(map);
+const muharraq = [[50.629623, 26.265227], [50.625895, 26.267243], [50.621939, 26.268655], [50.617864, 26.267051], [50.615848, 26.265351], [50.614469, 26.263177], [50.611131, 26.261898], [50.607265, 26.260795], [50.600011, 26.260477], [50.594713, 26.25697], [50.592988, 26.252174]];
+const capital = [
+    [50.592466, 26.250699],
+    [50.590808, 26.24811],
+    [50.588739, 26.245996],
+    [50.584474, 26.242957],
+    [50.579868, 26.240163],
+    [50.57608, 26.237683],
+    [50.575712, 26.236792],
+    [50.576228, 26.235103],
+    [50.57418, 26.233666],
+    [50.572315, 26.232347],
+    [50.571168, 26.231266],
+    [50.570324, 26.230329],
+    [50.568715, 26.229972],
+    [50.568488, 26.229486],
+    [50.564397, 26.227166],
+    [50.561324, 26.23076],
+    [50.560311, 26.235096],
+    [50.557129, 26.234628],
+    [50.556841, 26.232287],
+    [50.556505, 26.232251],
+    [50.553284, 26.232176],
+    [50.55161, 26.232532],
+    [50.550991, 26.235106],
+    [50.546315, 26.234661],
+    [50.54175, 26.234614],
+    [50.536958, 26.234574],
+    [50.536847, 26.234574],
+    [50.535734, 26.234569],
+    [50.534035, 26.234798],
+    [50.53378, 26.234719],
+    [50.533737, 26.233568],
+    [50.534065, 26.231769],
+    [50.533818, 26.23099],
+    [50.53271, 26.230501],
+    [50.531304, 26.22984],
+    [50.528643, 26.228286],
+    [50.527847, 26.227737],
+    [50.523897, 26.224562],
+    [50.523593, 26.22424],
+    [50.522393, 26.222281],
+    [50.522087, 26.221577],
+    [50.521886, 26.219927]
+]
 
+const northern = [
+    [50.520808, 26.216493],
+    [50.517001, 26.208625],
+    [50.511726, 26.201707],
+    [50.505719, 26.19316],
+    [50.503564, 26.187154],
+    [50.502401, 26.180678],
+    [50.502244, 26.17407],
+    [50.50412, 26.162626],
+    [50.509183, 26.147628],
+    [50.510123, 26.141013],
+    [50.501229, 26.142392],
+    [50.499923, 26.142793],
+    [50.496557, 26.143564],
+    [50.492923, 26.144302],
+    [50.493607, 26.143972],
+    [50.496323, 26.143488],
+    [50.499343, 26.142411],
+    [50.498905, 26.140128],
+    [50.49785, 26.136502],
+    [50.497489, 26.134443],
+    [50.497738, 26.131761],
+    [50.497718, 26.128974],
+    [50.493792, 26.121921],
+    [50.496289, 26.115533],
+    [50.500096, 26.115836],
+    [50.503962, 26.110726],
+    [50.504206, 26.108063],
+    [50.504868, 26.10548],
+    [50.503848, 26.104059],
+    [50.501463, 26.103546],
+    [50.501178, 26.103546],
+    [50.499453, 26.103403],
+    [50.4987, 26.103389],
+    [50.497997, 26.10326],
+    [50.499889, 26.098093],
+    [50.500064, 26.096851],
+    [50.502598, 26.097197],
+    [50.504785, 26.096907],
+    [50.505486, 26.096211],
+    [50.505994, 26.094115],
+    [50.507138, 26.092872],
+    [50.509516, 26.086515],
+    [50.50899, 26.08509],
+    [50.506596, 26.081107],
+    [50.506531, 26.078382],
+    [50.507431, 26.071722],
+    [50.507523, 26.068635],
+    [50.507523, 26.06257],
+    [50.508754, 26.058856]
+];
+
+const southern = [[50.512893, 26.048726], [50.511687, 26.048826], [50.510753, 26.049754], [50.509833, 26.050572], [50.510386, 26.053678], [50.509842, 26.054164], [50.50903, 26.056458], [50.508725, 26.056735] ];
+
+function find_governerate(lat, lon) {
+    for (let i = 0; i < muharraq.length; i++) {
+        if (lat == muharraq[i][0] && lon == muharraq[i][1])
+            return "Muharraq";
+
+    }
+
+    for (let i = 0; i < capital.length; i++) {
+        if (lat == capital[i][0] && lon == capital[i][1])
+            return "Capital";
+
+    }
+    for (let i = 0; i < northern.length; i++) {
+        if (lat == northern[i][0] && lon == northern[i][1])
+            return "Northern";
+
+    }
+    for (let i = 0; i < southern.length; i++) {
+        if (lat == southern[i][0] && lon == southern[i][1])
+            return "Southern";
+
+    }
+    return "Error";
+}
 function update_values(clicked_governerate) {
     const temp_ref = query(ref(db, 'air_parameters/' + clicked_governerate + '/values'), orderByKey(), limitToLast(1)); // get latest node in temp_values
-    gov_element.innerHTML = clicked_governerate;
+    // gov_element.innerHTML = clicked_governerate;
     onValue(temp_ref, (data) => {
         var jsonData = data.toJSON();
         var temp_time_var = Object.keys(jsonData);
@@ -95,7 +218,7 @@ function update_values(clicked_governerate) {
         tvoc_var = jsonData[temp_time_var]['tvoc'];
         pm10_var = jsonData[temp_time_var]['pm10'];
         pm25_var = jsonData[temp_time_var]['pm25'];
-
+        gov_element.innerHTML = clicked_governerate;
         co2_element.innerHTML = co2_var + '<span class="unit">ppm</span>';
         formaldahide_element.innerHTML = formaldahide_var + '<span class="unit">µg/m³</span>';
         pm25_element.innerHTML = pm25_var + '<span class="unit">µg/m³</span>';
@@ -346,6 +469,7 @@ const new_ref = query(ref(db, 'air_parameters/temp_values'), orderByKey(), limit
 onValue(new_ref, (data) => {
     var jsonData = data.toJSON();
     time_var = Object.keys(jsonData)[1].toString();
+    
 
     if (!clicked_governerate) {
         temp_var = jsonData[time_var]['temp'];
@@ -358,7 +482,10 @@ onValue(new_ref, (data) => {
         counter = jsonData[time_var]['counter'];
         lat = jsonData[time_var]['lat'];
         lon = jsonData[time_var]['lon'];
+        current_governerate = find_governerate(lat, lon);
+        gov_element.innerHTML = current_governerate;
     }
+
     if (bus_route) {
         map.removeLayer(bus_route);
     }
@@ -384,16 +511,17 @@ onValue(new_ref, (data) => {
     const northern_aqi = query(ref(db, 'air_parameters/Northern/aqis'), orderByKey(), limitToLast(1));
     onValue(muharraq_aqi, (data) => { //to retrive values
         var muharraqData = data.toJSON();
-        muharraq_aqi_var = muharraqData[epoch_date]['aqi'].toFixed(3);
+        var muh_key = Object.keys(muharraqData)[0];
+        muharraq_aqi_var = muharraqData[muh_key]['aqi'].toFixed(3);
         onValue(capital_aqi, (data1) => { //to retrive values
             var capitalData = data1.toJSON();
-            capital_aqi_var = capitalData[epoch_date]['aqi'].toFixed(3);
+            capital_aqi_var = capitalData[muh_key]['aqi'].toFixed(3);
             onValue(northern_aqi, (data2) => { //to retrive values
                 var northernData = data2.toJSON();
-                northern_aqi_var = northernData[epoch_date]['aqi'].toFixed(3);
+                northern_aqi_var = northernData[muh_key]['aqi'].toFixed(3);
                 onValue(southern_aqi, (data3) => { //to retrive values
                     var southernData = data3.toJSON();
-                    southern_aqi_var = southernData[epoch_date]['aqi'].toFixed(3);
+                    southern_aqi_var = southernData[muh_key]['aqi'].toFixed(3);
                     var polygonJSON = {
                         "type": "FeatureCollection",
                         "features": [{
@@ -1434,6 +1562,7 @@ onValue(new_ref, (data) => {
                         ]
                     };
                     update_layers(polygonJSON, bus_route);
+                    
 
                 });
             });
@@ -1456,7 +1585,7 @@ onValue(new_ref, (data) => {
     pm25_element.innerHTML = pm25_var + '<span class="unit">µg/m³</span>';
     pm10_element.innerHTML = pm10_var + '<span class="unit">µg/m³</span>';
     tvoc_element.innerHTML = tvoc_var + '<span class="unit">µg/m³</span>';
-    gov_element.innerHTML = current_governerate;
+    
 
 
     const aqi_query_ref = ref(db, 'air_parameters/');
@@ -1466,7 +1595,6 @@ onValue(new_ref, (data) => {
         tdd.setUTCSeconds(time_var-86400);
         var temp_epoch_date;
         [temp_epoch_date] = d.toISOString().split('T');
-        console.log(temp_epoch_date);
         pm10_avg = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['pm10_aqi'];
         pm25_avg = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['pm25_aqi'];
         aqi_var = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['aqi'];
@@ -1479,7 +1607,8 @@ onValue(new_ref, (data) => {
         aqi_val_element.innerHTML = Math.round(average_aqis);
 
         var pollutant_array = ["PM10", "PM2.5"];
-        var pollutant_values = [pm10_avg.valueOf(), pm25_avg.valueOf()];
+        // var pollutant_values = [pm10_avg.valueOf(), pm25_avg.valueOf()];
+        var pollutant_values = [pm10_avg, pm25_avg];
         var prim_poll = document.getElementById("primary_pollutant");
         var maximum = Math.max.apply(Math, pollutant_values);
         if (aqi_var < 1 || aqi_var > 500) {
