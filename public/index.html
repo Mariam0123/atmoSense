@@ -64,7 +64,7 @@
             <div class="col-md-5 text-right text-lg-left">
               <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
                 <li><a href="#about-section" class="nav-link">About</a></li>
-                <li><a href="#installation-section" class="nav-link">Installation Journey</a></li>
+                <li><a href="#installation-section" class="nav-link">Why AtmoSense?</a></li>
               </ul>
             </div>
           </div>
@@ -76,7 +76,7 @@
           <div class="row align-items-center">
             <div class="col-md-7 mx-auto text-center">
               <h1 class="heading gsap-reveal-hero">AtmoSense</h1>
-              <h2 class="subheading gsap-reveal-hero">Bahrain's First Air Monitoring System</h2>
+              <h2 class="subheading gsap-reveal-hero">Bahrain's First Air Quality Monitoring System</h2>
               <a class="btn-solid-lg page-scroll" href="dashboard.html">Get to Dashboard</a>
             </div>
           </div>
@@ -93,7 +93,7 @@
 
     <div class="portfolio-wrapper">  
         <div class="section-heading-wrap text-center mb-5">
-          <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Features and Services</span></h2>
+          <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Features</span></h2>
           <span class="gsap-reveal"><img src="./assets/images/divider.png" alt="divider" width="76"></span>
         </div>   
     </div>
@@ -199,7 +199,7 @@
       <div class="unslate_co--section section-counter-installation" id="installation-section">
         <div class="container">
           <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Installation Journey of This Project</span></h2>
+            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">Why AtmoSense?</span></h2>
             <span class="gsap-reveal"><img src="./assets/images/divider.png" alt="divider" width="76"></span>
           </div>
         </div>
@@ -211,11 +211,11 @@
          
           <div class="image-container">
             <div class="video-wrapper">
-                <a class="popup-youtube" href=" " data-effect="fadeIn">
-                    <img class="img-fluid" src="./assets/images/work_2_md.png" alt="videoprev">
-                    <span class="video-play-button">
+                <a class="popup-youtube"  data-effect="fadeIn">
+                    <video id="video" controls class="img-fluid" src="./assets/images/video.mov" type="video/mp4" alt="videoprev"  muted>
+                    <!-- <span class="video-play-button">
                         <span></span>
-                    </span>
+                    </span> -->
                 </a>
             </div>  
           </div>  
@@ -259,6 +259,31 @@
    
     <script src="./assets/js/scripts-dist.js"></script>
     <script src="./assets/js/main.js" type="module"></script>
+    <script>
+          $(document).ready(function() {
+        let options = {
+            root: null,    // browser viewport
+            rootMargin: '0px',
+            threshold: 0.8 // target element visible 100%
+        }
+
+        let observer = new IntersectionObserver(playOnFocus, options);
+        let targets = document.querySelectorAll('#video');
+        targets.forEach(target => {    // adding observer for all videos
+            observer.observe(target);
+        });
+    });
+
+    const playOnFocus = (entries, observer) => {    // callback
+        entries.forEach((entry) => {
+            if(entry.isIntersecting) {
+                entry.target.play();    // play target video
+            // } else {
+            //     entry.target.pause();    // pause video
+            }
+        });
+    };
+    </script>
 
   </body>
 </html>
