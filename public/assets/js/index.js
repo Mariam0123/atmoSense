@@ -227,7 +227,8 @@ function update_values(clicked_governerate) {
         const aqi_var_ref = query(ref(db, 'air_parameters/' + clicked_governerate + '/aqis'), orderByKey(), limitToLast(1)); // get latest node in temp_values
         onValue(aqi_var_ref, (data1) => {
             var jsonAQIData = data1.toJSON();
-            aqi_var = jsonAQIData[epoch_date]['aqi'];
+            var aqi_key = Object.keys(jsonAQIData);
+            aqi_var = jsonAQIData[aqi_key]['aqi'];
             advice_update(aqi_var);
         });
     });
@@ -253,11 +254,11 @@ function update_layers(polygonJSON, bus_route) {
 }
 
 function getColor(d) {
-    return d > 300 ? '#800000' :
-        d > 200 ? '#A87CBD' :
-            d > 150 ? '#FF6C70' :
-                d > 100 ? '#FE9B58' :
-                    d > 50 ? '#FDD853' :
+    return d > 301 ? '#800000' :
+        d > 201 ? '#A87CBD' :
+            d > 151 ? '#FF6C70' :
+                d > 101 ? '#FE9B58' :
+                    d > 51 ? '#FDD853' :
                         d > 0 ? '#A0DC65' :
                             '#FFEDA0';
 }
@@ -333,13 +334,13 @@ var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 50, 100, 150, 200, 300];
+        grades = [0, 51, 101, 151, 201, 301];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
             '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            (grades[i] + 1) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            (grades[i]) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
 
     return div;
@@ -1591,16 +1592,14 @@ onValue(new_ref, (data) => {
     const aqi_query_ref = ref(db, 'air_parameters/');
     onValue(aqi_query_ref, (data) => { //to retrive values
         var jsonAQIData = data.toJSON();
-        var tdd = new Date(0);
-        tdd.setUTCSeconds(time_var-86400);
-        var temp_epoch_date;
-        [temp_epoch_date] = d.toISOString().split('T');
-        pm10_avg = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['pm10_aqi'];
-        pm25_avg = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['pm25_aqi'];
-        aqi_var = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['aqi'];
-        capital_aqi_var = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['aqi'];
-        southern_aqi_var = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['aqi'];
-        northern_aqi_var = jsonAQIData[current_governerate]['aqis'][temp_epoch_date]['aqi'];
+        var vals = jsonAQIData[current_governerate]['aqis'];
+        var val_key = Object.keys(vals).pop();
+        pm10_avg = jsonAQIData[current_governerate]['aqis'][val_key]['pm10_aqi'];
+        pm25_avg = jsonAQIData[current_governerate]['aqis'][val_key]['pm25_aqi'];
+        aqi_var = jsonAQIData[current_governerate]['aqis'][val_key]['aqi'];
+        capital_aqi_var = jsonAQIData[current_governerate]['aqis'][val_key]['aqi'];
+        southern_aqi_var = jsonAQIData[current_governerate]['aqis'][val_key]['aqi'];
+        northern_aqi_var = jsonAQIData[current_governerate]['aqis'][val_key]['aqi'];
 
         var aqi_val_element = document.getElementById("aqi_val");
         var average_aqis = (aqi_var + capital_aqi_var + southern_aqi_var + northern_aqi_var) / 4;
