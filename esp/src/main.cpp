@@ -19,20 +19,19 @@ TinyGPSPlus gps;
 RTC_DATA_ATTR int wakeupCount = 0;
 
 
-#define FIREBASE_HOST "atmosense-1645e-default-rtdb.europe-west1.firebasedatabase.app"
-#define FIREBASE_AUTH "AhxQHb03V4cdg0J6nEXezH3LSePMRcVHjYVFL6FH"
-#define API_KEY "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs"
-#define USER_EMAIL "itcs330project@gmail.com"
-#define USER_PASSWORD "authenticationtime0841"
+#define FIREBASE_HOST "ENTER DATABASE URL HERE"
+#define FIREBASE_AUTH "AUTH KEY"
+#define API_KEY "API KEY"
+#define USER_EMAIL "EMAIL"
+#define USER_PASSWORD "PASSWORD"
 
-#define WIFI_SSID "Galaxy Note10 Lite8e6a"
-#define WIFI_PASSWORD "gcvp0260"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWORD "PASS"
 
 FirebaseData firebaseData;
 FirebaseJson json;
 FirebaseAuth auth;
 FirebaseConfig config;
-String uid = "Jo9CMWsTaodaaJYdLLOwgt0Spw02";
 
 
 const int BUFFER_SIZE = 17; // buffer for reading from 7 in 1

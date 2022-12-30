@@ -3,14 +3,14 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
 import { getDatabase, onValue, onChildChanged, ref, limitToLast, query, orderByKey, set } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js';
 const firebaseConfig = {
-  apiKey: "AIzaSyDxFLdPFwjwUiI0EHwZvC0cRcEVmR0CiYs",
-  authDomain: "atmosense-1645e.firebaseapp.com",
-  databaseURL: "https://atmosense-1645e-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "atmosense-1645e",
-  storageBucket: "atmosense-1645e.appspot.com",
-  messagingSenderId: "565173512011",
-  appId: "1:565173512011:web:8Animationsa7a5947fb2470f8912ace",
-  measurementId: "G-FZ55WKWLZP"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
 };
 
 // Initialize Firebase

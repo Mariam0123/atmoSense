@@ -80,7 +80,7 @@ function pm25_values(pm25_var) {
 
 const admin = require('firebase-admin');
 var serviceAccount = require('./admin.json');
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount), databaseURL: "https://airquality-monitor-36278-default-rtdb.europe-west1.firebasedatabase.app", authDomain: "airquality-monitor-36278.firebaseapp.com", });
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount), databaseURL: "DATABASE URL", authDomain: "AUTH", });
 
 /* should get the two latest time stamps to figure out the flag.
  Should first separate into governerates. - done
